@@ -25,7 +25,7 @@ from game_scan import (find_game_install, load_settings, save_settings,
 from dlc_translation import KNOWN_RUSSIAN_DLC, is_english_only, missing_ru_entries
 import csv
 
-APP_NAME = 'Cold Steel III — Inventory Editor v7.0'
+APP_NAME = 'Cold Steel III — Inventory Editor v7.0.1'
 
 
 class Editor(tk.Tk):
@@ -217,6 +217,17 @@ class Editor(tk.Tk):
             if item_id in merged and (item_id not in self.builtin) and (item_id not in self.user_overrides):
                 merged[item_id] = {**merged[item_id], **text}
         self.catalog = merged
+        # Compute this once per catalog rebuild, not during each row render.
+        scanned_items = self.scanned_catalog
+        russian_names = sum(
+            any('А' <= c <= 'я' or c in 'Ёё' for c in str(v.get('name', '')))
+            for v in scanned_items.values()
+        )
+        is_russian_scan = (russian_names >= 20 and russian_names * 4 >= len(scanned_items))
+        self._ru_scanned_names = {
+            k for k, value in scanned_items.items()
+            if is_russian_scan and not is_english_only(str(value.get('name', '')))
+        }
         if hasattr(self, '_item_images'):
             self._item_images.clear()
         if hasattr(self, '_resolved_icon_paths'):
@@ -421,7 +432,7 @@ class Editor(tk.Tk):
         header = ttk.Frame(self, style='Header.TFrame', padding=(18,14,18,14))
         header.pack(fill='x')
         ttk.Label(header, text='COLD STEEL III  /  ИНВЕНТАРЬ', style='Title.TLabel').pack(side='left')
-        ttk.Label(header,text='  •  ВЕРСИЯ 7.0',style='CardMuted.TLabel').pack(side='left')
+        ttk.Label(header,text='  •  ВЕРСИЯ 7.0.1',style='CardMuted.TLabel').pack(side='left')
         self.theme_combo = ttk.Combobox(header, state='readonly', width=10,
                          textvariable=self.theme_var,
                          values=('Dark','Light') if self.language=='en' else ('Тёмная','Светлая'))
@@ -925,6 +936,14 @@ class Editor(tk.Tk):
         self._item_images[key]=icon
         return icon
 
+    def _has_verified_ru_translation(self, item_id):
+        # Recognize a locally installed RU pack even when the text is Latin
+        # in both languages (e.g. HP 1 / EP 1). No game text is bundled.
+        override = self.user_overrides.get(item_id, {})
+        if override.get('_locale') == 'ru':
+            return True
+        return item_id in self._ru_scanned_names
+
     def _get_name(self, item_id):
         if self.language == 'en':
             original = self.english_catalog.get(item_id)
@@ -932,13 +951,16 @@ class Editor(tk.Tk):
                 return original['name']
         fallback = self.catalog.get(item_id, {}).get('name')
         if fallback:
-            if self.language == 'ru' and item_id not in self.builtin and is_english_only(fallback):
+            if (self.language == 'ru' and item_id not in self.builtin
+                    and not self._has_verified_ru_translation(item_id)
+                    and is_english_only(fallback)):
                 return '[EN] ' + fallback
             if self.language == 'en':
                 # English-only GitHub builds can display the actual name as is.
                 import re
                 return '[RU] ' + fallback if re.search(r'[А-Яа-яЁё]',fallback) else fallback
             if (not self.builtin and item_id in self.english_catalog
+                    and not self._has_verified_ru_translation(item_id)
                     and self.english_catalog[item_id].get('name') == fallback):
                 # Russian translation was never imported; mark English text.
                 return '[EN] ' + fallback
@@ -953,10 +975,11 @@ class Editor(tk.Tk):
             # A visibly marked fallback is safer than a fabricated translation.
             return '[Original English text not imported for this ID.]'
         if (not self.builtin and item_id in self.english_catalog
+                and not self._has_verified_ru_translation(item_id)
                 and self.catalog.get(item_id,{}).get('name') == self.english_catalog[item_id].get('name')):
             return '[Original Russian text not imported for this ID.]'
         desc = self.catalog.get(item_id, {}).get('description','')
-        if is_english_only(desc):
+        if is_english_only(desc) and not self._has_verified_ru_translation(item_id):
             return '[EN — нет русского перевода] ' + desc
         return desc
 
