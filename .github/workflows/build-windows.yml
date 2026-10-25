@@ -23,30 +23,27 @@ jobs:
 
       - name: Install build dependencies
         shell: pwsh
-        run: python -m pip install Pillow 'pyinstaller>=6,<7'
+        run: python -m pip install Pillow 'pyinstaller>=6,<7' pefile
 
-      - name: Get original Tk feather icon
+      - name: Extract the real Tk feather icon (no downloading)
         shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force -Path icons | Out-Null
-          $url = 'https://raw.githubusercontent.com/tcltk/tk/core-8-6-branch/win/rc/tk.ico'
-          Invoke-WebRequest -Uri $url -OutFile 'icons/app_icon.ico' -ErrorAction Stop
-          $bytes = [System.IO.File]::ReadAllBytes('icons/app_icon.ico')
-          if ($bytes.Length -lt 128 -or $bytes[0] -ne 0 -or $bytes[1] -ne 0 -or $bytes[2] -ne 1 -or $bytes[3] -ne 0) {
-            throw 'Downloaded icon is missing or is not a valid ICO file.'
-          }
+        run: python tools/extract_tk_icon.py icons/app_icon.ico
 
-      - name: Build EXE with feather icon
+      - name: Build Windows EXE with feather icon
         shell: pwsh
         run: |
           python -m PyInstaller --noconfirm --clean --onefile --windowed `
             --add-data 'icons;icons' `
             --icon 'icons/app_icon.ico' `
-            --name CS3_Inventory_Editor app.py
+            --name CS3_Inventory_Editor_Feather app.py
+
+      - name: Verify EXE contains icon resources
+        shell: pwsh
+        run: python tools/extract_tk_icon.py --verify-exe dist/CS3_Inventory_Editor_Feather.exe icons/app_icon.ico
 
       - name: Upload Windows EXE
         uses: actions/upload-artifact@v7
         with:
-          name: CS3-Inventory-Editor-Windows
-          path: dist/CS3_Inventory_Editor.exe
+          name: CS3-Inventory-Editor-Feather-Windows
+          path: dist/CS3_Inventory_Editor_Feather.exe
           if-no-files-found: error
