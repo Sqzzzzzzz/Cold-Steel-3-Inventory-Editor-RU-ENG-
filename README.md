@@ -73,6 +73,22 @@
 
 **Горячие клавиши:** `Ctrl+O` — открыть сохранение, `Ctrl+F` — поиск, `F5` — последнее сохранение, `Ctrl+S` — сохранить копию.
 
+
+### Где находятся сохранения и как открыть их вручную
+
+**Стандартная папка сохранений Windows (Steam / GOG / Epic, если игра использует обычный путь):**
+
+```text
+%USERPROFILE%\Saved Games\FALCOM\ed8_psv3
+```
+
+1. Нажми **Win + R**, вставь путь выше и нажми **Enter**. Можно также вставить его в адресную строку Проводника.
+2. Найди нужный файл **`saveXXX.dat`** (например, `save016.dat`). Не выбирай изображения `thumbXXX.bmp` — это миниатюры сохранений.
+3. В редакторе нажми **«Открыть вручную»** или **Ctrl+O** и выбери `.dat`.
+4. Перед изменением скопируй оригинальный `.dat` в безопасное место. После редактирования сначала используй **«Сохранить копию…»**, а затем проверь её загрузку в игре.
+
+> Если папка не находится, проверь, создано ли хотя бы одно сохранение в игре. При перенаправлении системной папки **Saved Games** или использовании альтернативной версии игры расположение может отличаться. Автопоиск редактора также учитывает перенаправленную папку Windows и ранее выбранную вручную папку.
+
 ### Язык предметов и DLC
 
 Интерфейс программы переведён на русский и английский. **Тексты самих игровых предметов не включены в публичный репозиторий**: редактор читает названия и описания из таблиц установленной игры. Для русских названий при английской установке нужна собственная русская таблица предметов или отдельно установленный пользовательский языковой пакет. Если перевода нет, программа обозначает отсутствующий язык вместо выдуманного перевода.
@@ -113,6 +129,22 @@
 5. Choose **Save a copy** first and test the edited save in game.
 
 **Shortcuts:** `Ctrl+O` open a save · `Ctrl+F` search · `F5` latest save · `Ctrl+S` save a copy.
+
+
+### Save file location and manual selection
+
+**Default Windows save folder (Steam / GOG / Epic, when using the standard game save path):**
+
+```text
+%USERPROFILE%\Saved Games\FALCOM\ed8_psv3
+```
+
+1. Press **Win + R**, paste the path above, and press **Enter**. You can also paste it into File Explorer's address bar.
+2. Locate the **`saveXXX.dat`** file you want (for example, `save016.dat`). Do not select `thumbXXX.bmp` files — those are save thumbnails.
+3. In the editor, click **Open manually** or press **Ctrl+O**, then choose the `.dat` file.
+4. Back up the original `.dat` before editing. Start with **Save a copy…**, and verify the edited save loads correctly in game.
+
+> If the folder does not exist, first make sure the game has created at least one save. A redirected Windows **Saved Games** folder or another game edition may use a different location. The editor also checks redirected Windows save folders and the last folder you selected manually.
 
 ### Item names, descriptions and localization
 
