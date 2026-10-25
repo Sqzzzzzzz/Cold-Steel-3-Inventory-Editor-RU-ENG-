@@ -1,0 +1,24 @@
+name: Build Windows EXE
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install build dependencies
+        shell: pwsh
+        run: python -m pip install Pillow 'pyinstaller>=6,<7'
+      - name: Build
+        shell: pwsh
+        run: python -m PyInstaller --noconfirm --clean --onefile --windowed --add-data 'icons;icons' --name CS3_Inventory_Editor app.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CS3-Inventory-Editor-Windows
+          path: dist/CS3_Inventory_Editor.exe
