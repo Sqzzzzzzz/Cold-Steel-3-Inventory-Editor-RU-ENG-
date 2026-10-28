@@ -1,0 +1,4317 @@
+{
+  "game": "The Legend of Heroes: Trails of Cold Steel III",
+  "source": "80 lossless crops from owner-supplied game packages; 35 previously authenticated Kiseki Wiki original assets retained",
+  "processing": "PKG decompression and Phyre texture decoding, vertical orientation correction, rectangular crops and lossless PNG; no drawing, generation, recolouring or enhancement.",
+  "files": [
+    {
+      "file": "Accessory (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "fc6ecfd07063d44afe631650538fadf7d5cfa46e5dfe906ae3b575c79c1a451d",
+      "previous_wiki_sha256": "52d637d84de0503f66bc748e27f4cc4a64d96384e64314fc2a9e58067703eec5",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          192,
+          144,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Accessory_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/5/51/Accessory_%28Sen_III_Item%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "1cb318b0035ad1e5c76f8463e6e10efe96cad4c72c460f5ec76913e04c7ce9e9"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Aegis (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Aegis_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/2/24/Aegis_%28Sen_III_MQ%29.png/revision/latest?format=original&cb=20261026",
+      "source_dimensions": [
+        179,
+        179
+      ],
+      "dimensions": [
+        179,
+        179
+      ],
+      "source_sha256": "2068205438cd5355321a0ee7a3674255a4b12f07fbd71d04f8876668f26834a3",
+      "sha256": "65cd3300a10f2a9fc4389392dc93fa3e95fa9b55d2bb70f0917e2f8b00df8338"
+    },
+    {
+      "file": "Airgetlam (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "97227a93356e9c18bb5bf4764e8957310d5ba62ec5f89a2684871da6496b6bfa",
+      "previous_wiki_sha256": "cbc86eccd96225102a2c330e50b7fbd190b73fa1880b4d501a6f11fa291fd301",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          432,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Airgetlam_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/4/43/Airgetlam_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "1f42457274a55ade59570d03809f4a539fbcdf0624dd95c17fbde33bf6adf370"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Arcadia (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "f20b719553ab7b3040a7d702606c5e518c0902cf3e795ca8c74c42ea12e750e2",
+      "previous_wiki_sha256": "db958febcea6a1befbfae340f196c34005a84731bab525a779956ce7501202e0",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          0,
+          48,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Arcadia_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/3/37/Arcadia_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "33952cfed1409603ae16389bced232e1cb84d2e389a90435aaffbbe481a4312a"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Armour (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "ca4fdfde210d58936cd697bb9b59897a6d1d7130b3f6876a9246fe7c7afbe049",
+      "previous_wiki_sha256": "a59642f2545fb0945d5ad793644e7943d8f3e32c64dbd320f9af48a9749a4479",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          96,
+          144,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Armour_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/7/79/Armour_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "eadd0680cfbd5c027b0e5be6c7fc61c956c070fa716c3840fee9aa1d2811934f"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Axe (Sen III Weapon).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Axe_%28Sen_III_Weapon%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/d/da/Axe_%28Sen_III_Weapon%29.png/revision/latest/scale-to-width-down/256?format=original",
+      "source_dimensions": [
+        48,
+        48
+      ],
+      "dimensions": [
+        48,
+        48
+      ],
+      "source_sha256": "fa7dd3f55c6a79b481d764eee6ca4413ba2ac3625a05b0775704c2e6aeb3e3db",
+      "sha256": "95a531fc61cfbc08c032b28ba22466e4dd1ed3f4807e5c7ac7925464a71dedbe"
+    },
+    {
+      "file": "Beowulf (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Beowulf_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/2/20/Beowulf_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        178,
+        178
+      ],
+      "dimensions": [
+        178,
+        178
+      ],
+      "source_sha256": "48471be405029e1c96707b374c003bd370172412b63aea00dd108a5a48728c4e",
+      "sha256": "dc993a1bfdbec2ebffc1c49747bbbf7d8b47c9c57b039dc70d0f2a01789a4deb"
+    },
+    {
+      "file": "Book (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "9e822f7aa372f381f714800d8149310dea2d0782804f7a4ce3858092562a0eae",
+      "previous_wiki_sha256": "8fcf944e713db5be8a8bf3ddef167f8f84ae8937f4e49b3dbaa7faad384cec99",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          624,
+          144,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Book_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/8/80/Book_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "a45fa93f5474ae083746c700772b7998b86b44c3d2978ebb5bf87860598113b4"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Booster (Sen III Item).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Booster_%28Sen_III_Item%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/6/66/Booster_%28Sen_III_Item%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        48,
+        48
+      ],
+      "dimensions": [
+        48,
+        48
+      ],
+      "source_sha256": "2aa531310e0d9100fd52c66bf90f468c0703cf3674ae2e62a1a84ff3d4f262b9",
+      "sha256": "8a857034559f5799243826cd3a7f46671b42bce216c1e7d0976c9d6b2eeb9767"
+    },
+    {
+      "file": "Boots (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "a751a40d94a1b344f787d62076037c21b2ab3958094e8b44509d531102154bec",
+      "previous_wiki_sha256": "61bd5c995a9965339b4a59ec5954e677d39da552a732e0db7fa3297eb108e953",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          144,
+          144,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Boots_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/0/01/Boots_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "98a2f3b3fa4aa362ac0b7b7b5d4817a7bf5af64fba93037b144001e7e28a05f2"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Brigid (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Brigid_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/c/c6/Brigid_%28Sen_III_MQ%29.png/revision/latest?format=original&cb=20261026",
+      "source_dimensions": [
+        179,
+        177
+      ],
+      "dimensions": [
+        179,
+        177
+      ],
+      "source_sha256": "89bc2b204156dbb690eea49b42d01cd36000a692329f32e8474c33ba1213a042",
+      "sha256": "c0d698811743e213bdbdc2b0a1c533a524180373d3c87bb771f7a48fbadfe5de"
+    },
+    {
+      "file": "Canon (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Canon_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/a/ac/Canon_%28Sen_III_MQ%29.png/revision/latest/scale-to-width-down/256?format=original",
+      "source_dimensions": [
+        179,
+        179
+      ],
+      "dimensions": [
+        179,
+        179
+      ],
+      "source_sha256": "db41dc553d0c00b83caefce9effd44165ead722312adf26f8a57a09076e38fa7",
+      "sha256": "f5c3eeb96a6fe26f18d1be0af5d7c7622319b7302e11042dc70b553b44b2ae57"
+    },
+    {
+      "file": "Chevalier (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Chevalier_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/0/05/Chevalier_%28Sen_III_MQ%29.png/revision/latest?format=original&cb=20261026",
+      "source_dimensions": [
+        179,
+        180
+      ],
+      "dimensions": [
+        179,
+        180
+      ],
+      "source_sha256": "a15c4c1655f561a98b0f633fada74b24c1ef5453cb7a08127659c82ee860fb74",
+      "sha256": "5f27a554ca8c39c23e80cf164ac18697062b33d0eb2da97a516838b5017ecec1"
+    },
+    {
+      "file": "Claiomh Solais (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "512307a7e5cef0df091ae1b1a2f974ebdcec43f778bca9ea46da4408813a27d2",
+      "previous_wiki_sha256": "a73893d4b4d22c2bc05d40492277a81a0f8128ae80314cad0c4fb1292761a30c",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          576,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Claiomh_Solais_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/7/70/Claiomh_Solais_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "d728164dd1cf060d94897699470314de641f4ff462d7876ab200ffd666379ecf"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Cosmetic Accessory (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "1121c38011aa6243a665bcace4638a677ca6e694454ad7e759e2bce766973bbf",
+      "previous_wiki_sha256": "26261763f17d0da28de7cc0afc3aac4c7ff1a7a54c4160938650b10fad01e96e",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          288,
+          144,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Cosmetic_Accessory_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/c/c6/Cosmetic_Accessory_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "d12918c922d37ad1b7303d927fa6d60a1275210db359a31a79b312e7ad9ca835"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Cosmetic Armour (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "ff83115e9a1a95672d57b15a8ae9a641f7268883c078d2fa7a3b0b325d2530e7",
+      "previous_wiki_sha256": "6a1f1d2e2077453e6fbf5fcff71cef53f4ca5f2c2bcc2ee3dbc91e002eca45e0",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          240,
+          144,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Cosmetic_Armour_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/5/52/Cosmetic_Armour_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "abba9bad3f7e2bae035565018edb9c0a77639648898cdfeaaf979de5b6b6f2b2"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Cosmetic Hair (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "f0039bcdd0dc8e94dc6013ccfc04048136fba11aa6b54171a99a6fbca881c56a",
+      "previous_wiki_sha256": "04dc5be2fcf90921f829c75bebe73622ea1b668ef85bb521a0d3bd6f98118a8c",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          384,
+          144,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Cosmetic_Hair_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/e/e5/Cosmetic_Hair_%28Sen_III_Item%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "37781b4080a05f12a5135afd5cd60e06fa6061651e01e82dfaeef6d9b0bd2531"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "DLC (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "0478b5b74bc710ebca2c1454f76325703cf4d9f242fa4e0493537e497638b982",
+      "previous_wiki_sha256": "8c80df778a974c3fa4807fe7f09a4a13b95520e6018046ab032914b310587ba9",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          48,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:DLC_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/1/13/DLC_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "7a63daba42c73c47beea98a70a40bef748a11db4f577795838497d3dd641f479"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Dagger (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "a20a6bd47675b6a99c77818a802488d52f87fd4627731e6985d1b178b7b560ab",
+      "previous_wiki_sha256": "c5ce5caebe3699425c51f9ff0be17609ca2a99920aaf8af2853663c1fadf4d4e",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          288,
+          48,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Dagger_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/e/e6/Dagger_%28Sen_III_Weapon%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "994e16b5c029ff75c3d9dcf0ac3ef0ae3c7799363a2b464f9d77e3a79dde42d9"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Deva (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Deva_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/5/5b/Deva_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        179,
+        178
+      ],
+      "dimensions": [
+        179,
+        178
+      ],
+      "source_sha256": "bedd93ea67369fd350476256e913e97c9a819eb8ee8a8a25f41f2b7d552befb9",
+      "sha256": "39b88ca0a31fa94a5ed688413482936a708c97e2695ad9dbe76d83757474c27c"
+    },
+    {
+      "file": "Dynamis (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Dynamis_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/4/4f/Dynamis_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        178,
+        178
+      ],
+      "dimensions": [
+        178,
+        178
+      ],
+      "source_sha256": "6b9f45022557a4922a63117e25cfd0b942dbec5757d40b6748b03006a8070241",
+      "sha256": "043709949afc9e4ca66c5b1a148fddd8ddb323b59c1d4b4e09025b8995c1ec99"
+    },
+    {
+      "file": "Earth (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "bfe3418501379211ba7e020ab5a8a5636c0105f8fd20c8886cfe35702eee0b0d",
+      "previous_wiki_sha256": "2abdc0196feb55bf0db8101a7656a2055ed52441e070d65adc4a569591c21abb",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          0,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Earth_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/9/93/Earth_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "8065fc08814846b6c1632b5c4fb47748b6b598451d1ae1b21fc1354450751388"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Earth (Sen III Sepith).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "9d6870667dfb2b1c401f9859b26327ec3f1d47e06965e95a8b9d2c20aba9afe0",
+      "previous_wiki_sha256": "06069356c843a46fdebd01ae7233dfb771ddc69937c219fd5f63826b283c3e6e",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          336,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Earth_%28Sen_III_Sepith%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/6/64/Earth_%28Sen_III_Sepith%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          30,
+          48
+        ],
+        "source_sha256": "5d1e5bfad429987c0f7132f732a56dae29a0951ea58496aa758a8b1e215937e9"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Earth R (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "a3f72f5426cfb225ba70e9eb8760e3b5a980449ed760232922112dec5a1feb91",
+      "previous_wiki_sha256": "145bbd687ea7d0e9288d7032713d3f38128211fde310acae5250ff8271ae4293",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          0,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Earth_R_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/8/8f/Earth_R_%28Sen_III_Quartz%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "64b4f235448805b79123a2603f5825fc918b235bdd55c6cc2bb15eb348f04e33"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Earth SR (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "fccc0a5242511f9c5c1bb1dcb09f33b4fff22b74d240e6f7fd99b3ba43ec8177",
+      "previous_wiki_sha256": "dbf24a9d100fba5e068bbf236499f518638e1b9dee1cdcb0274ee7f175d71a9a",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          0,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Earth_SR_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/9/94/Earth_SR_%28Sen_III_Quartz%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "16cec395338bff6f19fe5ba85e5c911d0ade0449c5925e9d75463976ff2c2d15"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Emblem (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Emblem_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/b/b4/Emblem_%28Sen_III_MQ%29.png/revision/latest?format=original&cb=20261026",
+      "source_dimensions": [
+        179,
+        178
+      ],
+      "dimensions": [
+        179,
+        178
+      ],
+      "source_sha256": "a07a05e83f421ec8be96bafc4973b2634a64d452692be644253bbb9247229ab3",
+      "sha256": "edd16c31eaa9d010804792f30d41e521de7491a1a81bcf55995779a231265be4"
+    },
+    {
+      "file": "Fire (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "b5af6546a5ccfe566dbf7a643c54f9f5a506a21930c426a23ed6a8ad93e64ed6",
+      "previous_wiki_sha256": "2be86fab851b3d079823b7d0b1655e96a93d52b57cdd891e78dfeed18622266c",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          96,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Fire_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/3/38/Fire_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "59b47ffb4aea580088af85e44fcdcb5ef144a6a4bd67bcd389bdec29094f8b68"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Fire (Sen III Sepith).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "7ccb204ccd6ee7768788cda7085706009199ad4285241de8fd950aa817b94ce0",
+      "previous_wiki_sha256": "daf85a7a8be9395299bb06923a9bdd82a3f80da21701bc5e0c7ee12aa7529ace",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          432,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Fire_%28Sen_III_Sepith%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/b/be/Fire_%28Sen_III_Sepith%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          30,
+          48
+        ],
+        "source_sha256": "7e6b2832a4bc33e3e2b6aa918da8c77ef6038466416b9df5fb38f452fb6ec733"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Fire R (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "a3491d6677536173e77f301c91b64aa1e83157aa95c3c9e320c604ca41aaea55",
+      "previous_wiki_sha256": "d91f9d1bae7bbe9a0d3b51944a573ab38f30310e3fc20aefbb73d0a19ad71a79",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          96,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Fire_R_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/2/26/Fire_R_%28Sen_III_Quartz%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "bcbf5f61994d357cb8ed4ec22987f9cac0ec6a3099be88c42ab296465fd9f014"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Fire SR (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "83d7e40c681c1f04c8d5be74b7b10205a7402547e7b91fa2b0b509c3c6800db0",
+      "previous_wiki_sha256": "ff5822bd6c9fd932d1519773b7b69cffcdbe5e0f401b77585d4130233ba92374",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          96,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Fire_SR_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/c/c8/Fire_SR_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "f8a835dbd797bb730b21d8efa17b5cc53da3b5b110e446de817cbb50526174c4"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Fish L (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "87f570a057b2bb393bebc955b23898b0ca91c111809ef5115c84eb60a6e4fd7f",
+      "previous_wiki_sha256": "6bbc56e5c7145f69c58878e320a09157e9c0d2a5328aca3847963494606a807f",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          672,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 1.1303699016571045
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Fish_L_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/2/29/Fish_L_%28Sen_III_Item%29.png/revision/latest/scale-to-width-down/256?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "8e166920695be8cbacd33034863e50caf7c07071838294348830ecffed841d9d"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Fish M (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "c26540e95476404184f859d0252c974d2f2c91181317517fa786c00c75bbcbda",
+      "previous_wiki_sha256": "4809ccdaf9dafad951d808bb36311829d777830f45d2636130ff1e0f9bdb87e5",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          624,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.37230128049850464
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Fish_M_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/0/0c/Fish_M_%28Sen_III_Item%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "b778a795cce4b6d0ccc17a40e462d3c2c012889203607a815792c862e26e6324"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Fish S (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "37e78383ff04def94160ad21b1bdc0a221fb6c719ee0753615e809dc0c6a8c7a",
+      "previous_wiki_sha256": "041cb4d868325857f0314173dd3aa83b68426b9bfc841943761fbea971041f75",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          576,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.4838257133960724
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Fish_S_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/b/be/Fish_S_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "3a965659487fd1d6bf29df433cac27d89dc995453c23b733619e1759dda890e6"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Fishing Rod (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "48c5f5745bc3c48984781ec7c32c578787dd5a8ecf10ce4767db7015e8cb8a18",
+      "previous_wiki_sha256": "a111a66717eff6cfb64aea3424c7caab22076e52a2a0d1e5ad1802248889b9a8",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          0,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Fishing_Rod_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/b/b9/Fishing_Rod_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "3ea9c73cfa2bb1cd0bf75aeb15d74b44ba4c543b652b25bb9dd1f172501b1ddc"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Food Attack (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "15006808a3dcd2bd58cf1d46ae03f3afba7e4a218e7217a9bb4f365c7e3c04cb",
+      "previous_wiki_sha256": "dc3a22d33ce3e9ec43c46061d967c6938ab3e60e5c44981d6b2132e2bd2e0a15",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          528,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.8410049080848694
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Food_Attack_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/f/f4/Food_Attack_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "545510280a11ea160950755252c9306698667627f3c100644c1ac3b61d17eccd"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Food Ingredient (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "89bb80ffa1f4c48e197a7cf70e12d4d6a901d5287d3cc7c72a0a64a68d0cd998",
+      "previous_wiki_sha256": "a2ffed243c53204179de3981113e257fa2ce7d3e1d01f8057329966446ce01cf",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          720,
+          144,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Food_Ingredient_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/4/46/Food_Ingredient_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "7afec8f6d09a9a4f142e336e313627c53910dc721d2c929eb25c72ae4fdbb640"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Food Peculiar (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "3621001d2ae1470249a79bad108f31bcf010cd10d7ed4a8e415468cbee01e01f",
+      "previous_wiki_sha256": "d8d95355a562f264e6fabccca7c15aa32e61f89036d809c365316fc51b2f1f81",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          432,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 4.294112205505371
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Food_Peculiar_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/4/47/Food_Peculiar_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "f6446c4e33c015aae908c09021eee221527d79a42bb26b635dd9154021ab47df"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Food Regular (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "f7c6872c9329ad75958ef92dafd908f9ea7c3963abea4bdb4f9f0793524c487d",
+      "previous_wiki_sha256": "7756836359280b1433021a004596178d432ecac36acba0b19e493633b1279f73",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          384,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 1.1800386905670166
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Food_Regular_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/a/ae/Food_Regular_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "0677be3f51528790712c411c12b4cebf99b90b8c8284fbb9468bfc2fcc829bf5"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Food Superb (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "e4c983d32853dce27ca77467dc09365a0834108bc5263a3347cba7c3603b55cc",
+      "previous_wiki_sha256": "822c9c29327bece2a4aacb162dc2a55b86308a22924a1e3d28485dab04cb8f50",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          336,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.8395479321479797
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Food_Superb_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/0/04/Food_Superb_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "14f324b31dfd68f160ae6bd47938b5ccd4f309dad291cc74886994c9b35bce7e"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Food Unique (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "2104dc2c0d56844d34fabe9ee2d09c179abaf1183d654fb7d358ea725a7be17c",
+      "previous_wiki_sha256": "e1dfceeaaa426b94485d08e0ada01e173fe399d2d04f68f2446e13fa6331fc9e",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          480,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 1.0324647426605225
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Food_Unique_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/f/f8/Food_Unique_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "95c3a6866446ae67d5b3e38bd630fbc5a1c28d00cdb37c128265788138ebcbd5"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Gauntlets Angelica (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "593f05cd7270a0c60009bab6333968091f29130b1fec2559ffbf9de412e47d81",
+      "previous_wiki_sha256": "cefed20a438ac0d5c12ea0ea74d1b5b333d16d7d461a5e3e2e3a3f319e68b218",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          96,
+          48,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Gauntlets_Angelica_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/d/d4/Gauntlets_Angelica_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "374469cfe18da274d05036fe7f2afec436976b4cdb4f295fa2c2e9bda662aca8"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Gift (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "aec8634e32ac7d1a7aea8290b02c3570752e4a94a9afdf969cb55e2a594df6c4",
+      "previous_wiki_sha256": "27b485a45faf0871d1336f663e4db5b8d220a91d31d07feca8378cc418274a4d",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          96,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 1.1694306135177612
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Gift_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/2/25/Gift_%28Sen_III_Item%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "07487e50b5a60d6a2c5e75a3b8869cbf3c88267d10ddcb1c903e0eeec0ac3e33"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Gloom (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Gloom_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/6/6d/Gloom_%28Sen_III_MQ%29.png/revision/latest?format=original&cb=20261026",
+      "source_dimensions": [
+        179,
+        177
+      ],
+      "dimensions": [
+        179,
+        177
+      ],
+      "source_sha256": "bc18a5b1f0dc4c726114e2e77ff8fe2c644b9621ead4ee48e6cb397694a28d64",
+      "sha256": "e1aff3d0b5458216545823f410de23df1a7d8e35a5ed1e99e4269ec5b3e1f6d4"
+    },
+    {
+      "file": "Greatsword Agate (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "d658faaf5bb2ff5a819930dc61c99b655a75a055ccae5d1be70526b13ae26945",
+      "previous_wiki_sha256": "a1c69890a488f1827c44229d772e342282177128faf2000d37391f35a3bd13c4",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          48,
+          48,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Greatsword_Agate_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/8/82/Greatsword_Agate_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "a7643ccffc25f7f1a36053e81e93146cea7e4df6c9d297f8ff1f80c3870fc563"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Greatsword Laura (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "f69a2e0fb347008acdf50eb0ea1e818e0ea638dd857179aba85a57e93ac01404",
+      "previous_wiki_sha256": "59ec892f5eac0fb9be7b32ab909a822e1432292e3a1c94eeff8673733271b4fd",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          144,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Greatsword_Laura_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/8/82/Greatsword_Laura_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "466c86222d8a0e9295e7a10265ea916cc5d33a9f842d4296b4bfd25b0a098f46"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Gunbreakers (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "60108ab3742c99f8f5c8b88ed21606a4ea500f658e94b696ffd9397338e376a0",
+      "previous_wiki_sha256": "46d41b3b805315fdca717614dd306fd079285aeb7ee0f90f7c665cb897d6fd36",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          480,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Gunbreakers_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/d/d8/Gunbreakers_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "918f5926ad5bd0fbbf8a38ad62ee68cd08847cd1aea336eefc278996c002809e"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Gungnir (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Gungnir_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/0/07/Gungnir_%28Sen_III_MQ%29.png/revision/latest?format=original&cb=20261026",
+      "source_dimensions": [
+        178,
+        178
+      ],
+      "dimensions": [
+        178,
+        178
+      ],
+      "source_sha256": "9f29066f080d7b4fd8a3bed43de738006676bbcb78a6451972243fad9dafe0cf",
+      "sha256": "b8369bf55d964d080396ebc8a22b24c2ab262631c46019d6cf325e243f5cc20a"
+    },
+    {
+      "file": "HP EX Orb (Sen III).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "4e907a2199638a4c56037bc047b22a2cdb83e69b68640b429d0fe93bb14cc526",
+      "previous_wiki_sha256": "ddc4418901963d994aeac65c3429d687ff1f794873eb1ee739e46323539d5426",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          576,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 1.6032640933990479
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:HP_EX_Orb_%28Sen_III%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/7/70/HP_EX_Orb_%28Sen_III%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "54155d0bcd05fceec582041f25261771b212c1e0e655079f993d4520b9199542"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Kaleido (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Kaleido_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/1/1b/Kaleido_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        178,
+        177
+      ],
+      "dimensions": [
+        178,
+        177
+      ],
+      "source_sha256": "ee72620893248521ca994940a53b361c74d7e2daf72f2195893f21aba0a8907b",
+      "sha256": "c566dcecb6573815c088f973102ac57a869f14a21dd6bbf7ded8fe9b527d3714"
+    },
+    {
+      "file": "Katze (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Katze_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/2/2b/Katze_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        179,
+        180
+      ],
+      "dimensions": [
+        179,
+        180
+      ],
+      "source_sha256": "2ddb562f1c4f9d78c118e6ccf5f7922e5643e5af2c1744eb9cda2952a007b7c0",
+      "sha256": "1dc72a515b52152db1b529369f5bbedca48c0e41c2741200093f4d4a1f34a93e"
+    },
+    {
+      "file": "Keeper (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Keeper_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/7/7c/Keeper_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        179,
+        179
+      ],
+      "dimensions": [
+        179,
+        179
+      ],
+      "source_sha256": "bdad529e508c1842ff0cd70fbda605abdb460995c9ce9b497e5e80f61f4d6fbd",
+      "sha256": "903fe04fb02523475ce88db0939442a5618057619eef2879f199c1428dbd62e5"
+    },
+    {
+      "file": "Key (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "ad61845ca0b67f651f5a954e92a1273b419a65694a12bf2ce93f6d6763e4b7ab",
+      "previous_wiki_sha256": "56c395e323ba1abb81dfae351e2f2f2371bdd5187e675a88134271b198777041",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          576,
+          144,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Key_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/2/2f/Key_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "f0f54407f73c207228f82116fea2fc07e63a1e22cea4cea769c445849aa103e8"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Lost (Sen III Quartz).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Lost_%28Sen_III_Quartz%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/0/0f/Lost_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        48,
+        48
+      ],
+      "dimensions": [
+        48,
+        48
+      ],
+      "source_sha256": "c2faaa0977094d6a1abb3ecc0dececb1377913185d69513987b6e3df8130b183",
+      "sha256": "f22fa70c7f918f273775a69e88550c88d0b7009c6b2ca4c504b4ecc9d76e2e6a"
+    },
+    {
+      "file": "Magius (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Magius_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/a/aa/Magius_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        179,
+        180
+      ],
+      "dimensions": [
+        179,
+        180
+      ],
+      "source_sha256": "2dd04720c3371bd4959d87eeaa6d0aa04d77a959c910c2b4ea12f627065b2882",
+      "sha256": "b2eb661e4d2dd98e7531c5305a867e941906fa4e9b9f8e7d4140bc86d6c32474"
+    },
+    {
+      "file": "Mass (Sen III Sepith).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "0ff8ae81eee83da82b3350b64ecd69bd7d56a11fcb5c8e3e28e4e12626a5ce31",
+      "previous_wiki_sha256": "70fd48111f98c365d849c013916670841ef57cf629c85ecb8f008e9a64011301",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          336,
+          96,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Mass_%28Sen_III_Sepith%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/8/81/Mass_%28Sen_III_Sepith%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          30,
+          48
+        ],
+        "source_sha256": "c5cef1afd1e82172563bd31f6ae3699bd4262187c5de274867d0b8b22942e150"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Master (Sen III Slot).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Master_%28Sen_III_Slot%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/5/5e/Master_%28Sen_III_Slot%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        48,
+        48
+      ],
+      "dimensions": [
+        48,
+        48
+      ],
+      "source_sha256": "165831eb6c40ca94279a6a7b2c43704a209c176f79b1906d353e0bcd8eeed4e0",
+      "sha256": "75f2a1575b56b55eeaae342d071a37a6680372a84d35ced3010befbc082c8b0b"
+    },
+    {
+      "file": "Minotauros (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Minotauros_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/d/d8/Minotauros_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        179,
+        178
+      ],
+      "dimensions": [
+        179,
+        178
+      ],
+      "source_sha256": "1df2149f3bd7b48761babcd26a74e75d9c17c9b09618b11fd6c55607771dd038",
+      "sha256": "2d6e7586514421ef171db0dc96402178847049418c74bf1e32782168f30b517c"
+    },
+    {
+      "file": "Mirage (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "1b751e7537543bcf0ad3538f77e1f19099e7ca284a722f7b09c47020f8469fc0",
+      "previous_wiki_sha256": "6e5c6e08157ae886554b31a3cc0d37c3def8b1be6a6fc05600c6f62ebeade4ff",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          288,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Mirage_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/9/95/Mirage_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "8fa07172e751569ee8ef6f3c94348039e25de43c9b2a5ddbc5bcc5077ea75ed3"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Mirage (Sen III Sepith).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "cca7c4d451af25ac178ee4d2b49fa4ab1124bd5acf0afa2a455c75d33a8e8a0d",
+      "previous_wiki_sha256": "6101b3f1e0fe2b6a0dadba07e5b953f0e8f236639056d534a3261c80b4d33fc1",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          624,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Mirage_%28Sen_III_Sepith%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/2/29/Mirage_%28Sen_III_Sepith%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          30,
+          48
+        ],
+        "source_sha256": "9fea3c80caed22f54b8800309a772d9b30acbb0d32fa0de4b8ce22e2a784a332"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Mirage R (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "cf825d5bbb91b5e82243ddfb22aa210b74cca3cae31badda0913fa8484e8bb9a",
+      "previous_wiki_sha256": "596a749d60f9d911ac8a8ac2a09edfc6b27e4732790ab702e8e4593aaa324231",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          288,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Mirage_R_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/1/1b/Mirage_R_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "4f17f69033d6e393a4ef3710dca5c3822b6cec532c0947daa0feabb297676c18"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Mirage SR (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "6bbf902eafd97c745ddcdb1c861d9abd29a6c58a469481563147d56f863ac57d",
+      "previous_wiki_sha256": "6550e37623f1fe1ac484f015bb69a9756bb52963a7565b5bd901e4a306163d51",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          288,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Mirage_SR_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/3/39/Mirage_SR_%28Sen_III_Quartz%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "3418c1500948316922349ed1fd69861144678a1d8047e4d49e5a78abd33958e7"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Moebius (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Moebius_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/5/5f/Moebius_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        179,
+        179
+      ],
+      "dimensions": [
+        179,
+        179
+      ],
+      "source_sha256": "913eaafb2fa6e4cd2fffec5a41ec5d3b1715871892017e52374f47677953a340",
+      "sha256": "03fff7e58e580ed19bb99ef04e962bcf4997b37f3f866bf35ac72e892f3ac201"
+    },
+    {
+      "file": "Oberon (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Oberon_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/1/1e/Oberon_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        178,
+        178
+      ],
+      "dimensions": [
+        178,
+        178
+      ],
+      "source_sha256": "c3fe3b6572752cd90d5938ce2d53ec94a50a1f27666022dcab84f0f5b6271a95",
+      "sha256": "9d953d4ff80990623088df37ddcf976ddbe803798ceda5deb9c4b8b77fd41c88"
+    },
+    {
+      "file": "Orbal Bow (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "43c411abb89899d5169ca101a0e3c570a1efaac5b1f40fe205ed12f29aa3c3d0",
+      "previous_wiki_sha256": "495fa033feb7a5f682d39029673f12e2dcfe9d0180a27276917732edd7861b37",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          48,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Orbal_Bow_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/1/1e/Orbal_Bow_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "5c9c12c70ed65404ccb9474d183d8c9c4acfeda9305c18178126d54d314b7b8d"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Orbal Carbine (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "5d37e0fc87faee77b30c1a36b7ad0c6257d6a8dae692d2925a6cf2a3ea33174e",
+      "previous_wiki_sha256": "97c3db2005c1fb2c92cec5bd0372ca2cda17baca6192b5a0b02fa1a5ded9a933",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          624,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Orbal_Carbine_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/8/84/Orbal_Carbine_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "35d3c1fc8eb71d301331ebf0e2d4662f4b734b136770200a5d9ca091c2a713b4"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Orbal Gear (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "d99ffb6160ec766801445a83f7d10d62a2f61eeac6718e8e6fb17e3f228eb4c8",
+      "previous_wiki_sha256": "edf468d80fa2d101b9eefad9738052b0201a26f581ad0c676b78afda751bb172",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          192,
+          48,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Orbal_Gear_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/e/ed/Orbal_Gear_%28Sen_III_Weapon%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "665768a6c13bd6635a3855efb72f23fa2ec6994a25967bb41183f60ce9dac1fd"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Orbal Gun Claire (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "db7d5d39119f1ac91b46f840bf88bde1a11dca31135411cde72b1d95b2bb01e1",
+      "previous_wiki_sha256": "4055be11b316cf9bb1871f669a54424554704bc7370c412a6fcef0eb9aedce5a",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          336,
+          48,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Orbal_Gun_Claire_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/9/99/Orbal_Gun_Claire_%28Sen_III_Weapon%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "6f7bdee6b3e320b48f345b31d747caf16435603510a2a3e1287de121fde1e5bb"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Orbal Gun Olivier (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "5b7d43d4d3448bf2ead742e8bcc4583a02a5cbec2cde60b6ae27d1030e456c9a",
+      "previous_wiki_sha256": "b679f94f8d0243b3e6dbb60ea031928d6dfcd89e8b2b98756673821883228dbb",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          144,
+          48,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Orbal_Gun_Olivier_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/5/5e/Orbal_Gun_Olivier_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "4c8172e2dcb59c219b3f2ffb7ea9cf2057d71fcc68c061f3547cdf891b9456f7"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Orbal Shotgun (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "2eebddf097baf7dc594f722dd5c3ea3e0af4ffa292d23b477981b9673f243d80",
+      "previous_wiki_sha256": "785509b6e09f9b7e6118f9da19c626e29aefdd38acad4bc0fea6c8f3a1632773",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          192,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Orbal_Shotgun_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/2/28/Orbal_Shotgun_%28Sen_III_Weapon%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "71dc10f7b14690497a0a665b9eff6a37e6c43fd177bb8dd817e654dd7787367f"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Orbal Staff Elliot (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "9c23ace72698f463fb55f18c17fbff665ce3270c6e242e51464b2f73db6d6e6b",
+      "previous_wiki_sha256": "4e3320c2d4d2e948573b00c3dd339469beeec998acf2617af248c639bb58ed6f",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          96,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Orbal_Staff_Elliot_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/a/a7/Orbal_Staff_Elliot_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "95e08292fb27b8cd5eb8fd467a723fa32d52301998439671c8b7f90eeaa0e8d2"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Orbal Staff Emma (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "137f8fe4b642b2bdf23c86d2cbf17d23a58e371abfc68157fa67a8138ac9d36d",
+      "previous_wiki_sha256": "b772fce92badf93cd358c025405065c9da91635ce763ede0ab2d261205844384",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          240,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Orbal_Staff_Emma_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/2/20/Orbal_Staff_Emma_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "a4de299fd36f6efa58315d2f6500020741975adac87a40f755fdd9c51e540744"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Orbal Staff Tio (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "cd32fd73b81fce1ceefe7433f688e43dab0c030770f268d93866bcbdcf9c9e0e",
+      "previous_wiki_sha256": "6217197028b7c02f8dd27417ffb0e4147b74c0436beda7ea321fd3851deb14aa",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          240,
+          48,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Orbal_Staff_Tio_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/0/03/Orbal_Staff_Tio_%28Sen_III_Weapon%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "2ba71e07bb3e5c5588e30ce3c7193db05507abe094a230873573be3ae7ebc028"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Orbment (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "e1c5405f8e2f94c7bad8f9ba71101b61974f91beca2a8906bea7776b49b92744",
+      "previous_wiki_sha256": "1a4705790221fd71cc1a53fcf2f604bcaae918b94853ee638c320c9d8e15d795",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          672,
+          144,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Orbment_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/9/9e/Orbment_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "c00fcd322618bec7af8c210a9b4a273fec0b23e2ae185a2d29a1f69bde03c070"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Pandora (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Pandora_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/1/1c/Pandora_%28Sen_III_MQ%29.png/revision/latest?format=original&cb=20261026",
+      "source_dimensions": [
+        178,
+        179
+      ],
+      "dimensions": [
+        178,
+        179
+      ],
+      "source_sha256": "9d57cfa7f62bb5bf9292a631d5a018f100af84abc89731e744f0405d2cbc2c9e",
+      "sha256": "3ec5e8b9520f2d8d0d90df30f3915d17e75b85c0fed88c23129443e81ecdaf3d"
+    },
+    {
+      "file": "Potion (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "c7fdfcd9a8a7d38c4c1ab660b3f0a7e82181fa9dd0a77a699fc6a53364190d98",
+      "previous_wiki_sha256": "bcfde03ad6ddf09320fd36aa95da405d9d6f73232c5852d058ea1c515a7f964a",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          528,
+          144,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Potion_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/6/6c/Potion_%28Sen_III_Item%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "4da0058ea7d2814902f17b71736cc90302dbc9b0bf022a46c8092130f6a544d2"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Power EX Orb (Sen III).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "49b5f789db94c2ec64997db99e76bb5df3c3bb518240bf7aeed3a7d240a21792",
+      "previous_wiki_sha256": "cb1d8fa604723499f4fab0a478ee32e0850e1f85e941dfda10e93b9165e358fc",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          624,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.3923117220401764
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Power_EX_Orb_%28Sen_III%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/5/57/Power_EX_Orb_%28Sen_III%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "3cdaf037da8306a17f7746f2c43762ca0d62145761dd732b433e2880b2947435"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Rapier Lechter (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "77c5c507ff1e420b3fb4eb84b6565461c50ee829a496cf3fd23078dabaeb8808",
+      "previous_wiki_sha256": "60e27a79c4ff2e0b3bb000c17466cae552da2a4d32f73bac6e0f8ca98c7dd5d2",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          384,
+          48,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Rapier_Lechter_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/b/b4/Rapier_Lechter_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "d9669c35dbad187005c4afe649a2c957c1bd2699c8aae9681aca35f7336eecf0"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Regalia (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Regalia_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/5/50/Regalia_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        178,
+        177
+      ],
+      "dimensions": [
+        178,
+        177
+      ],
+      "source_sha256": "fd85ffbb57abc78c840918ade5770a444365264673509a4b21419366f583aa77",
+      "sha256": "799d02f33c6396ff7c5196cf7e02c0fdddedb8fa4bd6e65bd5a1a146e34f5cc4"
+    },
+    {
+      "file": "Regulus (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Regulus_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/f/fc/Regulus_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        179,
+        177
+      ],
+      "dimensions": [
+        179,
+        177
+      ],
+      "source_sha256": "3e3c95fce1d4a03e80bf9ed748e8129976de05665743ed9c526837ee00ab2a2d",
+      "sha256": "11f388e0d8166516403092541ea527e6607dcde4b19d2a1091cff0768886ba9b"
+    },
+    {
+      "file": "Scorpio (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Scorpio_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/c/c6/Scorpio_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        178,
+        177
+      ],
+      "dimensions": [
+        178,
+        177
+      ],
+      "source_sha256": "fc6bbe933fbc197cad96220fe9edfde84b0668395a272eccd46fc3f36fbcb2c4",
+      "sha256": "5b293f6f0ab632a37108c278a1a5d9e9ff7ef701fced3b7409057f46909e7ce1"
+    },
+    {
+      "file": "Shield EX Orb (Sen III).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "a8db26b6f4d07136850d0db0e3bf22683ad32b489d651d619f2d61fffed84ce6",
+      "previous_wiki_sha256": "d34341cffde213221558dc17c3dc74378f6d33e3f70cde310f7193070bfd686d",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          672,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.8422268629074097
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Shield_EX_Orb_%28Sen_III%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/8/8e/Shield_EX_Orb_%28Sen_III%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "608035e1c91906165c1588b166037039c70bbd1f5c2cc9d0a6e4e220478c0fc8"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Sirius (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Sirius_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/f/f8/Sirius_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        179,
+        179
+      ],
+      "dimensions": [
+        179,
+        179
+      ],
+      "source_sha256": "83c3f0cf0ed1d127f0b71f9b572299fa07fdc664d7e813eaac2916e42a317b31",
+      "sha256": "867f23a24f7fd4bf8ab20b44ba92164eb57874e3f5776464991ab815964a36aa"
+    },
+    {
+      "file": "Skuld (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Skuld_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/f/fe/Skuld_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        179,
+        179
+      ],
+      "dimensions": [
+        179,
+        179
+      ],
+      "source_sha256": "1eed0933daeca6e83a6d55f2de5d3e166d40071e22a28eaee25c45744b9c12f6",
+      "sha256": "0bae27c3b9b7d499eb025d4a3ec6435c7e728ab0f58244ccab5373690bfff8b8"
+    },
+    {
+      "file": "Sophia (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Sophia_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/8/89/Sophia_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        178,
+        178
+      ],
+      "dimensions": [
+        178,
+        178
+      ],
+      "source_sha256": "d2488d2360b66684778f077eeff2749201d93580a5274374f114595eb5bd05f2",
+      "sha256": "2878f81e663834cec1c2bb511d6c70340fa50f4ba74329250cc9ce5b591c8fe2"
+    },
+    {
+      "file": "Space (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "9083b866d779521f5197227e64faa02227bd1ac0d9766833ef9b98ffa30f921f",
+      "previous_wiki_sha256": "befe502951a1e6d52a2550de5c79968090377bfb2c205115164079b8a4f2b4df",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          240,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Space_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/d/d8/Space_%28Sen_III_Quartz%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "4bd9d70a23831b3285129d11aaf43c827bb80e9348e482fd8c7cfa62fa92c69c"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Space (Sen III Sepith).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "7ab2ae098b53144ecbf6fe61ca44638469467fb76547eb590c6f4e7903392da7",
+      "previous_wiki_sha256": "d30e40e1671ef0c8757b561e46fe8de6f02b08e3da392dc5d9799f6c4e452a33",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          576,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Space_%28Sen_III_Sepith%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/9/97/Space_%28Sen_III_Sepith%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          30,
+          48
+        ],
+        "source_sha256": "d1d63b192c67c00794c4d7500daebfd70fc79a22a01f7636ff2b85ac0506a8b5"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Space R (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "ac176d97d9d08522580baf3d9066befcda1156fd6239194bca4da2eeee5faf22",
+      "previous_wiki_sha256": "ac067e45c920a842da69224a0ac6f31d858dd66d7348fe8e28d6dac181b2f9ae",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          240,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Space_R_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/b/b4/Space_R_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "82753f1b0e6bb632b6b029c610c308cd95ba9b832841c5b085ab0279bddfab35"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Space SR (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "a6a734bf2c5163ffd3b0664e3304e8e53712db63b31912fc84efd688347e51b9",
+      "previous_wiki_sha256": "5fed2612b900e25bf5225a3b212e997d035a5c8b921f1b4de73d8431eeda44ec",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          240,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Space_SR_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/7/70/Space_SR_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "23dfddacc9254c4f7304722c5dc6a0ee3ed775c2dd05c6969e0b4606899acae1"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Spear (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "20ce9b2d86f038acac3231994b337b67b6d7bafb6672744e6d99b2f92000a645",
+      "previous_wiki_sha256": "0dc4131f05c2281741897afd6d778c4b8ae8afa035ea44b76a7dc2d46370246c",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          384,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Spear_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/3/37/Spear_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "4c90a0dc5020daf0dd9d0cfd625401e9a0bfdcea46baf029d35ad5f30f3a0776"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Speed EX Orb (Sen III).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "f63e154fca50c2478c60b16e88c973c50baf9db30b95a764161f3962cc39bf66",
+      "previous_wiki_sha256": "4997801f7ff2b8de351ab39a6bd1977958a1011bda7e395c5c4b75817e2b48a0",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          720,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.9892957806587219
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Speed_EX_Orb_%28Sen_III%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/6/6f/Speed_EX_Orb_%28Sen_III%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "c77eb40995978e7ba32ac9fa4bd38ca2b65fe421cde46ab8607dae62e4c5aa42"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Sword Jusis (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "96e935a340aea93f2270270865eaa472cb63e78a487ef6e168a7584ab4a7f41a",
+      "previous_wiki_sha256": "033f9281be87d769ba9524b8f773e420dbfeccfa13e380ed3ca72ea1ce7b2f2e",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          288,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Sword_Jusis_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/c/cc/Sword_Jusis_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "4013f592d5aadc97e41f1adce7f6f9b7f9509d50780e726296b843ae638296c9"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Sword and Gun (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "08128e455d753b20a6bb742c3d46a5927d0a3975c18f99eb3395310a62dc9a59",
+      "previous_wiki_sha256": "b25de33c699da6efdc498a22369314bfa686ae85f48243c7db306b24846eeefd",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          720,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Sword_and_Gun_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/f/f1/Sword_and_Gun_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "785782ca45b2ee84c46f79ff73507ee4a39ebd72704360d5b16f3ca82c8a7ed8"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Tachi (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "9aacd68cff1df0cc930db607d3005430b9f2cc9e7ce5e99ee7e8cdb55b3da94c",
+      "previous_wiki_sha256": "e31cf3c07ccd6163245e50e17543254770ae56eeb06d0263bb1fabd0788bcacb",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          0,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Tachi_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/4/41/Tachi_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "7ef9b7bfee6eb8258b3fdaaa296263414fee31c21a65946bf8f0300b8cdf6ade"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Tempest (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Tempest_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/f/fd/Tempest_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        178,
+        178
+      ],
+      "dimensions": [
+        178,
+        178
+      ],
+      "source_sha256": "f862f2696d24e539a69be751dd038d8f1669b1806e94693bec25b14e8bee95e0",
+      "sha256": "b67e5db1f52e698ef8b2c5a10eff0bdf5e9f2ea942bdf187d6be803f396728cc"
+    },
+    {
+      "file": "Thor (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Thor_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/0/0e/Thor_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        179,
+        179
+      ],
+      "dimensions": [
+        179,
+        179
+      ],
+      "source_sha256": "c60d5fed43656e77f740e596dee7ba19e70ab28bae37f08260c916a107c02de6",
+      "sha256": "e2436118d9064e4c8e5d8f8f5a5126c077c0740b8023896afe3b13c5a364119e"
+    },
+    {
+      "file": "Time (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "751fd27dca890265191f816f849215a329f10d082d7a2dcf2f1731eb011b2a97",
+      "previous_wiki_sha256": "0443f56e3fad1f8bc81116fced165e8af570263983cc05bd1088c9d41b50dc71",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          192,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Time_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/3/3d/Time_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "36276effe19c33e9a9ab17cbc607ad9b04d8de322c006733bcfda88f1ed9ff11"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Time (Sen III Sepith).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "41bf76ec581476fbad2c82d4baf9a852748afe194be83340a22fc3daf82d8fd8",
+      "previous_wiki_sha256": "633e307c36a250edcafd66867873222d749c6deda2266d592d0d8f92bbc76096",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          528,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Time_%28Sen_III_Sepith%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/0/03/Time_%28Sen_III_Sepith%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          30,
+          48
+        ],
+        "source_sha256": "07da03ebdacfc64e6bc7da720f64d41fe99ae2e00be20a25038a9b1f60c68df0"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Time R (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "adc994f5ea9fd9695eadd7b684f996ca44bd417d2979ee8ea13cf4a72f6a28da",
+      "previous_wiki_sha256": "8f116d135a7b93dcb307c6ed8a848ad12952ed9e50b09a40ef1d6a62ea6c5c9d",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          192,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Time_R_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/b/bc/Time_R_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "ec2aae7332754dbecb1ca7b8493091120ef60836a5a01d72e05f4e1c07b81b12"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Time SR (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "620ab0b6af062b7c726d96920e58111452eda8b458f93b2ee2eeee32803b06bb",
+      "previous_wiki_sha256": "69f0eb860e46120658dc6caf3ecdfa7e62ae60e0c2d9033513d7977c894f534f",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          192,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Time_SR_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/8/86/Time_SR_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "c406ab904048c545dd0f5691970c210b7251f8f5eabb4ba58f3e869a7633525d"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Titania (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Titania_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/b/bc/Titania_%28Sen_III_MQ%29.png/revision/latest/scale-to-width-down/256?format=original",
+      "source_dimensions": [
+        177,
+        177
+      ],
+      "dimensions": [
+        177,
+        177
+      ],
+      "source_sha256": "a8ad934e641df4e4c1a7d3755fc71d8b2fe0467ecb2a2a4b427fa4fcabe9d814",
+      "sha256": "5b9e9e07576a248217fcf693ae7660df0a5233099fc73efe62575bca604355f7"
+    },
+    {
+      "file": "Twin Gunswords (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "8d2182b0277ca403d12f90397ec9a0f1da0c7617bc2ce3a14be3fdfb57611fd2",
+      "previous_wiki_sha256": "6d2c90f5834dc48b1bd7e27960bb841992b45b11937de558f8bec6c36ea6e898",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          336,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Twin_Gunswords_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/0/02/Twin_Gunswords_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "eac3d8edfd50e3fcf666cf2161104e72975735219d5d20cdadca85f6ab13c36d"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "Twin Swords Kurt (Sen III Weapon).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "9400d015448c1057d4fa65ed4f1cbf20ecee19ce59e99cd422883454561a0228",
+      "previous_wiki_sha256": "69c45062f5e2f13cc217e297517763991ae612a67cde5954cea5b22ebc9daf49",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          528,
+          0,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Twin_Swords_Kurt_%28Sen_III_Weapon%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/a/a7/Twin_Swords_Kurt_%28Sen_III_Weapon%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "536d90d0fe10a3d082f79ebaddaa5fef8c8e690a82fe5400191209ab10c8da97"
+      },
+      "source_dimensions": [
+        1024,
+        512
+      ],
+      "source_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff"
+    },
+    {
+      "file": "U-Material (Sen III Item).png",
+      "page": "https://kiseki.fandom.com/wiki/File:U-Material_%28Sen_III_Item%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/6/62/U-Material_%28Sen_III_Item%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        48,
+        48
+      ],
+      "dimensions": [
+        48,
+        48
+      ],
+      "source_sha256": "2301068c35eea1497683230e04dbe37edd864f7b3b4967621f2c0fb638653955",
+      "sha256": "6f10b8a57c0a74de3d709948a0ef6dd2eecefa7ca1b0305fe03668aafef3dc64"
+    },
+    {
+      "file": "VM Card (Sen III Item).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "43bdacd6c92f373ac13c18f233c297980dbc657b49dab5362eb7166d3b4504d4",
+      "previous_wiki_sha256": "edfe37d4f5450bac6f66f98ab6b889d3e67960c341e28bc1adcc8f8a8f918c83",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          96,
+          384,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 3.771465301513672
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:VM_Card_%28Sen_III_Item%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/7/70/VM_Card_%28Sen_III_Item%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "7d02c5af84a05685de1d2b7ac4554fe3efd01dfa74549b4350b23a9b1fe56f3d"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Valhalla (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Valhalla_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/c/c4/Valhalla_%28Sen_III_MQ%29.png/revision/latest?format=original&cb=20261026",
+      "source_dimensions": [
+        178,
+        178
+      ],
+      "dimensions": [
+        178,
+        178
+      ],
+      "source_sha256": "22b310910dcd25bfad78841a33d146e86273992f41c1598c2e5fae45af751ac0",
+      "sha256": "cd0fd5b4ca5a5bb9661c000acc7819b1eeeaddb4b6fb711e75a935bfbd218ece"
+    },
+    {
+      "file": "Virgo (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Virgo_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/7/78/Virgo_%28Sen_III_MQ%29.png/revision/latest?format=original&cb=20261026",
+      "source_dimensions": [
+        179,
+        178
+      ],
+      "dimensions": [
+        179,
+        178
+      ],
+      "source_sha256": "8c99f5e9ce2f695cdd56133484f8ec858cadfc8638fd920eacaf9146e2e69837",
+      "sha256": "32c0a7cb93d4f1d511242b89b337835c794f2be77c565e11a9cf456321652ddd"
+    },
+    {
+      "file": "Water (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "a0af7da50968a43620e640fbdf7d70dca9b4d2a3cf6ec1eed28017cef5bc77db",
+      "previous_wiki_sha256": "a6d4ff1694d3526cab87922dbfd9b405492e218b0debe742ba75a84449455022",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          48,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Water_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/7/7e/Water_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "7c4049e84e9161de585994ba90c72339e2897ed67b644207aadd165d619193fc"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Water (Sen III Sepith).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "0ce76a54c1a1bcd42720ebe8c8cae6e1ca33676d780ffcbaaeac41ea2909e1d1",
+      "previous_wiki_sha256": "bec3d6032f9703d735e593023867c033833f85daaf17ac353640a302238bb5bd",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          384,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Water_%28Sen_III_Sepith%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/b/b1/Water_%28Sen_III_Sepith%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          30,
+          48
+        ],
+        "source_sha256": "94981677b0cc0a671f649ba8edbcd2908e092b18841a477347f192f0d8db23da"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Water R (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "1e34fc6812dd5ba7d7fb70186c87262ab6495deef40e493f985fe002e3d17423",
+      "previous_wiki_sha256": "094f430c773fed53d1a55e448a0cb37bc3e3de4bac68842931e8918f9339d65c",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          48,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Water_R_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/c/ce/Water_R_%28Sen_III_Quartz%29.png/revision/latest?format=original&cb=20261026",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "a81c279b86c3e72f5a1ea33182068cb77c83ab515458fc5f1d76284e3735bf0b"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Water SR (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "cc14d9cfddfc99dae7ab718b0e37d8c6b690cb65e9f9221e44bd6060d4ffa411",
+      "previous_wiki_sha256": "0a3fa5d7ea3a7a95261af83bc1d5b3dff8f6e7b3f192622a9d2696d45e234736",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          48,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Water_SR_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/b/bb/Water_SR_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "098073b2c72ea95852a80777a5ffc2710cf015fe9416009f30c17d0be4d0d4e3"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Wind (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "03eab5c9af50e6b4f642ab0422416b2f49845581fa1d0942df20824912ca38df",
+      "previous_wiki_sha256": "f680b49288d539e2326e37123e737ab46063e0f2b7c2e6f82c765561fe09c63a",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          144,
+          192,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Wind_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/c/cc/Wind_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "16311f859c0453b77787f322422251c1d90692439e22002b99054013612734ed"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Wind (Sen III Sepith).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "a824a8d9adffdeb79a80a9e37532c69c1a7629e5066fe849c091a1b6ec2ffb76",
+      "previous_wiki_sha256": "29c18b2e253cd9d8a4e7c4a0241f1d87c7799c42165a2780fe0e68ec01226b8f",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          480,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Wind_%28Sen_III_Sepith%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/c/c3/Wind_%28Sen_III_Sepith%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          30,
+          48
+        ],
+        "source_sha256": "7f95e91f527817ea759e63c9c5d178b14a63e0f3aa860ce6be339319d1371f73"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Wind R (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "a62473ae6d77adafbbf12bc31db6ede0ce82da9fc95b963b0aad07aaeab7c4b8",
+      "previous_wiki_sha256": "db9795c3fd8f41cb002d88b7911d7b33c8463b0ba28b72baf85907537cf9a1c4",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          144,
+          240,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Wind_R_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/6/6e/Wind_R_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "ad7b29bcdd1d19cfef29434cebf4aa7c318c11988af8813af1f82d9716477465"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Wind SR (Sen III Quartz).png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "sha256": "46d5374543b66abdcd605cc212b47d0fcb519b9ed4900a8612ce00b52c05335c",
+      "previous_wiki_sha256": "c14017906fb3b8f31748edca585c28c3f08c2827b3c51dbb2090d50643e9f6ab",
+      "source_kind": "owner_game_package",
+      "native_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          144,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "element colour, normal/R/SR row, comparison with existing authenticated artwork"
+      },
+      "previous_wiki_source": {
+        "page": "https://kiseki.fandom.com/wiki/File:Wind_SR_%28Sen_III_Quartz%29.png",
+        "url": "https://static.wikia.nocookie.net/kiseki/images/e/ed/Wind_SR_%28Sen_III_Quartz%29.png/revision/latest?format=original",
+        "source_dimensions": [
+          48,
+          48
+        ],
+        "source_sha256": "5134f630b04f28c40f8808a97290bd8b24c9770aebbd6731d90e3669cf7f1bde"
+      },
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "source_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8"
+    },
+    {
+      "file": "Zephyr (Sen III MQ).png",
+      "page": "https://kiseki.fandom.com/wiki/File:Zephyr_%28Sen_III_MQ%29.png",
+      "url": "https://static.wikia.nocookie.net/kiseki/images/c/c3/Zephyr_%28Sen_III_MQ%29.png/revision/latest?format=original",
+      "source_dimensions": [
+        178,
+        177
+      ],
+      "dimensions": [
+        178,
+        177
+      ],
+      "source_sha256": "b2ed58de3049914463d64f075115e5ed80b0d8314462fcc1d6f249bc8be471f4",
+      "sha256": "2e6be34a8f1b42c2747c06c2e414b2fca1f719471af3e9b941136fc4b8c2c55e"
+    }
+  ],
+  "native_import": {
+    "revision": "v7.9.3 native-icon-pass 6",
+    "count": 80,
+    "retained_wiki_assets": 35,
+    "limitations": "All visible stock catalog entries resolve original artwork. The fish group is confirmed by the owner, with two individual screenshots. ID 249 is excluded from additions and reserved hidden records remain unverified. This is not a new in-game visual audit of every other item."
+  },
+  "confirmed_item_mappings": [
+    {
+      "item_id": 130,
+      "item_name_en": "Shining Pom Droplet",
+      "item_name_ru": "Капля сияющей пом",
+      "icon_file": "Key (Sen III Item).png",
+      "icon_sha256": "ad61845ca0b67f651f5a954e92a1273b419a65694a12bf2ce93f6d6763e4b7ab",
+      "art_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          576,
+          144,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "evidence": {
+        "file": "docs/evidence/shining_pom_droplet_in_game.png",
+        "sha256": "4fa81e08114763bbc55fb240b278e98d6ab5ed5636c9ede395affdb3121d22d5",
+        "library_file_id": "libfile_0513019806b08191a45dfaf14706118a",
+        "observed_quantity": 2
+      },
+      "method": "Owner-provided in-game inventory screenshot shows localized name and the same silver feather as the native atlas crop. Reuse existing shared artwork, without editing the screenshot or icon."
+    },
+    {
+      "item_id": 39,
+      "item_name_en": "Shining Pom Bait",
+      "item_name_ru": "Приманка для сияющей пом",
+      "icon_file": "Key (Sen III Item).png",
+      "icon_sha256": "ad61845ca0b67f651f5a954e92a1273b419a65694a12bf2ce93f6d6763e4b7ab",
+      "art_source": {
+        "package": "I_SYSTEM.pkg",
+        "package_sha256": "c5fe25245aa9a405ab4a1515c25a4ad949fc10f57a8af41e77f83d17e29328e5",
+        "member": "icons2.dds.phyre",
+        "member_sha256": "7fbfdc931fb1fef6f563599d998074a2d9993bfa84eef3ecb9976108e55979ff",
+        "size": [
+          1024,
+          512
+        ],
+        "format": "BC7",
+        "atlas": "icons2",
+        "crop_upright_xywh": [
+          576,
+          144,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 0.0
+      },
+      "evidence": {
+        "file": "docs/evidence/shining_pom_bait_in_game.png",
+        "sha256": "e4621727cac432c99dc934542871587512f16cc578b67c7f23eebdb4b946d0dd",
+        "library_file_id": "libfile_fd1d348099508191b21a677a75619568",
+        "observed_quantity": 1
+      },
+      "method": "Owner-provided in-game inventory screenshot shows localized name and the same silver feather as the native atlas crop. Reuse existing shared artwork, without editing the screenshot or icon."
+    },
+    {
+      "item_id": 2100,
+      "item_name_ru": "Касагин",
+      "item_name_en": "Kasagin",
+      "icon_file": "Fish L (Sen III Item).png",
+      "icon_sha256": "87f570a057b2bb393bebc955b23898b0ca91c111809ef5115c84eb60a6e4fd7f",
+      "art_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          672,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 1.1303699016571045
+      },
+      "evidence": {
+        "file": "docs/evidence/kasagin_in_game.png",
+        "sha256": "9359aef48a87396a0d2e22ca2c5d29b2623f60aa19a53292b0640a0076d2d0a7",
+        "library_file_id": "libfile_521318411d4c81919e02b1cd279017a0",
+        "observed_quantity": 6
+      },
+      "method": "Owner-provided in-game inventory row shows Kasagin and the same sprite as the native Fish L atlas crop. S/M/L are artwork variant filenames, not inferred species sizes. No other fish IDs inherit this mapping."
+    },
+    {
+      "item_id": 2101,
+      "item_name_ru": "Небесный жабр",
+      "item_name_en": "Sky Gill",
+      "icon_file": "Fish L (Sen III Item).png",
+      "icon_sha256": "87f570a057b2bb393bebc955b23898b0ca91c111809ef5115c84eb60a6e4fd7f",
+      "art_source": {
+        "package": "I_ICONS.pkg",
+        "package_sha256": "f98c49bb0d2a4c29049b2a1593f73af71e0dd9f3cea0cc3296f70a8611d20930",
+        "member": "icons.dds.phyre",
+        "member_sha256": "5cb6cc3f0db7a9823247fa6ab7cd17022d497c8c78913f97abff8aff508fe4b8",
+        "size": [
+          1024,
+          1024
+        ],
+        "format": "RGBA8",
+        "atlas": "icons",
+        "crop_upright_xywh": [
+          672,
+          288,
+          48,
+          48
+        ],
+        "orientation": "decoded texture flipped vertically before crop; RGBA and transparency preserved",
+        "recognition": "pixel comparison with existing authenticated artwork",
+        "premultiplied_rgba_rmse": 1.1303699016571045
+      },
+      "evidence": {
+        "file": "docs/evidence/sky_gill_in_game.png",
+        "sha256": "16075ad4cfc6830f416e70e91212a49a769e55224ef1d38605da426dddce4b19",
+        "library_file_id": "libfile_771cf39b15488191b5480e1dd24d46ef",
+        "observed_quantity": 4
+      },
+      "method": "Owner-provided in-game inventory screenshot directly matches the native shared fish sprite."
+    }
+  ],
+  "excluded_inventory_entries": [
+    {
+      "item_id": 249,
+      "name_en": "Seven-Element Sepith",
+      "native_type_code": 128,
+      "observations": [
+        "Owner reports that an ID 249 stack added by the editor does not appear in the in-game inventory.",
+        "The native table places ID 249 in the sepith group (type 0x0080), with a placeholder description."
+      ],
+      "decision": "Exclude from the addable item catalog and reject positive inventory writes. Read and preserve existing entries; allow explicit removal with quantity 0. Do not edit resource balances.",
+      "limits": "This is an unsupported-inventory-entry exclusion, not a verified icon mapping or an implementation of resource-counter editing."
+    }
+  ],
+  "confirmed_item_groups": [
+    {
+      "item_ids": [
+        2100,
+        2101,
+        2102,
+        2103,
+        2104,
+        2105,
+        2106,
+        2107,
+        2108,
+        2109,
+        2110,
+        2111,
+        2112,
+        2113,
+        2114,
+        2115,
+        2116,
+        2117,
+        2118,
+        2119,
+        2120,
+        2121,
+        2122,
+        2123,
+        2124
+      ],
+      "icon_file": "Fish L (Sen III Item).png",
+      "icon_sha256": "87f570a057b2bb393bebc955b23898b0ca91c111809ef5115c84eb60a6e4fd7f",
+      "owner_statement": "у всей рыбы одинаковая иконка",
+      "evidence_screenshot_ids": [
+        2100,
+        2101
+      ],
+      "supporting_screenshots": [
+        {
+          "file": "docs/evidence/kasagin_in_game.png",
+          "sha256": "9359aef48a87396a0d2e22ca2c5d29b2623f60aa19a53292b0640a0076d2d0a7",
+          "library_file_id": "libfile_521318411d4c81919e02b1cd279017a0",
+          "observed_quantity": 6
+        },
+        {
+          "file": "docs/evidence/sky_gill_in_game.png",
+          "sha256": "16075ad4cfc6830f416e70e91212a49a769e55224ef1d38605da426dddce4b19",
+          "library_file_id": "libfile_771cf39b15488191b5480e1dd24d46ef",
+          "observed_quantity": 4
+        }
+      ],
+      "method": "The owner confirms one shared inventory icon for all 25 stock fish. Kasagin and Sky Gill are individually visible in screenshots. The other 23 mappings rely on the owner confirmation; no inference from biological size, name, or arbitrary ID subranges. Reserved IDs 2125–2129 and custom fish IDs are excluded."
+    }
+  ]
+}

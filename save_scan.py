@@ -32,7 +32,7 @@ def save_directories(last_directory: str | Path | None = None,
         import winreg  # type: ignore[import-not-found]
         with winreg.OpenKey(winreg.HKEY_CURRENT_USER,
                             r'Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders') as key:
-            value, _ = winreg.QueryValueEx(key, '{4C5C32FF-BB9D-43B0-BF1E-5D8B5A1A4AF4}')
+            value, _ = winreg.QueryValueEx(key, '{4C5C32FF-BB9D-43B0-B5B4-2D72E54EAAA4}')
             if isinstance(value, str) and value:
                 choices.append(Path(os.path.expandvars(value)) / 'FALCOM' / 'ed8_psv3')
     except (ImportError, OSError):
@@ -71,7 +71,7 @@ def newest_compatible_save(directories: Iterable[Path]) -> tuple[SaveMatch | Non
             if info.st_size != SAVE_SIZE or info.st_mtime_ns != mtime_ns:
                 warnings.append(f'{p.name}: несовместимый размер или файл обновляется')
                 continue
-            payload = p.read_bytes()
+            with p.open('rb') as stream:payload=stream.read(SAVE_SIZE+1)
             if p.stat().st_mtime_ns != mtime_ns:
                 warnings.append(f'{p.name}: файл изменился во время чтения')
                 continue

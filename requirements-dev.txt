@@ -1,2 +1,2 @@
--r requirements.txt
+-r requirements-qt.txt
 pytest>=8.0,<10.0

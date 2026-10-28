@@ -1,23 +1,13 @@
-# Cold Steel III Inventory Editor v7.0 — GitHub Source Edition
+# Cold Steel III Inventory Editor v7.9.4
 
-Unofficial, bilingual desktop save inventory editor for *The Legend of Heroes: Trails of Cold Steel III*. Not affiliated with Nihon Falcom, NIS America or Steam.
+The Windows release uses the new PySide6 game-style UI. Russian and English UI languages, original game icons, favorites, bulk edits and a review dialog are included.
 
-## Run
+Download the Windows ZIP from Releases, extract it and run `CS3_Inventory_Editor.exe`. Python is not needed for the EXE. From source, install Python 3.10+, run `python -m pip install -r requirements.txt`, then `python qt_window.py`. On Windows, `Запустить.bat` prepares a local environment and opens the Qt editor.
 
-Install Python 3.10+ and run `python app.py` (or `Запустить.bat` on Windows). Select the game directory if needed. The app reads the original item tables from `data/text/dat_en/t_item_en.tbl` and supported DLC `t_item.tbl` files in the legally installed game; it never edits those files.
+On first launch, scan your game installation and open a compatible `saveXXX.dat`. Use Save a copy first. Overwriting the original creates a backup. Only the verified CS3 NISA Windows save layout is supported; game-side loading for every possible item/state has not been verified.
 
-No original game item names/descriptions, official art, translated catalogs or sample saves are distributed. The item catalog is initially empty until an installation is scanned. A clean English installation provides original English names and descriptions. Russian UI text is included, but Russian game-item text requires user-supplied Russian tables. Import additional tables via the Tools menu.
+Game tables, item databases and user saves are excluded from the public source. Item names/descriptions come from the user's game. Original icon PNGs are included and attributed in `icons/original/sources.json`; game artwork is owned by its respective rightsholders.
 
-Features: category filtering, item search, edit quantity, add/remove multiple items with Ctrl/Shift selection and one-step undo, manual/automatic save opening, backup on overwrite, light/dark mode, game icon fetching/caching.
+Use Tools → Import English catalog for original English text. Optional English `t_itemhelp.tbl` and `t_magic.tbl` beside the item table recover six missing quartz descriptions. Previously loaded DLC translations are retained. For further instructions, save folder paths and screenshots, see [README.md](README.md#english).
 
-## Tests
-
-Run `python -m pytest -q`. Tests use synthetic item tables, not any proprietary game content. On Linux, GUI tests require a display (e.g. `xvfb-run -a python -m pytest -q`). Modified saves were not exhaustively verified in-game.
-
-See `README_GITHUB.md` for public distribution guidelines. The `LICENSE` applies to the application's code only.
-
-
-## Version 7.0 review
-Bulk modifications now use a single atomic inventory transaction. The English
-version label, quantity validation message, icon audit tool and regression
-coverage were updated. Original game artwork is not redistributed.
+Build on Windows using `Собрать_EXE.bat`. The output is `dist/CS3_Inventory_Editor.exe` and a Windows ZIP in `release`. The legacy Tk interface is retained as `app.py`.

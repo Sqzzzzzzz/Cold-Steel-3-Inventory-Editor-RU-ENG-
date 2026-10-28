@@ -11,6 +11,7 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 from dataclasses import dataclass
+from catalog_visibility import NON_INVENTORY_ITEM_IDS
 
 SAVE_SIZE = 0x1402C0  # 1,311,424 bytes
 TABLE_OFFSET = 0x365A0
@@ -44,14 +45,23 @@ class CS3Save:
 
     @classmethod
     def from_file(cls, path: str | Path) -> 'CS3Save':
-        return cls(Path(path).read_bytes())
+        path=Path(path);before=path.stat()
+        if before.st_size!=SAVE_SIZE:raise cls._size_error(before.st_size)
+        with path.open('rb') as stream:data=stream.read(SAVE_SIZE+1)
+        after=path.stat()
+        if (before.st_size,before.st_mtime_ns)!=(after.st_size,after.st_mtime_ns):
+            raise SaveFormatError('Файл изменился во время чтения; повторите открытие')
+        return cls(data)
+
+    @staticmethod
+    def _size_error(size):
+        return SaveFormatError(f'Размер {size} байт вместо ожидаемых {SAVE_SIZE}. '
+                               'Редактор поддерживает проверенный тип сохранений CS3 NISA для Windows.')
 
     @staticmethod
     def _validate_header(data: bytes) -> None:
         if len(data) != SAVE_SIZE:
-            raise SaveFormatError(
-                f'Размер {len(data)} байт вместо ожидаемых {SAVE_SIZE}. '
-                'Редактор поддерживает проверенный тип сохранений CS3 NISA для Windows.')
+            raise CS3Save._size_error(len(data))
         if data[:8] != bytes.fromhex('02 00 00 00 01 00 00 00'):
             raise SaveFormatError('Неизвестная версия или тип файла сохранения')
         if int.from_bytes(data[8:12], 'little') != len(data):
@@ -126,32 +136,11 @@ class CS3Save:
             item_id.to_bytes(2, 'little') + qty.to_bytes(2, 'little') + bytes(28))
 
     def set_quantity(self, item_id: int, qty: int):
-        if not isinstance(item_id, int) or not 0 <= item_id <= MAX_ITEM_ID or item_id == EMPTY_ID:
+        # Use the same transactional validator for single and batch edits.
+        # In particular, Python booleans must never become item IDs/quantities.
+        if type(item_id) is not int:
             raise ValueError('ID предмета должен быть числом от 0 до 65535, кроме 9999')
-        if not isinstance(qty, int) or not 0 <= qty <= MAX_QUANTITY:
-            raise ValueError(f'Количество должно быть в диапазоне 0–{MAX_QUANTITY}')
-        records = self.items()
-        found_slot = next((item.slot for item in records if item.item_id == item_id), None)
-        if found_slot is not None:
-            if qty == 0:
-                # Game-proven deletion representation: shift following 32-byte
-                # records by one slot and put a 9999 sentinel in the last slot.
-                pos = TABLE_OFFSET + found_slot * RECORD_SIZE
-                last = TABLE_OFFSET + len(records) * RECORD_SIZE
-                self._data[pos:last-RECORD_SIZE] = self._data[pos+RECORD_SIZE:last]
-                self._write_record(len(records)-1, EMPTY_ID, 0)
-            else:
-                pos = TABLE_OFFSET + found_slot * RECORD_SIZE + 2
-                self._data[pos:pos+2] = qty.to_bytes(2, 'little')
-        elif qty:
-            if len(records) >= RECORD_COUNT - 16:
-                raise ValueError('Недостаточно свободных слотов для добавления')
-            # Existing save data is ordered by acquisition, not numeric ID:
-            # append at the first sentinel rather than sorting entries.
-            self._write_record(len(records), item_id, qty)
-        # Re-validate after each operation; revert the whole edit on failure
-        # via in-place restoration from a local snapshot done by caller if needed.
-        self._validate_table(self._data)
+        self.set_quantities({item_id: qty})
 
     def set_quantities(self, changes: dict[int, int]) -> None:
         """Apply many inventory edits in one verified, atomic operation.
@@ -169,6 +158,8 @@ class CS3Save:
                 raise ValueError('ID предмета должен быть числом от 0 до 65535, кроме 9999')
             if type(qty) is not int or not 0 <= qty <= MAX_QUANTITY:
                 raise ValueError(f'Количество должно быть в диапазоне 0–{MAX_QUANTITY}')
+            if item_id in NON_INVENTORY_ITEM_IDS and qty > 0:
+                raise ValueError('ID 249 нельзя добавлять в обычный инвентарь; существующую запись можно удалить количеством 0')
         old = self.items()
         old_ids = {entry.item_id for entry in old}
         kept = [(entry.item_id, changes.get(entry.item_id, entry.quantity))

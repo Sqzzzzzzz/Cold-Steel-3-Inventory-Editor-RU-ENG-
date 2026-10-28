@@ -1,38 +1,12 @@
-CS3 Inventory Editor v6.1 — оригинальные иконки
+CS3 Inventory Editor v7.9.4 — Original icons
 
-1. При первом запуске работает автоматическая попытка скачивания маленьких игровых
-   иконок типов предметов и кварцев из Kiseki Wiki.
-2. Если отображается «Оригинальные игровые иконки: 0/…», нажмите
-   «Обновить игровые иконки». Проверьте интернет и журнал ошибок в:
-   %APPDATA%\CS3InventoryEditor\icons\icon_download_errors.txt
-3. Для офлайн-импорта нажмите «Импорт папки PNG», выберите каталог с
-   извлечёнными изображениями, совпадающими с названиями в GAME_ICON_FILES.
-   Дополнительные точечные PNG именуйте как by_id\420.png и так далее.
-4. При отсутствии изображения остаётся значок из демонстрационного набора;
-   записи инвентаря и файлы сохранений это никак не меняет.
+The Qt editor includes 115 original PNGs, verified against
+icons/original/sources.json. Missing verified art is not replaced by drawings.
+80 PNGs are direct crops from the supplied game atlases; the remaining
+35 retain the documented original game-art sources in the manifest.
+All 25 real fish entries use the shared Fish L icon, confirmed in game
+by the owner. Shining Pom Bait and Droplet use the confirmed feather icon.
 
-Оригинальные значки относятся к группам предметов, а не ко всем уникальным ID.
-Папки игры остаются нетронутыми.
-
-Версия 5.3: добавлен параметр format=original для избежания WebP.
-При необходимости Pillow может перевести ответ WebP в PNG.
-Если CDN отдаёт HTML или блокировку, используется резервный значок.
-
-Версия 5.4: отдельные оригинальные эмблемы для всех 30 базовых мастер-кварцев
-(38 ID с EX-формами). Автоматическая загрузка проводится через MediaWiki API
-порциями по 20 изображений, чтобы не превышать лимиты API.
-При повторном запуске PNG используются из %APPDATA%\CS3InventoryEditor\icons\original.
-
-Версия 5.5: картинки мастер-кварцев могут быть крупнее 512×512.
-Теперь скачивается миниатюра через MediaWiki API (96px), а если она
-недоступна — исходное изображение. Большие PNG, WebP и JPEG переводятся
-в безопасные PNG для интерфейса через Pillow.
-Для этого рекомендуем: py -3 -m pip install Pillow
-Если Fandom блокирует и миниатюру, и оригинал, использовать локальный
-импорт PNG: повторная загрузка не может обойти блокировку сервера.
-
-Для подарков и EX-сфер скачиваются файлы Gift (Sen III Item).png,
-HP EX Orb (Sen III).png, Power EX Orb (Sen III).png,
-Shield EX Orb (Sen III).png и Speed EX Orb (Sen III).png.
-Эти файлы можно импортировать вручную через раскрываемые «Инструменты
-и игровые ресурсы» → «Импорт папки PNG».
+Manual by_id/<item ID>.png overrides remain available and are visibly
+labelled as unverified. The saved game and its item quantities do not depend
+on icon files. The editor does not modify the game installation.

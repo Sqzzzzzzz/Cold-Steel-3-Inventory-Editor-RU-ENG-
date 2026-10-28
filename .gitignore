@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.qt-preview-venv/
+.venv/
+build/
+dist/
+release/
+*.spec
+catalog_builtin.json
+catalog_english.json
+CS3_English_Catalog_1240.json
+*.tbl
+*.dat
+*.bak
+# Historical beta review artifacts are retained in the separate source archive.
+/preview/
+/QA_*V793*
+/DIAGNOSTICS_V793_RU.md
+/ENGLISH_NATIVE_AUDIT_RU.md
+/NATIVE_ICON_AUDIT_RU.md

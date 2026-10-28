@@ -57,6 +57,8 @@ GAME_ICON_FILES = {
     'accessory': 'Accessory (Sen III Item).png',
     'consumable': 'Potion (Sen III Item).png',
     'consumable_booster': 'Booster (Sen III Item).png',
+    # Owner's in-game screenshot confirms ID 130 uses the shared feather art.
+    'consumable_pom_droplet': 'Key (Sen III Item).png',
     'food': 'Food Regular (Sen III Item).png',
     'food_superb': 'Food Superb (Sen III Item).png',
     'food_regular': 'Food Regular (Sen III Item).png',
@@ -141,7 +143,7 @@ MASTER_QUARTZ_NAMES = {
     3204: 'Canon', 3205: 'Regulus', 3206: 'Zephyr', 3207: 'Kaleido',
     3208: 'Oberon', 3209: 'Moebius', 3210: 'Sophia', 3211: 'Keeper',
     3212: 'Titania', 3213: 'Gloom', 3214: 'Katze', 3215: 'Virgo',
-    3216: 'Scorpio', 3217: 'Dynamis', 3218: 'Tempest', 3219: 'Aegis',
+    3216: 'Scorpio', 3217: 'Dunamis', 3218: 'Tempest', 3219: 'Aegis',
     3220: 'Thor', 3221: 'Beowulf', 3222: 'Minotauros', 3223: 'Pandora',
     3224: 'Emblem', 3225: 'Magius', 3226: 'Chevalier', 3227: 'Gungnir',
     3228: 'Regalia', 3229: 'Valhalla',
@@ -150,6 +152,9 @@ MASTER_QUARTZ_NAMES = {
 }
 MASTER_QUARTZ_FILES = {item_id: f'{name} (Sen III MQ).png'
                        for item_id,name in MASTER_QUARTZ_NAMES.items()}
+# The original NISA English table calls this Dunamis. The archived image uses
+# the alternate spelling Dynamis; retain its provenance filename unchanged.
+MASTER_QUARTZ_FILES[3217]='Dynamis (Sen III MQ).png'
 EXACT_ITEM_ICON_FILES = {
     # Exact item-specific overrides. These take precedence over category rules.
     60: 'U-Material (Sen III Item).png',
@@ -170,6 +175,7 @@ OFFICIAL_SPECIAL_ICONS = {
 
 def special_local_icon_key(item_id: int, item: dict) -> str | None:
     """Return precise game-art family; never infer from broad category."""
+    if type(item_id) is not int:return None
     # The game's gift item table occupies one contiguous ID range.
     # Description checks permit international/custom catalogs without
     # accidentally identifying quest keys as presents.
@@ -177,6 +183,7 @@ def special_local_icon_key(item_id: int, item: dict) -> str | None:
         # In the game's stock table, these 31 IDs are gifts. Do not use
         # localized wording so the English release gets identical icons.
         return 'gift'
+    if category_of(item)!='orbment':return None
     if 3150 <= item_id <= 3152:
         return 'sphere_hp'
     if 3153 <= item_id <= 3155:
@@ -205,7 +212,7 @@ def icon_cache_dir(base: Path | None = None) -> Path:
     if base is not None:
         return Path(base)
     appdata = os.environ.get('APPDATA')
-    return (Path(appdata) if appdata else Path.home()/'.config')/'CS3InventoryEditor'/'icons'/'original'
+    return (Path(appdata) if appdata else Path.home()/'.config')/'CS3InventoryEditor_BETA'/'icons'/'original'
 
 
 def _weapon_icon_key(item_id: int | None) -> str | None:
@@ -233,16 +240,14 @@ def _food_icon_key(item_id: int | None) -> str | None:
     return None
 
 
+# The owner confirms that all 25 stock fish use this shared inventory sprite;
+# the Kasagin and Sky Gill screenshots show it directly. S/M/L name artwork
+# variants, not the biological size of each species. Exclude reserved IDs.
+FISH_ICON_KEYS = dict.fromkeys(range(2100, 2125), 'fish_l')
+
+
 def _fish_icon_key(item_id: int | None) -> str | None:
-    if item_id is None:
-        return None
-    if 2100 <= item_id <= 2109:
-        return 'fish_s'
-    if 2110 <= item_id <= 2114:
-        return 'fish_m'
-    if 2115 <= item_id <= 2124:
-        return 'fish_l'
-    return None
+    return FISH_ICON_KEYS.get(item_id)
 
 
 def _material_icon_key(item_id: int | None, item: dict) -> str | None:
@@ -279,9 +284,26 @@ QUARTZ_RARITY_ID_RANGES = (
     (3568, 3577, 'normal'), (3578, 3591, 'r'), (3592, 3606, 'sr'),
 )
 
+# The stock blocks also contain stat upgrades that retain the NORMAL icon.
+# Verified against the rarity field of all 307 item_q records in both supplied
+# game tables. Numeric placement in an R/SR block is not evidence of rarity.
+STANDARD_TIER_QUARTZ_IDS = frozenset((
+    3321,3322,3337,3338,3372,3373,3390,3391,3421,3422,3437,3438,
+    3466,3467,3481,3482,3507,3508,3520,3521,3545,3546,3548,
+    3558,3559,3561,3584,3585,3598,3599,
+))
+QUARTZ_ELEMENT_RANGES=(
+    (3300,3346,'earth'),(3347,3399,'water'),(3400,3446,'fire'),
+    (3447,3490,'wind'),(3491,3528,'time'),(3529,3567,'space'),(3568,3606,'mirage'),
+)
+
 
 def quartz_rarity(item_id: int | None, item: dict) -> str:
-    # Infer rarity using stock ID blocks; fallback to language-neutral tags.
+    if item.get('rarity') in ('normal','r','sr'):
+        return item['rarity']
+    if item_id in STANDARD_TIER_QUARTZ_IDS:
+        return 'normal'
+    # Older catalogs lack native metadata; use the audited stock mapping.
     if isinstance(item_id,int):
         for lo,hi,rarity in QUARTZ_RARITY_ID_RANGES:
             if lo <= item_id <= hi:
@@ -303,23 +325,47 @@ def quartz_rarity(item_id: int | None, item: dict) -> str:
 def icon_key(item: dict, item_id: int | None = None) -> str:
     item_id = item_id if item_id is not None else item.get('id')
     category = category_of(item)
+    code=item.get('type_code')
+    if type(code) is int:
+        native=code & 0xff
+        if category=='food' and native in (0xd3,0xd4,0xd5,0xd6,0xd7):
+            return {0xd3:'food_superb',0xd4:'food_regular',0xd5:'food_peculiar',0xd6:'food_unique',0xd7:'food_attack'}[native]
+        if category=='decoration' and native==0xc6:return 'orbment'
+        if category=='decoration' and native==0xc7:return 'quest'
+        if category=='consumable' and code==0x0681:return 'consumable_booster'
+    if category=='decoration':
+        if type(item_id) is int and 3700<=item_id<=3710:return 'orbment'
+        if item_id in (3130,3131,3132,3140,3141):return 'quest'
+        return 'unverified'
+    if item_id == 130 and category == 'consumable':
+        return 'consumable_pom_droplet'
+    # The owner's second in-game screenshot confirms the same feather for bait.
+    if item_id == 39 and category == 'material':
+        return 'material_key'
+    # Remaining items cannot be identified from the supplied TBLs alone.
+    # Keep guards for confirmed IDs if a custom record changes their category.
+    if item_id in (39,130,249):return 'unverified'
     if category == 'consumable' and item_id in (50,51,52,53,54):
         return 'consumable_booster'
     if category == 'fishing_gear' and item_id == 220:
         return 'fishing_bait'
     if category == 'weapon':
-        return _weapon_icon_key(item_id) or category
+        return _weapon_icon_key(item_id) or 'unverified'
     if category == 'food':
-        return _food_icon_key(item_id) or category
+        return _food_icon_key(item_id) or 'unverified'
     if category == 'fish':
-        return _fish_icon_key(item_id) or category
+        return _fish_icon_key(item_id) or 'unverified'
     if category == 'material':
-        return _material_icon_key(item_id, item) or category
+        return _material_icon_key(item_id, item) or 'unverified'
     if category == 'quartz_normal':
         element = str(item.get('element','')).lower()
+        if not element and type(item_id) is int:
+            element=next((e for lo,hi,e in QUARTZ_ELEMENT_RANGES if lo<=item_id<=hi),'')
         if element in (e.lower() for e in QUARTZ_ELEMENTS.values()):
             rarity = quartz_rarity(item_id, item)
             return 'quartz_' + element + ('_'+rarity if rarity != 'normal' else '')
+        return 'unverified'
+    if category in ('other','quartz_master'):return 'unverified'
     return category
 
 
@@ -654,7 +700,7 @@ def icon_file_for_item(item_id: int, item: dict, cache_dir: Path|None=None,
         original=folder/_safe_filename(master_name)
         if validate_file(original):
             return original
-    names=[GAME_ICON_FILES.get(icon_key(item, item_id)),GAME_ICON_FILES.get(category_of(item))]
+    names=[GAME_ICON_FILES.get(icon_key(item, item_id))]
     for name in dict.fromkeys(n for n in names if n):
         orig=folder/_safe_filename(name)
         if validate_file(orig):

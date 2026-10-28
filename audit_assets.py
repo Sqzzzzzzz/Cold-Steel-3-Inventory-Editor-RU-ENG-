@@ -9,9 +9,9 @@ from collections import Counter
 from pathlib import Path
 from catalog_core import load_catalog_json
 from catalog_visibility import is_visible_item
-from game_icons import (icon_cache_dir, GAME_ICON_FILES, EXACT_ITEM_ICON_FILES,
-                        MASTER_QUARTZ_FILES, OFFICIAL_SPECIAL_ICONS,
-                        special_local_icon_key, icon_key, validate_file)
+from game_icons import icon_cache_dir
+from game_scan import config_dir
+from original_item_icons import original_icon_for_item
 
 
 def audit(catalog_path: Path, cache_path: Path):
@@ -20,33 +20,27 @@ def audit(catalog_path: Path, cache_path: Path):
     for item_id, item in catalog.items():
         if not is_visible_item(item):
             continue
-        special_key = special_local_icon_key(item_id, item)
-        filename = (EXACT_ITEM_ICON_FILES.get(item_id)
-                    or OFFICIAL_SPECIAL_ICONS.get(special_key)
-                    or MASTER_QUARTZ_FILES.get(item_id)
-                    or GAME_ICON_FILES.get(icon_key(item,item_id))
-                    or GAME_ICON_FILES.get(item.get('category','other')))
-        if not filename:
-            continue
+        found=original_icon_for_item(item_id,item,cache=cache_path)
+        filename=found.path.name if found else f'Unverified item ID {item_id}'
         wanted[filename] += 1
-        if not validate_file(cache_path/filename):
+        if found is None or not found.verified:
             missing[filename] += 1
     return sum(wanted.values()), wanted, missing
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Audit cached Cold Steel III icon files')
-    parser.add_argument('--catalog', type=Path, default=Path(__file__).parent/'catalog_builtin.json')
+    parser = argparse.ArgumentParser(description='Audit bundled and cached Cold Steel III item icons')
+    parser.add_argument('--catalog', type=Path, default=config_dir()/'catalog_scanned.json')
     parser.add_argument('--cache', type=Path, default=icon_cache_dir())
     args = parser.parse_args()
     if not args.catalog.is_file():
         parser.error('No item catalog found. Supply --catalog path from your game import.')
     matched, wanted, missing = audit(args.catalog,args.cache)
-    print(f'Item entries checked: {matched}; unique filenames required: {len(wanted)}; missing: {len(missing)}')
+    print(f'Item entries checked: {matched}; distinct mappings: {len(wanted)}; unavailable or unverified: {len(missing)}')
     for filename, count in sorted(missing.items()):
         print(f'  MISSING {filename} — used by {count} item(s)')
     if missing:
-        print('Open the editor and use Tools → Download original icons to attempt to fetch missing artwork.')
+        print('Some item mappings are not verified. See DIAGNOSTICS_V793_RU.md and the per-ID mapping report.')
     else:
         print('All referenced icon PNGs are present and structurally valid. This does not prove pixel-level equivalence with the installed game.')
 

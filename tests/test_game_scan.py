@@ -128,9 +128,15 @@ class ScanTests(unittest.TestCase):
         config = {'theme': 'light', 'game_root': str(self.game),
                   'save_directory': str(self.root), 'auto_latest': False, 'language': 'en'}
         save_settings(config, settings_file)
-        self.assertEqual(load_settings(settings_file), config)
+        migrated=load_settings(settings_file)
+        self.assertEqual(migrated['theme'],'game')
+        self.assertEqual(migrated['game_root'],config['game_root'])
+        self.assertEqual(migrated['save_directory'],config['save_directory'])
+        self.assertEqual(migrated['auto_latest'],False)
+        self.assertEqual(migrated['language'],'en')
+        self.assertEqual(migrated['favorites'],[])
         settings_file.write_text('{bad}', encoding='utf-8')
-        self.assertEqual(load_settings(settings_file)['theme'], 'dark')
+        self.assertEqual(load_settings(settings_file)['theme'], 'game')
         catalog_file = self.root / 'catalog.json'
         result = scan_game_tables(self.game)
         save_catalog_json(catalog_file, result.items)

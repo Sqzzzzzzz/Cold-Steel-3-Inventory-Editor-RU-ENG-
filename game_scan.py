@@ -13,6 +13,7 @@ import tempfile
 from typing import Iterable
 
 from catalog_core import parse_item_tbl
+from catalog_locale import catalog_locale
 
 APP_ID = '991270'
 GAME_DIR_NAMES = (
@@ -25,7 +26,7 @@ GAME_DIR_NAMES = (
 
 def config_dir() -> Path:
     appdata = os.environ.get('APPDATA')
-    return (Path(appdata) if appdata else Path.home() / '.config') / 'CS3InventoryEditor'
+    return (Path(appdata) if appdata else Path.home() / '.config') / 'CS3InventoryEditor_BETA'
 
 
 def load_settings(path: Path | None = None) -> dict:
@@ -34,15 +35,27 @@ def load_settings(path: Path | None = None) -> dict:
         data = json.loads(target.read_text(encoding='utf-8'))
         if isinstance(data, dict):
             return {
-                'theme': data.get('theme') if data.get('theme') in ('dark', 'light') else 'dark',
+                'theme': 'game',
                 'game_root': data.get('game_root') if isinstance(data.get('game_root'), str) else '',
                 'save_directory': data.get('save_directory') if isinstance(data.get('save_directory'), str) else '',
                 'auto_latest': data.get('auto_latest') is not False,
                 'language': data.get('language') if data.get('language') in ('ru','en') else 'ru',
+                'favorites': _item_ids(data.get('favorites',[])),
+                'recents': _item_ids(data.get('recents',[]))[:24],
             }
     except (OSError, ValueError):
         pass
-    return {'theme': 'dark', 'game_root': '', 'save_directory': '', 'auto_latest': True, 'language': 'ru'}
+    return {'theme': 'game', 'game_root': '', 'save_directory': '', 'auto_latest': True, 'language': 'ru',
+            'favorites': [], 'recents': []}
+
+
+def _item_ids(values):
+    if not isinstance(values,list):return []
+    clean=[]
+    for value in values:
+        if type(value) is str and re.fullmatch(r'[0-9]{1,5}',value):value=int(value)
+        if type(value) is int and 0<=value<=65535 and value!=9999 and value not in clean:clean.append(value)
+    return clean
 
 
 def save_settings(settings: dict, path: Path | None = None) -> None:
@@ -52,11 +65,13 @@ def save_settings(settings: dict, path: Path | None = None) -> None:
     try:
         with os.fdopen(fd, 'w', encoding='utf-8') as fh:
             json.dump({
-                'theme': settings.get('theme', 'dark'),
+                'theme': 'game',
                 'game_root': settings.get('game_root', ''),
                 'save_directory': settings.get('save_directory', ''),
                 'auto_latest': settings.get('auto_latest', True),
                 'language': settings.get('language', 'ru'),
+                'favorites': settings.get('favorites',[]),
+                'recents': settings.get('recents',[]),
             }, fh, indent=2, ensure_ascii=False)
         os.replace(tmp, target)
     finally:
@@ -226,6 +241,7 @@ def scan_game_tables(root: str | Path) -> ScanResult:
             result.errors.append(f'{p.relative_to(root)}: {exc}')
             continue
         result.files.append(p)
+        locale=catalog_locale(parsed)
         if p in base_files:
             result.base_count += len(parsed)
         for item_id, item in parsed.items():
@@ -235,7 +251,7 @@ def scan_game_tables(root: str | Path) -> ScanResult:
                     result.conflicts.append(f'ID {item_id}: «{original["name"]}» / «{item["name"]}» ({p.relative_to(root)})')
                 # Main game/base or first DLC wins; collisions must not silently rename items.
                 continue
-            result.items[item_id] = item
+            result.items[item_id] = {**item, '_source': 'dlc' if p in dlc_files else 'base','_locale':locale}
             if p in dlc_files:
                 result.added_by_dlc += 1
     if not result.files:

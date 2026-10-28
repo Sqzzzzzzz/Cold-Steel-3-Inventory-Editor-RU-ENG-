@@ -1,8 +1,12 @@
-name: Build Windows EXE
+name: Build Windows Qt EXE
 
 on:
   workflow_dispatch:
+  pull_request:
   push:
+    branches:
+      - main
+      - 'release/**'
     tags:
       - 'v*'
 
@@ -12,38 +16,90 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
+    timeout-minutes: 20
+    env:
+      QT_QPA_PLATFORM: offscreen
     steps:
       - name: Check out source
         uses: actions/checkout@v7
-
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
           python-version: '3.12'
-
-      - name: Install build dependencies
+      - name: Install runtime, test and build dependencies
         shell: pwsh
-        run: python -m pip install Pillow 'pyinstaller>=6,<7' pefile
-
-      - name: Extract the real Tk feather icon (no downloading)
+        run: python -m pip install -r requirements-qt.txt -r requirements-dev.txt 'pyinstaller>=6,<7' pefile
+      - name: Run regression tests
+        shell: pwsh
+        run: python -m pytest -q
+      - name: Prepare application icon
         shell: pwsh
         run: python tools/extract_tk_icon.py icons/app_icon.ico
-
-      - name: Build Windows EXE with feather icon
+      - name: Build Qt editor with game artwork and background
         shell: pwsh
         run: |
           python -m PyInstaller --noconfirm --clean --onefile --windowed `
-            --add-data 'icons;icons' `
+            --add-data 'icons;icons' --add-data 'assets;assets' `
             --icon 'icons/app_icon.ico' `
-            --name CS3_Inventory_Editor_Feather app.py
-
-      - name: Verify EXE contains icon resources
+            --name CS3_Inventory_Editor qt_window.py
+      - name: Verify executable icon
         shell: pwsh
-        run: python tools/extract_tk_icon.py --verify-exe dist/CS3_Inventory_Editor_Feather.exe icons/app_icon.ico
-
-      - name: Upload Windows EXE
+        run: python tools/extract_tk_icon.py --verify-exe dist/CS3_Inventory_Editor.exe icons/app_icon.ico
+      - name: Launch packaged demo without user file writes
+        shell: pwsh
+        run: |
+          $app = Start-Process '.\dist\CS3_Inventory_Editor.exe' -ArgumentList '--demo','--smoke-test' -PassThru
+          if (-not $app.WaitForExit(30000)) {
+            Stop-Process -Id $app.Id -Force
+            throw 'Packaged Qt application did not finish its startup check.'
+          }
+          if ($app.ExitCode -ne 0) { throw "Packaged Qt application exited with $($app.ExitCode)." }
+      - name: Verify packaged editor file operations and both UI languages
+        shell: pwsh
+        run: |
+          $app = Start-Process '.\dist\CS3_Inventory_Editor.exe' -ArgumentList '--self-test','--self-test-report','release-checks/report.json' -PassThru
+          if (-not $app.WaitForExit(60000)) {
+            Stop-Process -Id $app.Id -Force
+            throw 'Packaged editor self-test timed out.'
+          }
+          if (Test-Path 'release-checks/report.json') { Get-Content 'release-checks/report.json' }
+          if ($app.ExitCode -ne 0) { throw "Packaged self-test failed: $($app.ExitCode)" }
+      - name: Package the Windows release
+        shell: pwsh
+        run: python tools/package_release.py
+      - name: Upload Windows release
         uses: actions/upload-artifact@v7
         with:
-          name: CS3-Inventory-Editor-Feather-Windows
-          path: dist/CS3_Inventory_Editor_Feather.exe
+          name: CS3-Inventory-Editor-Windows
+          path: release/*
           if-no-files-found: error
+      - name: Upload packaged diagnostic report and screenshots
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: Windows-release-diagnostics
+          path: release-checks/*
+          if-no-files-found: ignore
+
+  draft-release:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: CS3-Inventory-Editor-Windows
+          path: release
+      - name: Prepare a draft release with the tested Windows ZIP
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(python -c 'from app_info import VERSION; print(VERSION)')
+          if gh release view "v$version" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release v$version already exists; leaving it unchanged."
+          else
+            gh release create "v$version" release/* --draft --target "$GITHUB_SHA" --title "CS3 Inventory Editor v$version — Qt interface" --notes-file RELEASE_NOTES.md
+          fi

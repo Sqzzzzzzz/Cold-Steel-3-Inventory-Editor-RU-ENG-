@@ -1,0 +1,22 @@
+{
+  "version": "7.9.4",
+  "tests": {
+    "tests": "170",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0"
+  },
+  "static_analysis": "ruff E9 F63 F7 F82: passed",
+  "frozen_linux_self_test": "passed",
+  "dpi_factors": [
+    1,
+    1.25,
+    1.5
+  ],
+  "native_save_roundtrip": "100 random batches, undo, copy, overwrite backup and reopen passed on disposable copies",
+  "source_save_unchanged": true,
+  "windows_exe": "not built: GitHub write request returned 403; no Windows runner available",
+  "github_publish": "blocked by connection permissions",
+  "game_side_load": "not performed",
+  "dlc_extra_records_not_independently_verified": 7
+}

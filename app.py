@@ -16,7 +16,8 @@ from catalog_core import (clear_codes, load_catalog_json, load_external_catalog,
                           resource_path, save_catalog_json, user_catalog_path)
 from cs3_save import CS3Save, SaveFormatError, get_diff_summary, MAX_QUANTITY
 from categories import GROUPS, CATEGORY_NAMES, category_of, item_in_category
-from catalog_visibility import is_visible_item
+from catalog_visibility import is_visible_item, NON_INVENTORY_ITEM_IDS
+from quartz_details import generated_help
 from game_icons import (icon_cache_dir, icon_file_for_item,
                         download_original_icons, import_original_icons, validate_file, ALL_ORIGINAL_FILES, MASTER_QUARTZ_FILES, special_local_icon_key, OFFICIAL_SPECIAL_ICONS)
 from save_scan import save_directories, newest_compatible_save
@@ -24,19 +25,28 @@ from game_scan import (find_game_install, load_settings, save_settings,
                        scan_game_tables, config_dir)
 from dlc_translation import KNOWN_RUSSIAN_DLC, is_english_only, missing_ru_entries
 import csv
+from beta_config import seed_beta_profile
+from hud_art import strip, attach_corners, HUDTab
 
-APP_NAME = 'Cold Steel III — Inventory Editor v7.0.1'
+APP_NAME = 'Cold Steel III — Inventory Editor v7.5.0 GAME HUD BETA'
 
 
 class Editor(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title(APP_NAME)
-        self.geometry('1450x870')
-        self.minsize(1140, 710)
+        self.geometry('1620x910')
+        self.minsize(1350, 770)
+        # Beta must not touch the released editor's settings/catalog/icon cache.
+        # Copy user-owned translations and icons just once for easy testing.
+        try:seed_beta_profile()
+        except OSError:pass
         self.save: CS3Save | None = None
         self.source: Path | None = None
         self.settings = load_settings()
+        self.settings['theme'] = 'game'
+        self.favorites = {int(x) for x in self.settings.get('favorites', []) if str(x).isdigit()}
+        self.recents = [int(x) for x in self.settings.get('recents', []) if str(x).isdigit()][:20]
         self.language = self.settings.get('language', 'ru')
         set_language(self.language)
         self.language_var = tk.StringVar(value='English' if self.language=='en' else 'Русский')
@@ -75,6 +85,7 @@ class Editor(tk.Tk):
         self.catalog = {}
         self._rebuild_catalog()
         self._item_images = {}
+        self._detail_images = {}
         self._resolved_icon_paths = {}
         self._sort_state = {'catalog': ('name', False), 'inventory': ('slot', False)}
         self._search_jobs = {}
@@ -84,7 +95,6 @@ class Editor(tk.Tk):
         self._icon_events = queue.Queue()
         self._icon_downloading = False
         self.icon_status = LocalizedStringVar(value=self._icon_status_text())
-        self.theme_var = tk.StringVar(value=('Dark' if self.language=='en' else 'Тёмная') if self.settings['theme'] == 'dark' else ('Light' if self.language=='en' else 'Светлая'))
         self._scan_events = queue.Queue()
         self._scanning = False
         self.scan_info = LocalizedStringVar(value='Сканирование игры: ещё не выполнялось')
@@ -93,9 +103,15 @@ class Editor(tk.Tk):
         self.search_inv = tk.StringVar()
         self.search_all = tk.StringVar()
         self.only_missing = tk.BooleanVar(value=False)
+        self.only_present = tk.BooleanVar(value=False)
+        self.catalog_source = tk.StringVar(value='Все источники')
         self.auto_latest = tk.BooleanVar(value=self.settings.get('auto_latest', True))
         self.active_category = 'all'
         self.save_line = LocalizedStringVar(value='Сохранение не открыто. Можно выбрать файл вручную.')
+        self.sidebar_file_var=LocalizedStringVar(value='saveXXX.dat')
+        self.sidebar_path_var=LocalizedStringVar(value=tr('Путь не выбран'))
+        self.sidebar_time_var=LocalizedStringVar(value='--.--.---- --:--')
+        self.sidebar_state_var=LocalizedStringVar(value=tr('Файл не загружен'))
         self.item_var = tk.StringVar()
         self.qty_var = tk.StringVar(value='1')
         self.status = LocalizedStringVar(value='Выберите предмет из каталога; для редактирования откройте saveXXX.dat')
@@ -106,7 +122,8 @@ class Editor(tk.Tk):
         self._make_ui()
         self.search_inv.trace_add('write', lambda *_: self._schedule_filter('inventory'))
         self.search_all.trace_add('write', lambda *_: self._schedule_filter('catalog'))
-        self.only_missing.trace_add('write', lambda *_: self.refresh_catalog())
+        self.only_missing.trace_add('write', lambda *_: self._on_presence_filter('missing'))
+        self.only_present.trace_add('write', lambda *_: self._on_presence_filter('present'))
         self.refresh_catalog()
         # Start after the window opens. Scanning happens off the UI thread.
         self._startup_jobs.append(self.after(400, lambda: self.start_scan(manual=False)))
@@ -119,6 +136,10 @@ class Editor(tk.Tk):
         self.bind('<Control-f>', self.focus_catalog_search)
         self.bind('<F5>', lambda _e: self.load_latest_save(manual=True))
         self.bind('<Control-s>', lambda _e: self.save_copy())
+        self.bind('<Control-z>',lambda _e:self.undo())
+        self.bind('<Delete>',self._delete_shortcut)
+        self.bind('<Return>',self._apply_shortcut)
+        self.bind('<Control-a>',self._select_all_shortcut)
 
     def _icon_status_text(self):
         cache=icon_cache_dir()
@@ -159,6 +180,7 @@ class Editor(tk.Tk):
         self._icon_downloading=False
         self.icons_button.configure(state='normal')
         self._item_images.clear()
+        if hasattr(self,'_detail_images'):self._detail_images.clear()
         self._resolved_icon_paths.clear()
         self.refresh_catalog()
         self.refresh_inventory()
@@ -188,6 +210,7 @@ class Editor(tk.Tk):
         try:
             imported,invalid=import_original_icons(Path(folder))
             self._item_images.clear()
+            if hasattr(self,'_detail_images'):self._detail_images.clear()
             self._resolved_icon_paths.clear()
             self.refresh_catalog()
             self.refresh_inventory()
@@ -230,92 +253,137 @@ class Editor(tk.Tk):
         }
         if hasattr(self, '_item_images'):
             self._item_images.clear()
+        if hasattr(self,'_detail_images'):self._detail_images.clear()
         if hasattr(self, '_resolved_icon_paths'):
             self._resolved_icon_paths.clear()
 
-    def apply_theme(self, save=True):
-        """Two complete, cohesive ttk palettes, including panels and native Text."""
-        dark = self.theme_var.get() in ('Тёмная','Dark')
-        p = ({'bg':'#101722','panel':'#1A2535','surface':'#202E40',
-              'fg':'#F2F5FA','muted':'#A5B3C4','input':'#131F2D',
-              'border':'#34465B','select':'#295A8C','button':'#29384B',
-              'hover':'#354D66','disabled':'#8494A6','accent':'#367CC8',
-              'accent_hover':'#4492E3','danger':'#BA6371','stripe':'#202D3D',
-              'focus':'#74B8FF'} if dark else
-             {'bg':'#F3F6FA','panel':'#FFFFFF','surface':'#EFF3F9',
-              'fg':'#18283B','muted':'#52667D','input':'#FFFFFF',
-              'border':'#D4DEEA','select':'#D7E8FF','button':'#EBF1F9',
-              'hover':'#DDE9F9','disabled':'#8795A6','accent':'#1E66BA',
-              'accent_hover':'#1454A4','danger':'#B84350','stripe':'#F5F8FC',
-              'focus':'#075FBA'})
+    def apply_theme(self, save=False):
+        """A single responsive, in-game-inspired cyan/steel palette."""
+        p = {'bg':'#09283F', 'panel':'#07324C', 'surface':'#10445F',
+             'fg':'#F1F9FF', 'muted':'#BDDCEB', 'input':'#062A41',
+             'border':'#3589AD', 'select':'#0878B4', 'button':'#0D4765',
+             'hover':'#156F99', 'disabled':'#82A6B6', 'accent':'#048EDD',
+             'accent_hover':'#21B9F7', 'danger':'#FF9EAA', 'stripe':'#0C3954',
+             'focus':'#80E9FF'}
         self.style.theme_use('clam')
         self.configure(background=p['bg'])
         self.style.configure('.', font=('Segoe UI', 10), background=p['bg'], foreground=p['fg'])
-        self.style.configure('TFrame', background=p['bg'])
-        self.style.configure('App.TFrame', background=p['bg'])
-        self.style.configure('Card.TFrame', background=p['panel'])
-        self.style.configure('Header.TFrame', background=p['panel'])
-        self.style.configure('TLabel', background=p['bg'], foreground=p['fg'])
-        self.style.configure('Card.TLabel', background=p['panel'], foreground=p['fg'])
-        self.style.configure('CardMuted.TLabel', background=p['panel'], foreground=p['muted'])
-        self.style.configure('Title.TLabel', background=p['panel'], foreground=p['fg'], font=('Segoe UI Semibold', 15))
-        self.style.configure('Section.TLabel', background=p['panel'], foreground=p['fg'], font=('Segoe UI Semibold', 11))
-        self.style.configure('Info.TLabel', background=p['bg'], foreground=p['muted'])
-        self.style.configure('TButton', background=p['button'], foreground=p['fg'],
-                             bordercolor=p['border'], relief='flat', padding=(11,8),
-                             focuscolor=p['focus'])
-        self.style.map('TButton', background=[('disabled',p['surface']),('pressed',p['select']),('active',p['hover'])],
+        for key,color in [('TFrame',p['bg']),('App.TFrame',p['bg']),
+                          ('Card.TFrame',p['panel']),('Header.TFrame',p['panel']),
+                          ('Nav.TFrame',p['input'])]:
+            self.style.configure(key, background=color)
+        self.style.configure('TLabel',background=p['bg'],foreground=p['fg'])
+        self.style.configure('Card.TLabel',background=p['panel'],foreground=p['fg'])
+        self.style.configure('Icon.TLabel',background='#092942',foreground=p['fg'])
+        self.style.configure('CardMuted.TLabel',background=p['panel'],foreground=p['muted'])
+        self.style.configure('Nav.TLabel',background=p['input'],foreground=p['fg'])
+        self.style.configure('NavMuted.TLabel',background=p['input'],foreground=p['muted'])
+        self.style.configure('Title.TLabel',background=p['panel'],foreground=p['fg'],font=('Cambria',22))
+        self.style.configure('Section.TLabel',background=p['panel'],foreground=p['fg'],font=('Segoe UI Semibold',11))
+        self.style.configure('Info.TLabel',background=p['bg'],foreground=p['muted'])
+        self.style.configure('TButton',background=p['button'],foreground=p['fg'],bordercolor=p['border'],
+                             padding=(10,7),relief='flat')
+        self.style.map('TButton',background=[('disabled',p['input']),('pressed',p['select']),('active',p['hover'])],
                        foreground=[('disabled',p['disabled'])])
-        self.style.configure('Accent.TButton', background=p['accent'], foreground='#FFFFFF',
-                             bordercolor=p['accent'], relief='flat', padding=(11,9))
-        self.style.map('Accent.TButton', background=[('active',p['accent_hover']),('pressed',p['select'])],
-                       foreground=[('disabled',p['disabled'])])
-        self.style.configure('Danger.TButton', background=p['surface'], foreground=p['danger'],
-                             bordercolor=p['border'], padding=(11,8), relief='flat')
-        self.style.map('Danger.TButton', background=[('active',p['hover'])])
-        for sty, parent_bg in (('TCheckbutton',p['bg']),('Card.TCheckbutton',p['panel'])):
-            self.style.configure(sty, background=parent_bg, foreground=p['fg'])
-            self.style.map(sty, background=[('active', parent_bg)],foreground=[('disabled',p['disabled'])])
+        self.style.configure('Accent.TButton',background=p['accent'],foreground='#FFFFFF',
+                             bordercolor=p['focus'],relief='flat',padding=(10,8))
+        self.style.map('Accent.TButton',background=[('active',p['accent_hover']),('pressed',p['select'])])
+        self.style.configure('Danger.TButton',background=p['button'],foreground=p['danger'],
+                             bordercolor=p['border'],relief='flat',padding=(10,8))
+        self.style.map('Danger.TButton',background=[('active',p['hover'])])
+        self.style.configure('Nav.TButton',background=p['input'],foreground=p['fg'],
+                             borderwidth=0,relief='flat',anchor='w',padding=(14,11))
+        self.style.map('Nav.TButton',background=[('active',p['hover'])])
+        self.style.configure('ActiveNav.TButton',background=p['select'],foreground='#FFFFFF',
+                             borderwidth=0,relief='flat',anchor='w',padding=(14,11))
+        self.style.map('ActiveNav.TButton',background=[('active',p['select'])])
+        self.style.configure('Nav.TButton',font=('Segoe UI Semibold',13))
+        self.style.configure('ActiveNav.TButton',font=('Segoe UI Semibold',13))
+        for style,background in [('TCheckbutton',p['bg']),('Card.TCheckbutton',p['panel'])]:
+            self.style.configure(style,background=background,foreground=p['fg'])
+            self.style.map(style,background=[('active',background)])
         for widget in ('TEntry','TSpinbox','TCombobox'):
-            self.style.configure(widget, fieldbackground=p['input'], background=p['input'],
-                                 foreground=p['fg'], bordercolor=p['border'], arrowcolor=p['fg'],
-                                 insertcolor=p['fg'], padding=6)
-            self.style.map(widget, fieldbackground=[('readonly',p['input']),('disabled',p['surface'])],
-                           foreground=[('readonly',p['fg']),('disabled',p['disabled'])],
-                           selectbackground=[('focus',p['select'])])
-        self.style.configure('TNotebook', background=p['bg'], borderwidth=0,
-                             bordercolor=p['border'], lightcolor=p['border'],darkcolor=p['border'])
-        self.style.configure('TNotebook.Tab', background=p['button'], foreground=p['fg'],
-                             borderwidth=0, bordercolor=p['border'],
-                             lightcolor=p['border'],darkcolor=p['border'],padding=(16,10))
-        self.style.map('TNotebook.Tab', background=[('selected',p['panel']),('active',p['hover'])])
-        for prefix in ('','Category.'):
-            self.style.configure(prefix+'Treeview', background=p['panel'], foreground=p['fg'],
-                                 fieldbackground=p['panel'], bordercolor=p['border'],
-                                 borderwidth=0, lightcolor=p['border'],darkcolor=p['border'],rowheight=29)
-            self.style.map(prefix+'Treeview', background=[('selected',p['select'])],
-                           foreground=[('selected','#FFFFFF' if dark else p['fg'])])
-        self.style.configure('Treeview.Heading', background=p['surface'], foreground=p['fg'],
-                             bordercolor=p['border'], lightcolor=p['border'],darkcolor=p['border'],
-                             relief='flat', padding=(7,8),
+            self.style.configure(widget,fieldbackground=p['input'],background=p['input'],
+                                 foreground=p['fg'],bordercolor=p['border'],arrowcolor=p['fg'],
+                                 insertcolor=p['fg'],padding=6)
+            self.style.map(widget,fieldbackground=[('readonly',p['input']),('disabled',p['surface'])],
+                           foreground=[('readonly',p['fg']),('disabled',p['disabled'])])
+        self.style.configure('Game.TNotebook',background=p['bg'],borderwidth=0)
+        # Navigation rail owns page switching, so no duplicate top tab strip.
+        self.style.layout('Game.TNotebook.Tab',[])
+        for style in ('Treeview','Category.Treeview'):
+            self.style.configure(style,background=p['panel'],foreground=p['fg'],
+                fieldbackground=p['panel'],borderwidth=0,rowheight=32,bordercolor=p['border'])
+            self.style.map(style,background=[('selected',p['select'])],foreground=[('selected','#FFFFFF')])
+        self.style.configure('Treeview.Heading',background=p['surface'],foreground=p['fg'],
+                             bordercolor=p['border'],relief='flat',padding=(6,6),
                              font=('Segoe UI Semibold',10))
-        self.style.map('Treeview.Heading', background=[('active',p['hover'])])
-        for name in ('TScrollbar','Vertical.TScrollbar','Horizontal.TScrollbar'):
-            self.style.configure(name, background=p['button'], troughcolor=p['bg'],
-                                 bordercolor=p['border'], arrowcolor=p['fg'])
-        self.style.configure('TSeparator', background=p['border'])
-        if hasattr(self, 'details'):
+        self.style.map('Treeview.Heading',background=[('active',p['hover'])])
+        self.style.configure('TScrollbar',background=p['button'],troughcolor=p['input'],arrowcolor=p['fg'])
+        self.style.configure('TSeparator',background=p['border'])
+        self._install_hud_button_skins()
+        self.style.configure('Game.TLabelframe',background=p['panel'],bordercolor=p['border'])
+        self.style.configure('Game.TLabelframe.Label',background=p['panel'],foreground=p['fg'],
+                             font=('Segoe UI Semibold',11))
+        if hasattr(self,'details'):
             self.details.configure(bg=p['input'],fg=p['fg'],insertbackground=p['fg'],
                                    highlightbackground=p['border'],selectbackground=p['select'],
-                                   selectforeground='#FFFFFF' if dark else p['fg'])
-        if hasattr(self,'tree'):
-            for tree in (self.tree,self.all_tree):
-                tree.tag_configure('stripe', background=p['stripe'])
+                                   selectforeground='#FFFFFF')
+        for tree in (getattr(self,'tree',None),getattr(self,'all_tree',None)):
+            if tree:tree.tag_configure('stripe',background=p['stripe'])
         self._colors=p
-        if save:
-            self.settings['theme']='dark' if dark else 'light'
-            try: save_settings(self.settings)
-            except OSError as exc: self.scan_info.set(f'Не удалось запомнить тему: {exc}')
+
+    def _install_hud_button_skins(self):
+        """Nine-slice glowing cyan/dark glass sprites for actual ttk buttons."""
+        if getattr(self,'_hud_sprites',None):
+            return
+        try:
+            from PIL import Image,ImageDraw,ImageTk
+            self._hud_sprites={}
+            def sprite(key,top,bottom,edge,shine,height=48):
+                im=Image.new('RGBA',(166,height),(0,0,0,0));d=ImageDraw.Draw(im,'RGBA')
+                for j in range(3,0,-1):
+                    d.rounded_rectangle((j,j,165-j,height-1-j),radius=5,outline=(*edge,18+20*(4-j)),width=1)
+                for y in range(4,height-4):
+                    t=(y-4)/max(1,height-8)
+                    col=tuple(int(top[i]*(1-t)+bottom[i]*t) for i in range(3))
+                    d.line((4,y,161,y),fill=(*col,255))
+                d.rounded_rectangle((3,3,162,height-4),radius=4,outline=(*edge,235),width=2)
+                d.line((12,5,154,5),fill=(*shine,165),width=2)
+                d.line((12,height-6,154,height-6),fill=(*edge,74),width=1)
+                obj=ImageTk.PhotoImage(im,master=self)
+                self._hud_sprites[key]=obj
+                return obj
+            normal=sprite('normal',(15,74,105),(6,41,68),(79,176,214),(167,232,249))
+            nhover=sprite('nhover',(26,110,145),(7,60,87),(80,215,245),(196,243,255))
+            active=sprite('accent',(20,165,236),(3,81,176),(96,238,255),(228,255,255))
+            ahover=sprite('ahover',(42,193,252),(3,101,198),(117,249,255),(243,255,255))
+            danger=sprite('danger',(74,43,65),(37,26,50),(212,88,116),(247,157,172))
+            nav=sprite('nav',(10,47,73),(7,39,65),(35,109,142),(71,146,186))
+            nav_active=sprite('navactive',(23,160,227),(3,77,150),(82,240,255),(226,255,255))
+            normal_small=sprite('normal_small',(15,74,105),(6,41,68),(79,176,214),(167,232,249),height=39)
+            hover_small=sprite('hover_small',(26,110,145),(7,60,87),(80,215,245),(196,243,255),height=39)
+            active_small=sprite('accent_small',(20,165,236),(3,81,176),(96,238,255),(228,255,255),height=39)
+            danger_small=sprite('danger_small',(74,43,65),(37,26,50),(212,88,116),(247,157,172),height=39)
+            for name,base,hover in [('HUDGlass',normal,nhover),('HUDAccent',active,ahover),
+                                    ('HUDDanger',danger,nhover),('HUDNav',nav,nhover),('HUDNavActive',nav_active,ahover),
+                                    ('HUDCompact',normal_small,hover_small),('HUDCompactAccent',active_small,hover_small),
+                                    ('HUDCompactDanger',danger_small,hover_small)]:
+                self.style.element_create(name,'image',base,('active',hover),('pressed',hover),
+                                          border=(12,12,12,12),sticky='nswe')
+            for style,name in [('TButton','HUDGlass'),('Accent.TButton','HUDAccent'),
+                               ('Danger.TButton','HUDDanger'),('Compact.TButton','HUDCompact'),
+                               ('CompactAccent.TButton','HUDCompactAccent'),('CompactDanger.TButton','HUDCompactDanger'),
+                               ('Nav.TButton','HUDNav'),
+                               ('ActiveNav.TButton','HUDNavActive')]:
+                self.style.layout(style,[(name,{'sticky':'nswe','children':[
+                    ('Button.focus',{'sticky':'nswe','children':[
+                        ('Button.padding',{'sticky':'nswe','children':[
+                            ('Button.label',{'sticky':'nswe'})]})]})]})])
+                self.style.configure(style,borderwidth=0,relief='flat',padding=(9,5))
+        except (ImportError,tk.TclError,ValueError) as exc:
+            # The simpler standard Windows ttk theme remains functional.
+            self._hud_sprites=None
 
     def start_scan(self, manual=True, folder=None):
         if self._scanning:
@@ -429,198 +497,562 @@ class Editor(tk.Tk):
             self.start_scan(manual=True, folder=path)
 
     def _make_ui(self):
-        header = ttk.Frame(self, style='Header.TFrame', padding=(18,14,18,14))
-        header.pack(fill='x')
-        ttk.Label(header, text='COLD STEEL III  /  ИНВЕНТАРЬ', style='Title.TLabel').pack(side='left')
-        ttk.Label(header,text='  •  ВЕРСИЯ 7.0.1',style='CardMuted.TLabel').pack(side='left')
-        self.theme_combo = ttk.Combobox(header, state='readonly', width=10,
-                         textvariable=self.theme_var,
-                         values=('Dark','Light') if self.language=='en' else ('Тёмная','Светлая'))
-        self.theme_combo.pack(side='right', padx=(8,0))
-        ttk.Label(header, text='Оформление', style='CardMuted.TLabel').pack(side='right')
-        self.theme_combo.bind('<<ComboboxSelected>>', lambda _e: self.apply_theme())
-        self.language_combo = ttk.Combobox(header, state='readonly', width=10,
-                         textvariable=self.language_var, values=('Русский','English'))
-        self.language_combo.pack(side='right', padx=(8,14))
-        ttk.Label(header, text='Язык', style='CardMuted.TLabel').pack(side='right')
-        self.language_combo.bind('<<ComboboxSelected>>', lambda _e: self.change_language())
+        """Working Tk interface matched to the approved cinematic game HUD.
 
-        filesbar = ttk.Frame(self, padding=(14,12,14,5))
-        filesbar.pack(fill='x')
-        ttk.Button(filesbar, text='Последнее сохранение  F5', command=self.load_latest_save,
-                   style='Accent.TButton').pack(side='left', padx=(0,7))
-        ttk.Button(filesbar, text='Открыть вручную  Ctrl+O', command=self.open_save).pack(side='left',padx=(0,7))
-        ttk.Button(filesbar, text='Сравнить два файла', command=self.compare_saves).pack(side='left')
-        ttk.Button(filesbar, text='Сохранить копию…  Ctrl+S', command=self.save_copy).pack(side='right')
-        ttk.Button(filesbar, text='Записать с резервной копией',command=self.save_overwrite).pack(side='right',padx=(0,7))
-        saveline=ttk.Frame(self,padding=(16,1,14,5))
-        saveline.pack(fill='x')
-        ttk.Label(saveline,textvariable=self.save_line,style='Info.TLabel').pack(side='left')
-        ttk.Checkbutton(saveline,text='Автовыбор при запуске', variable=self.auto_latest,
-                        command=self._on_auto_change).pack(side='right')
-        # Advanced controls are available with one click, not occupying
-        # four toolbar rows during normal item editing.
-        advanced_head=ttk.Frame(self,padding=(14,1,14,7))
-        advanced_head.pack(fill='x')
-        self.tools_button=ttk.Button(advanced_head,text='Инструменты и игровые ресурсы  ▾',
-                                     command=self.toggle_tools)
-        self.tools_button.pack(side='left')
-        ttk.Label(advanced_head,textvariable=self.icon_status,
-                  style='Info.TLabel').pack(side='right')
-        self.tools_frame=ttk.Frame(self)
-        gamebar=ttk.Frame(self.tools_frame,padding=(14,6,14,6))
-        gamebar.pack(fill='x')
-        self.scan_button=ttk.Button(gamebar,text='Сканировать игру и DLC',
-                              command=lambda:self.start_scan(manual=True))
-        self.scan_button.pack(side='left',padx=(0,7))
-        ttk.Button(gamebar,text='Выбрать папку игры',command=self.choose_game_folder).pack(side='left',padx=(0,7))
-        ttk.Button(gamebar,text='Импорт .tbl / .csv',command=self.open_catalog).pack(side='left',padx=(0,8))
-        ttk.Button(gamebar,text='Импорт английского .tbl',command=self.import_english_catalog).pack(side='left')
-        ttk.Button(gamebar,text='Отчёт о переводе DLC',command=self.export_missing_translations).pack(side='left',padx=(7,0))
-        ttk.Button(gamebar,text='Импорт перевода DLC',command=self.import_ru_dlc_translations).pack(side='left',padx=(7,0))
-        ttk.Label(gamebar,textvariable=self.scan_info,style='Info.TLabel').pack(side='right')
-        iconsbar=ttk.Frame(self.tools_frame,padding=(14,0,14,9))
-        iconsbar.pack(fill='x')
-        self.icons_button=ttk.Button(iconsbar,text='Загрузить оригинальные иконки',
-                   command=lambda:self.start_icon_download(manual=True))
-        self.icons_button.pack(side='left',padx=(0,10))
-        ttk.Button(iconsbar,text='Импорт папки PNG',command=self.choose_icon_folder).pack(side='left',padx=(0,11))
-        ttk.Label(iconsbar,text='Поддержка подарков и четырёх видов EX-сфер',
-                  style='Info.TLabel').pack(side='right')
-        self.main_separator=ttk.Separator(self)
-        self.main_separator.pack(fill='x')
+        Background/ornaments are static artwork. Treeviews, search, filters and
+        save actions remain live widgets rather than text flattened into an image.
+        """
+        from PIL import Image, ImageTk
+        wall=Image.open(resource_path('assets/academy_hud_background.jpg')).convert('RGB')
+        self._wall_original=wall
+        self._wall_photo=ImageTk.PhotoImage(wall.resize((1620,910),Image.Resampling.BILINEAR),master=self)
+        self._wall_label=tk.Label(self,image=self._wall_photo,bg=self._colors['bg'],bd=0)
+        self._wall_label.place(x=0,y=0,relwidth=1,relheight=1)
+        self._wall_label.lower()
+        # Single resize update, not 1200 Treeview repaints per motion event.
+        self._wall_job=None
+        self.bind('<Configure>',self._resize_backdrop,add='+')
 
-        bottom=ttk.Frame(self,padding=(14,4,14,11))
-        bottom.pack(side='bottom',fill='x')
-        ttk.Label(bottom,textvariable=self.catalog_status,style='Info.TLabel').pack(anchor='w',pady=(0,5))
-        ttk.Separator(bottom).pack(fill='x',pady=(0,7))
-        ttk.Label(bottom,textvariable=self.status,style='Info.TLabel').pack(anchor='w')
+        # Cinematic translucent header: actual academy scenery is visible through
+        # a precomposed glass layer. Labels are native Canvas text (not a bitmap).
+        header=tk.Canvas(self,height=105,bg='#0A314D',highlightthickness=0,borderwidth=0)
+        self.header_canvas=header
+        header.pack(fill='x',pady=(0,0))
+        header.pack_propagate(False)
+        self._header_image_id=header.create_image(0,0,anchor='nw')
+        self._header_title=header.create_text(172,40,anchor='w',text=tr('Редактор сохранений'),
+                 fill='#F6FBFF',font=('Cambria',32))
+        self._header_subtitle=header.create_text(174,81,anchor='w',
+                 text='COLD STEEL III  ·  ИНВЕНТАРЬ',
+                 fill='#84D4F4',font=('Cambria',12))
+        lang=tk.Frame(header,bg='#103A59',padx=8,pady=7)
+        lang_caption=tk.Label(lang,text=tr('Язык'),bg='#103A59',fg='#C9E4F2',
+                 font=('Segoe UI',10))
+        lang_caption._ru_ui_text='Язык'
+        lang_caption.pack(side='left',padx=(0,9))
+        self.language_combo=ttk.Combobox(lang,state='readonly',width=9,
+              textvariable=self.language_var,values=('Русский','English'))
+        self.language_combo.pack(side='left')
+        self.language_combo.bind('<<ComboboxSelected>>',lambda _e:self.change_language())
+        self._lang_window=header.create_window(0,26,window=lang,anchor='ne')
+        def header_resize(e):
+            if e.widget is header:
+                header.coords(self._lang_window,max(100,e.width-28),26)
+                if getattr(self,'_header_job',None):
+                    try:self.after_cancel(self._header_job)
+                    except tk.TclError:pass
+                self._header_job=self.after(120,lambda w=e.width:self._redraw_header(w,105))
+        header.bind('<Configure>',header_resize)
+        # Main save operations remain prominent, one-line and always accessible.
+        toolbar=tk.Frame(self,bg='#0C3551',height=79,highlightbackground='#2D8EB2',highlightthickness=0)
+        toolbar.pack(fill='x',padx=(232,26),pady=(5,0))
+        toolbar.pack_propagate(False)
+        self._toolbar_photo=None
+        self._toolbar_art=tk.Label(toolbar,bd=0,highlightthickness=0,bg='#0C3551')
+        self._toolbar_art.place(x=0,y=0,relwidth=1,relheight=1)
+        self._toolbar_art.lower()
+        toolbar.bind('<Configure>',self._on_toolbar_resize)
+        self.toolbar_buttons={
+            'latest':ttk.Button(toolbar,text='▤  '+tr('Последнее сохранение')+'   F5',style='Accent.TButton',command=self.load_latest_save),
+            'open':ttk.Button(toolbar,text='▣  '+tr('Открыть вручную')+'  Ctrl+O',command=self.open_save),
+            'compare':ttk.Button(toolbar,text='⚖  '+tr('Сравнить два файла'),command=self.compare_saves),
+            'copy':ttk.Button(toolbar,text='▣  '+tr('Сохранить копию…'),command=self.save_copy),
+            'overwrite':ttk.Button(toolbar,text='▤  '+tr('Записать с резервной копией'),command=self.save_overwrite),
+        }
+        for k in ('latest','open','compare'):
+            self.toolbar_buttons[k].pack(side='left',padx=(12,6) if k=='latest' else 6,pady=4)
+        self.toolbar_buttons['copy'].pack(side='right',padx=(6,12),pady=4)
+        self.toolbar_buttons['overwrite'].pack(side='right',padx=6,pady=4)
+        self._toolbar_compact=None
+        topline=tk.Frame(self,bg='#0C3551',height=23)
+        topline.pack(fill='x',padx=(232,26),pady=(0,9))
+        self.save_note=tk.Label(topline,textvariable=self.save_line,bg='#0C3551',fg='#D1E7F3',
+                                font=('Segoe UI',9),anchor='w')
+        self.save_note.pack(fill='x',padx=9,pady=2)
 
-        # Static two-column layout: the details panel is intentionally not
-        # resizable. This removes the last source of visible lag reported on
-        # Windows when dragging the right-hand divider.
-        center=ttk.Frame(self,style='App.TFrame')
-        center.pack(fill='both',expand=True,padx=12,pady=(12,7))
-        left=ttk.Frame(center,style='App.TFrame')
-        left.pack(side='left',fill='both',expand=True,padx=(0,12))
-        right=ttk.Frame(center,style='Card.TFrame',padding=(18,15,18,15),width=340)
-        right.pack(side='right',fill='y')
-        right.pack_propagate(False)
+        # The status bar is visually separate from the content glass panels.
+        foot=tk.Frame(self,bg='#092B44',height=32,highlightthickness=1,highlightbackground='#377F9E')
+        foot.pack(side='bottom',fill='x',padx=(205,13),pady=(4,6))
+        foot.pack_propagate(False)
+        ttk.Label(foot,textvariable=self.status,style='Info.TLabel').pack(side='left',padx=10,pady=6)
+        ttk.Label(foot,textvariable=self.catalog_status,style='Info.TLabel').pack(side='right',padx=10,pady=6)
 
-        self.tabs=ttk.Notebook(left)
+        middle=tk.Frame(self,bg='#0A2A40')
+        middle.pack(fill='both',expand=True,padx=(14,14),pady=(0,1))
+        rail=tk.Frame(middle,bg='#0B304D',width=214,highlightbackground='#3A93B7',highlightthickness=0)
+        rail.pack(side='left',fill='y',padx=(0,9))
+        rail.pack_propagate(False)
+        self.nav_buttons={}
+        for key,title in (('inventory','◫  Инвентарь'),('catalog','▤  Каталог'),('tools','⚙  Инструменты')):
+            button=ttk.Button(rail,text=tr(title),style='Nav.TButton',
+                              command=lambda k=key:self.show_page(k))
+            button.pack(fill='x',pady=(11 if key=='inventory' else 11,3),padx=5)
+            self.nav_buttons[key]=button
+        self.nav_mode_hint=tk.Label(rail,text='COLD STEEL III   ·   HUD',bg='#0B304D',fg='#81B6CE',font=('Cambria',9),anchor='center')
+        self.nav_mode_hint.pack(fill='x',pady=(8,3))
+        spacer=ttk.Frame(rail,style='Nav.TFrame')
+        spacer.pack(fill='both',expand=True)
+        rail_info=tk.Frame(rail,bg='#113B58',highlightbackground='#356F90',highlightthickness=1)
+        rail_info.pack(fill='x',padx=10,pady=(0,12))
+        tk.Label(rail_info,textvariable=self.sidebar_file_var,bg='#113B58',fg='#E7F5FF',font=('Segoe UI Semibold',10),anchor='w',justify='left').pack(fill='x',padx=10,pady=(10,2))
+        tk.Label(rail_info,text='▣',bg='#113B58',fg='#9FD6EB',font=('Segoe UI',11),anchor='w').place(x=10,y=38)
+        tk.Label(rail_info,textvariable=self.sidebar_path_var,bg='#113B58',fg='#B9DCE9',font=('Segoe UI',9),wraplength=168,justify='left',anchor='w').pack(fill='x',padx=(30,10),pady=(0,5))
+        time_row=tk.Frame(rail_info,bg='#113B58')
+        time_row.pack(fill='x',padx=10,pady=(0,4))
+        tk.Label(time_row,text='◷',bg='#113B58',fg='#9FD6EB',font=('Segoe UI',10)).pack(side='left')
+        tk.Label(time_row,textvariable=self.sidebar_time_var,bg='#113B58',fg='#B9DCE9',font=('Segoe UI',9)).pack(side='left',padx=(8,0))
+        state_row=tk.Frame(rail_info,bg='#113B58')
+        state_row.pack(fill='x',padx=10,pady=(0,10))
+        tk.Label(state_row,text='●',bg='#113B58',fg='#8CE5BE',font=('Segoe UI',10)).pack(side='left')
+        tk.Label(state_row,textvariable=self.sidebar_state_var,bg='#113B58',fg='#8CE5BE',font=('Segoe UI',9)).pack(side='left',padx=(8,0))
+
+        self.work_area=ttk.Frame(middle,style='App.TFrame')
+        self.work_area.pack(side='left',fill='both',expand=True)
+        # Non-resizable detail panel, beveled cyan frame.
+        self.right_panel=tk.Frame(self.work_area,bg='#3487AA',width=405)
+        self.right_panel.pack(side='right',fill='y',padx=(10,0))
+        self.right_panel.pack_propagate(False)
+        right=ttk.Frame(self.right_panel,style='Card.TFrame',padding=(16,14,16,12))
+        self.right_content=right
+        right.pack(fill='both',expand=True,padx=2,pady=2)
+        self._right_compact=False
+        self.right_panel.bind('<Configure>', self._on_right_panel_resize, add='+')
+        self._hud_corners_right=attach_corners(self.right_panel,bg='#07324C')
+        self.main_panel=tk.Frame(self.work_area,bg='#3487AA')
+        self.main_panel.pack(side='left',fill='both',expand=True)
+        content=ttk.Frame(self.main_panel,style='Card.TFrame',padding=(8,7,8,7))
+        content.pack(fill='both',expand=True,padx=2,pady=2)
+        self._hud_corners_main=attach_corners(self.main_panel,bg='#07324C')
+        # Reference screenshot's floating beveled tabs above one central frame.
+        navtabs=ttk.Frame(content,style='Card.TFrame')
+        self.mode_bar=navtabs
+        navtabs.pack(fill='x',pady=(0,8))
+        self.mode_buttons={}
+        for key,text in (('catalog','Каталог предметов'),('inventory','Мой инвентарь')):
+            b=HUDTab(navtabs,text=tr(text),command=lambda k=key:self.show_page(k))
+            b.pack(side='left',padx=(0,4))
+            self.mode_buttons[key]=b
+        self.tabs=ttk.Notebook(content,style='Game.TNotebook')
         self.tabs.pack(fill='both',expand=True)
-        page_inv=ttk.Frame(self.tabs,style='Card.TFrame',padding=(12,12,12,9))
-        page_all=ttk.Frame(self.tabs,style='Card.TFrame',padding=(12,12,12,9))
-        self.tabs.add(page_all,text=tr('Каталог и добавление'))
-        self.tabs.add(page_inv,text=tr('Мой инвентарь'))
+        page_all=ttk.Frame(self.tabs,style='Card.TFrame',padding=(3,2,3,2))
+        page_inv=ttk.Frame(self.tabs,style='Card.TFrame',padding=(3,2,3,2))
+        page_tools=ttk.Frame(self.tabs,style='Card.TFrame',padding=(3,2,3,2))
+        self.tabs.add(page_all,text=tr('Каталог'))
+        self.tabs.add(page_inv,text=tr('Инвентарь'))
+        self.tabs.add(page_tools,text=tr('Инструменты'))
+        self.page_names=('catalog','inventory','tools')
 
-        ttk.Label(page_inv,text='Поиск предмета в сохранении',style='Card.TLabel').pack(anchor='w')
-        inv_search_row=ttk.Frame(page_inv,style='Card.TFrame')
-        inv_search_row.pack(fill='x',pady=(6,10))
-        ttk.Entry(inv_search_row,textvariable=self.search_inv).pack(side='left',fill='x',expand=True)
-        ttk.Button(inv_search_row,text='Очистить',command=lambda:self.search_inv.set('')).pack(side='left',padx=(6,0))
-        self.tree=self._new_tree(page_inv,[('slot','Слот',65),('id','ID',65),('qty','Кол-во',75)], icons=True, name_width=300, sort_kind='inventory')
+        # Inventory has an information panel like the reference's inventory mode.
+        invpane=ttk.Frame(page_inv,style='Card.TFrame')
+        invpane.pack(fill='both',expand=True)
+        info=ttk.Frame(invpane,style='Card.TFrame',width=210,padding=8)
+        info.pack(side='left',fill='y',padx=(0,10))
+        info.pack_propagate(False)
+        ttk.Label(info,text=tr('ИНФОРМАЦИЯ О СОХРАНЕНИИ'),style='Section.TLabel',wraplength=180).pack(anchor='w',pady=(4,12))
+        ttk.Label(info,textvariable=self.save_line,style='CardMuted.TLabel',wraplength=185).pack(fill='x',pady=(0,20))
+        for name,func in [(tr('Папка сохранений'),self.open_saves_folder),
+                          (tr('Сохранить копию'),self.save_copy),
+                          (tr('Сравнить файлы'),self.compare_saves)]:
+            ttk.Button(info,text=name,command=func,style='Compact.TButton').pack(fill='x',pady=(0,9))
+        invtable=ttk.Frame(invpane,style='Card.TFrame')
+        invtable.pack(side='left',fill='both',expand=True)
+        invsearch=tk.Frame(invtable,bg='#0B3B57',highlightbackground='#5CAED0',highlightthickness=1)
+        invsearch.pack(fill='x',pady=(0,10))
+        tk.Label(invsearch,text='⌕',bg='#0B3B57',fg='#D4F7FF',font=('Segoe UI Symbol',18)).pack(side='left',padx=(10,6),pady=4)
+        self.inventory_search_entry=ttk.Entry(invsearch,textvariable=self.search_inv)
+        self.inventory_search_entry.pack(side='left',fill='x',expand=True,pady=5)
+        self._install_search_hint(self.inventory_search_entry,self.search_inv,
+                                  'Поиск по названию, ID или описанию…')
+        ttk.Button(invsearch,text='×',command=lambda:self.search_inv.set(''),width=3).pack(side='left',padx=(5,8),pady=4)
+        invbar=ttk.Frame(invtable,style='Card.TFrame')
+        invbar.pack(fill='x',pady=(0,9))
+        ttk.Label(invbar,text=tr('Ctrl / Shift — выделение нескольких предметов'),
+                  style='CardMuted.TLabel').pack(side='left')
+        ttk.Button(invbar,text=tr('Удалить выбранные'),style='Danger.TButton',
+                   command=self.delete_bulk_selected).pack(side='right')
+        self.tree=self._new_tree(invtable,[('slot','Слот',52),('id','ID',68),('qty','Кол-во',78)],
+                                 icons=True,name_width=220,sort_kind='inventory',multi=True)
         self.tree.bind('<<TreeviewSelect>>',lambda _e:self._select_from_tree(self.tree))
+        self.tree.bind('<Double-1>',lambda _e:self._focus_qty())
 
-        ttk.Label(page_all,text='Выберите группу, затем предмет',style='Section.TLabel').pack(anchor='w',pady=(0,9))
-        catalog_panel=ttk.Frame(page_all,style='Card.TFrame')
-        catalog_panel.pack(fill='both',expand=True)
-        side=ttk.Frame(catalog_panel,style='Card.TFrame',width=238)
-        side.pack(side='left',fill='y',padx=(0,10))
-        side.pack_propagate(False)
-        ttk.Label(side,text='ГРУППЫ',style='CardMuted.TLabel').pack(anchor='w',pady=(0,7))
-        self.category_tree=ttk.Treeview(side,show='tree',style='Category.Treeview',
-                                selectmode='browse',height=16)
+        # Catalog: same two-column silhouette as the reference art.
+        pane=ttk.Frame(page_all,style='Card.TFrame')
+        pane.pack(fill='both',expand=True)
+        cat=ttk.Frame(pane,style='Card.TFrame',width=252,padding=(4,4,4,4))
+        cat.pack(side='left',fill='y',padx=(0,10))
+        cat.pack_propagate(False)
+        treewrap=ttk.Frame(cat,style='Card.TFrame')
+        treewrap.pack(fill='both',expand=True)
+        self.category_tree=ttk.Treeview(treewrap,show='tree',style='Category.Treeview',selectmode='browse')
         self.category_tree.pack(side='left',fill='both',expand=True)
-        category_scroll=ttk.Scrollbar(side,orient='vertical',command=self.category_tree.yview)
-        category_scroll.pack(side='right',fill='y')
-        self.category_tree.configure(yscrollcommand=category_scroll.set)
-        self.category_tree.column('#0',width=225,stretch=False)
+        scroll=ttk.Scrollbar(treewrap,command=self.category_tree.yview)
+        scroll.pack(side='right',fill='y')
+        self.category_tree.configure(yscrollcommand=scroll.set)
+        self.category_tree.column('#0',width=244,stretch=True)
         self.category_tree.bind('<<TreeviewSelect>>',self._on_category_change)
-        self._populate_categories()
-        table_side=ttk.Frame(catalog_panel,style='Card.TFrame')
-        table_side.pack(side='left',fill='both',expand=True)
-        ttk.Label(table_side,text='Поиск по названию, ID или описанию',style='Card.TLabel').pack(anchor='w')
-        catalog_search_row=ttk.Frame(table_side,style='Card.TFrame')
-        self.catalog_search_entry=ttk.Entry(catalog_search_row,textvariable=self.search_all)
-        catalog_search_row.pack(fill='x',pady=(6,7))
-        self.catalog_search_entry.pack(side='left',fill='x',expand=True)
-        ttk.Button(catalog_search_row,text='Очистить',command=lambda:self.search_all.set('')).pack(side='left',padx=(6,0))
-        ttk.Checkbutton(table_side,text='Показывать только отсутствующие',
-                        variable=self.only_missing,style='Card.TCheckbutton').pack(anchor='w',pady=(0,8))
-        # Reserve this action row *before* the expanding Treeview so the
-        # batch button remains visible even at the window's minimum height.
-        bulk_bar=ttk.Frame(table_side,style='Card.TFrame')
-        bulk_bar.pack(fill='x',pady=(0,7))
-        ttk.Label(bulk_bar,text='Ctrl / Shift — выбрать несколько предметов',
-                  style='CardMuted.TLabel').pack(side='left',anchor='center')
-        self.bulk_button=ttk.Button(bulk_bar,text='Добавить выбранные предметы',
-                                     command=self.apply_bulk_change,style='Accent.TButton')
+        table=ttk.Frame(pane,style='Card.TFrame')
+        table.pack(side='left',fill='both',expand=True)
+        searchrow=tk.Frame(table,bg='#0B3B57',highlightbackground='#5CAED0',highlightthickness=1)
+        searchrow.pack(fill='x',pady=(0,9))
+        tk.Label(searchrow,text='⌕',bg='#0B3B57',fg='#D4F7FF',font=('Segoe UI Symbol',18)).pack(side='left',padx=(10,6),pady=4)
+        self.catalog_search_entry=ttk.Entry(searchrow,textvariable=self.search_all)
+        self.catalog_search_entry.pack(side='left',fill='x',expand=True,pady=5)
+        self._install_search_hint(self.catalog_search_entry,self.search_all,
+                                  'Поиск по названию, ID или описанию…')
+        ttk.Button(searchrow,text='×',command=lambda:self.search_all.set(''),width=3).pack(side='left',padx=(5,8),pady=4)
+        filters=ttk.Frame(table,style='Card.TFrame')
+        filters.pack(fill='x',pady=(0,7))
+        ttk.Checkbutton(filters,text=tr('Только отсутствующие'),variable=self.only_missing,
+                        style='Card.TCheckbutton').pack(side='left',padx=(0,5))
+        ttk.Checkbutton(filters,text=tr('Только имеющиеся'),variable=self.only_present,
+                        style='Card.TCheckbutton').pack(side='left')
+        self.source_combo=ttk.Combobox(filters,textvariable=self.catalog_source,values=(
+                     'Все источники','Основная игра','DLC'),state='readonly',width=14)
+        self.source_combo.pack(side='right',padx=(0,6))
+        self.source_combo.bind('<<ComboboxSelected>>',lambda _e:self.refresh_catalog())
+        bulkbar=ttk.Frame(table,style='Card.TFrame')
+        ttk.Label(bulkbar,text=tr('Ctrl / Shift — выбрать несколько'),style='CardMuted.TLabel').pack(side='left')
+        self.bulk_button=ttk.Button(bulkbar,text=tr('Добавить выбранные предметы'),
+                                    command=self.apply_bulk_change,style='Accent.TButton')
         self.bulk_button.pack(side='right')
-        self.all_tree=self._new_tree(table_side,[('id','ID',65),('type','Категория',165),('qty','В сумке',75)], icons=True, name_width=265, sort_kind='catalog', multi=True)
+        ttk.Button(bulkbar,text=tr('Добавить по 1'),command=self.add_one_each).pack(side='right',padx=(0,6))
+        self.all_tree=self._new_tree(table,[('id','ID',62),('type','Категория',115),('qty','В сумке',72)],
+                                     icons=True,name_width=190,sort_kind='catalog',multi=True)
+        bulkbar.pack(fill='x',pady=(8,0))
         self.all_tree.bind('<<TreeviewSelect>>',lambda _e:self._select_from_tree(self.all_tree))
+        self.all_tree.bind('<Double-1>',lambda _e:self._focus_qty())
+        self._populate_categories()
         self._update_sort_headers('inventory')
         self._update_sort_headers('catalog')
 
-        ttk.Label(right,text='ВЫБРАННЫЙ ПРЕДМЕТ',style='Section.TLabel').pack(anchor='w',pady=(0,11))
+        # Fixed right panel with a larger original icon and direct edit actions.
+        ttk.Label(right,text=tr('ВЫБРАННЫЙ ПРЕДМЕТ'),style='Section.TLabel').pack(anchor='w',pady=(0,10))
+        iconheader=ttk.Frame(right,style='Card.TFrame')
+        self._right_iconheader=iconheader
+        iconheader.pack(fill='x',pady=(0,13))
+        icon_back=tk.Frame(iconheader,bg='#092942',width=88,height=88,
+                      highlightbackground='#368DB6',highlightthickness=1)
+        self._right_icon_back=icon_back
+        icon_back.pack(side='left',padx=(0,14),pady=5)
+        icon_back.pack_propagate(False)
+        self.selected_icon_label=ttk.Label(icon_back,style='Icon.TLabel',anchor='center')
+        self.selected_icon_label.pack(fill='both',expand=True,padx=4,pady=4)
+        self.selected_name_var=LocalizedStringVar(value='Выберите предмет')
+        self.selected_category_var=LocalizedStringVar(value='')
+        itemidentity=ttk.Frame(iconheader,style='Card.TFrame')
+        itemidentity.pack(side='left',fill='x',expand=True)
+        ttk.Label(itemidentity,textvariable=self.selected_name_var,style='Card.TLabel',
+                  wraplength=240,font=('Segoe UI Semibold',15)).pack(anchor='w',pady=(7,7))
+        ttk.Label(itemidentity,textvariable=self.selected_category_var,
+                  style='CardMuted.TLabel',wraplength=230).pack(anchor='w')
+        self._hud_identity_rule=tk.Canvas(right,height=9,bg='#07324C',highlightthickness=0,bd=0)
+        self._hud_identity_rule.pack(fill='x',pady=(0,5))
+        self._hud_identity_rule.bind('<Configure>',self._paint_rule)
         values=ttk.Frame(right,style='Card.TFrame')
-        values.pack(fill='x',pady=(0,12))
-        left_value=ttk.Frame(values,style='Card.TFrame')
-        left_value.pack(side='left',fill='x',expand=True,padx=(0,10))
-        right_value=ttk.Frame(values,style='Card.TFrame')
-        right_value.pack(side='left',fill='x',expand=True)
-        ttk.Label(left_value,text='ID предмета',style='CardMuted.TLabel').pack(anchor='w')
-        ttk.Entry(left_value,textvariable=self.item_var).pack(fill='x',pady=(5,0))
-        ttk.Label(right_value,text='Количество',style='CardMuted.TLabel').pack(anchor='w')
-        ttk.Spinbox(right_value,from_=0,to=MAX_QUANTITY,textvariable=self.qty_var).pack(fill='x',pady=(5,0))
-        ttk.Button(right,text='Добавить / применить количество',command=self.apply_change,
-                   style='Accent.TButton').pack(fill='x',pady=(0,8))
-        ttk.Button(right,text='Удалить предмет из сохранения',command=self.delete_selected,
-                   style='Danger.TButton').pack(fill='x',pady=(0,12))
+        self._right_values=values
+        values.pack(fill='x',pady=(0,8))
+        col1=ttk.Frame(values,style='Card.TFrame'); col1.pack(side='left',fill='x',expand=True,padx=(0,8))
+        col2=ttk.Frame(values,style='Card.TFrame'); col2.pack(side='left',fill='x',expand=True)
+        ttk.Label(col1,text=tr('ID предмета'),style='CardMuted.TLabel').pack(anchor='w')
+        ttk.Entry(col1,textvariable=self.item_var,width=9).pack(fill='x',pady=(4,0))
+        ttk.Label(col2,text=tr('Количество (0–99)'),style='CardMuted.TLabel').pack(anchor='w')
+        self.qty_entry=ttk.Spinbox(col2,from_=0,to=MAX_QUANTITY,textvariable=self.qty_var,width=8)
+        self.qty_entry.pack(fill='x',pady=(4,0))
+        self._right_apply_button=ttk.Button(right,text='✓  '+tr('Применить количество'),style='CompactAccent.TButton',
+                   command=self.apply_change)
+        self._right_apply_button.pack(fill='x',pady=(8,6))
+        self._right_delete_button=ttk.Button(right,text='▤  '+tr('Удалить предмет из сохранения'),style='CompactDanger.TButton',
+                   command=self.delete_selected)
+        self._right_delete_button.pack(fill='x',pady=(0,9))
         actions=ttk.Frame(right,style='Card.TFrame')
+        self._right_actions=actions
         actions.pack(fill='x')
-        ttk.Button(actions,text='↶ Отменить',command=self.undo).pack(side='left',fill='x',expand=True,padx=(0,4))
-        ttk.Button(actions,text='Сбросить правки',command=self.revert).pack(side='left',fill='x',expand=True)
-        ttk.Separator(right).pack(fill='x',pady=(18,12))
-        # Reserve space for this safety warning BEFORE the expanding Text widget.
-        # Otherwise the warning can be truncated on smaller screens/window sizes.
-        ttk.Label(right,text='Изменения вносятся только в файл сохранения. '
-                 'Закройте игру перед записью.',style='CardMuted.TLabel',
-                  wraplength=295).pack(side='bottom',fill='x',pady=(10,0))
-        ttk.Label(right,text='Описание и характеристики',style='Section.TLabel').pack(anchor='w',pady=(0,7))
-        descframe=ttk.Frame(right,style='Card.TFrame')
-        descframe.pack(fill='both',expand=True)
-        self.details=tk.Text(descframe,height=10,width=29,wrap='word',state='disabled',
-                             borderwidth=1,relief='solid',padx=12,pady=10,
-                             font=('Segoe UI',10),spacing2=3)
+        ttk.Button(actions,text='↶  '+tr('Отменить'),style='Compact.TButton',command=self.undo).pack(side='left',fill='x',expand=True,padx=(0,4))
+        ttk.Button(actions,text=tr('Сбросить правки'),style='Compact.TButton',command=self.revert).pack(side='left',fill='x',expand=True)
+        self._hud_details_rule=tk.Canvas(right,height=10,bg='#07324C',highlightthickness=0,bd=0)
+        self._hud_details_rule.pack(fill='x',pady=(12,7))
+        self._hud_details_rule.bind('<Configure>',self._paint_rule)
+        ttk.Label(right,text=tr('ОПИСАНИЕ И ХАРАКТЕРИСТИКИ'),style='Section.TLabel').pack(anchor='w',pady=(0,9))
+        descwrap=ttk.Frame(right,style='Card.TFrame')
+        descwrap.pack(fill='both',expand=True)
+        self.details=tk.Text(descwrap,height=10,width=26,wrap='word',state='disabled',
+            borderwidth=1,relief='solid',padx=13,pady=12,font=('Cambria',12),spacing2=5)
         self.details.pack(side='left',fill='both',expand=True)
-        scrollbar=ttk.Scrollbar(descframe,command=self.details.yview)
-        scrollbar.pack(side='right',fill='y')
-        self.details.configure(yscrollcommand=scrollbar.set)
+        descscroll=ttk.Scrollbar(descwrap,command=self.details.yview)
+        descscroll.pack(side='right',fill='y')
+        self.details.configure(yscrollcommand=descscroll.set)
+        self._make_tools_page(page_tools)
+        self._update_sidebar_save_info()
+        self.show_page('catalog')
         self._describe(None)
         self.apply_theme(save=False)
+
+    def _on_right_panel_resize(self,event):
+        """Reserve space for item descriptions on compact Windows displays.
+
+        Only adjust fixed paddings when crossing a height threshold. Changing
+        these on every motion event previously caused unnecessary relayouts.
+        """
+        if event.widget is not self.right_panel:return
+        compact=(event.height < 570)
+        if compact==self._right_compact:return
+        self._right_compact=compact
+        self.right_content.configure(padding=(12,7,12,5) if compact else (16,14,16,12))
+        self._right_icon_back.configure(width=69 if compact else 88,
+                                        height=69 if compact else 88)
+        self._right_icon_back.pack_configure(pady=1 if compact else 5,
+                                             padx=(0,9 if compact else 14))
+        self._right_iconheader.pack_configure(pady=(0,3 if compact else 13))
+        self._hud_identity_rule.pack_configure(pady=(0,1 if compact else 5))
+        self._right_values.pack_configure(pady=(0,3 if compact else 8))
+        self._right_apply_button.pack_configure(pady=(2,3) if compact else (8,6))
+        self._right_delete_button.pack_configure(pady=(0,3 if compact else 9))
+        self._hud_details_rule.pack_configure(pady=(5,3) if compact else (12,7))
+
+    def _paint_rule(self,event):
+        """Resizable etched cyan divider; redraw only when its canvas resizes."""
+        if event.widget not in (getattr(self,'_hud_details_rule',None),getattr(self,'_hud_identity_rule',None)):
+            return
+        c=event.widget
+        width=max(1,event.width)
+        c.delete('all')
+        if width>18:
+            c.create_line(0,4,width,4,fill='#3185A9',width=1)
+            c.create_line(14,3,width-14,3,fill='#7DCFEA',width=1)
+            c.create_line(0,6,width,6,fill='#061D34',width=1)
+            for x in (5,width-6):c.create_oval(x-2,2,x+2,6,fill='#81DEFF',outline='')
+
+    def _update_toolbar_labels(self,width,force=False):
+        """Compact headings only when necessary; preserve all five actions."""
+        compact=width<1160
+        if compact == getattr(self,'_toolbar_compact',None) and not force:return
+        self._toolbar_compact=compact
+        if compact:
+            labels=(
+                ('latest','▤  '+tr('Последнее сохранение')+'  F5'),
+                ('open','▣  '+tr('Открыть вручную')),
+                ('compare','⚖  '+tr('Сравнить два файла')),
+                ('overwrite','▤  '+('Overwrite + backup' if self.language=='en' else 'Записать + копия')),
+                ('copy','▣  '+tr('Сохранить копию')),
+            )
+        else:
+            labels=(
+                ('latest','▤  '+tr('Последнее сохранение')+'   F5'),
+                ('open','▣  '+tr('Открыть вручную')+'  Ctrl+O'),
+                ('compare','⚖  '+tr('Сравнить два файла')),
+                ('overwrite','▤  '+tr('Записать с резервной копией')),
+                ('copy','▣  '+tr('Сохранить копию…')),
+            )
+        for k,label in labels:
+            self.toolbar_buttons[k].configure(text=label)
+
+    def _on_toolbar_resize(self,event):
+        """Toolbar glass is redrawn only on resize, never on pointer movement."""
+        if event.widget is not getattr(self,'_toolbar_art',None).master:
+            return
+        self._update_toolbar_labels(event.width)
+        if getattr(self,'_toolbar_job',None):
+            try:self.after_cancel(self._toolbar_job)
+            except tk.TclError:pass
+        width=max(1,event.width);height=max(1,event.height)
+        self._toolbar_job=self.after(120,lambda:self._paint_toolbar(width,height))
+
+    def _paint_toolbar(self,width,height):
+        self._toolbar_job=None
+        try:
+            from PIL import ImageTk
+            if not self.winfo_exists():return
+            image=strip(self._wall_original,width,height,405,darkness=152)
+            self._toolbar_photo=ImageTk.PhotoImage(image,master=self)
+            self._toolbar_art.configure(image=self._toolbar_photo)
+            self._toolbar_art.lower()
+        except (ImportError,tk.TclError):pass
+
+    def _install_search_hint(self, entry, value, message):
+        """A real placeholder label, never inserted into the search data model."""
+        hint=tk.Label(entry,text=tr(message),fg='#8EBCD1',bg='#062A41',
+                font=('Segoe UI',10),anchor='w',cursor='xterm')
+        hint._ru_ui_text=message
+        def update(*_):
+            try:
+                if value.get() or entry.focus_get()==entry:
+                    hint.place_forget()
+                else:
+                    hint.place(x=13,rely=.5,anchor='w')
+            except tk.TclError:
+                pass
+        hint.bind('<Button-1>',lambda _e:(entry.focus_set(),update()))
+        entry.bind('<FocusIn>',lambda _e:update(),add='+')
+        entry.bind('<FocusOut>',lambda _e:update(),add='+')
+        value.trace_add('write',update)
+        self.after_idle(update)
+        return hint
+
+    def _redraw_header(self,width,height):
+        self._header_job=None
+        """A cached, softly translucent image. Never reconstruct catalog widgets."""
+        try:
+            from PIL import ImageTk
+            if width<=0:return
+            image=strip(self._wall_original,width,height,260,darkness=123)
+            self._header_photo=ImageTk.PhotoImage(image,master=self)
+            self.header_canvas.itemconfigure(self._header_image_id,image=self._header_photo)
+            self.header_canvas.tag_lower(self._header_image_id)
+        except (ImportError,tk.TclError):
+            pass
+
+    def _resize_backdrop(self,event):
+        if event.widget is not self or not hasattr(self,'_wall_original'):
+            return
+        if getattr(self,'_wall_job',None):
+            try:self.after_cancel(self._wall_job)
+            except tk.TclError:pass
+        width,height=max(1,event.width),max(1,event.height)
+        self._wall_job=self.after(145,lambda w=width,h=height:self._apply_wallpaper(w,h))
+
+    def _apply_wallpaper(self,width,height):
+        self._wall_job=None
+        if not self.winfo_exists():return
+        from PIL import Image,ImageTk
+        self._wall_photo=ImageTk.PhotoImage(self._wall_original.resize((width,height),Image.Resampling.BILINEAR),master=self)
+        self._wall_label.configure(image=self._wall_photo)
+        self._wall_label.lower()
+
+    def _make_tools_page(self, page):
+        ttk.Label(page,text='ИНСТРУМЕНТЫ И ДИАГНОСТИКА',style='Section.TLabel').pack(anchor='w',pady=(0,10))
+        wrapper=ttk.Frame(page,style='Card.TFrame')
+        wrapper.pack(fill='both',expand=True)
+        cv=tk.Canvas(wrapper,background=self._colors['panel'],highlightthickness=0,borderwidth=0)
+        bar=ttk.Scrollbar(wrapper,orient='vertical',command=cv.yview)
+        cv.configure(yscrollcommand=bar.set)
+        bar.pack(side='right',fill='y')
+        cv.pack(side='left',fill='both',expand=True)
+        inside=ttk.Frame(cv,style='Card.TFrame',padding=(6,5,10,8))
+        ident=cv.create_window((0,0),window=inside,anchor='nw')
+        inside.bind('<Configure>',lambda _e:cv.configure(scrollregion=cv.bbox('all')))
+        cv.bind('<Configure>',lambda e:cv.itemconfigure(ident,width=e.width))
+        inside.columnconfigure(0,weight=1)
+        inside.columnconfigure(1,weight=1)
+        self.tools_frame=inside
+        def group(title,items,row,col):
+            box=ttk.LabelFrame(inside,text=title,style='Game.TLabelframe',padding=(11,11,11,9))
+            box.grid(row=row,column=col,sticky='nsew',padx=5,pady=5)
+            for label,fn in items:
+                ttk.Button(box,text=label,command=fn,style='Compact.TButton').pack(fill='x',pady=(0,5))
+            return box
+        group('Сохранения',[
+            ('Последнее сохранение',self.load_latest_save),
+            ('Открыть вручную',self.open_save),
+            ('Открыть папку сохранений',self.open_saves_folder),
+            ('Открыть резервную копию (.bak)',self.open_backup),
+            ('Сравнить два файла',self.compare_saves),
+            ('Сохранить копию',self.save_copy),
+            ('Записать + резервная копия',self.save_overwrite),
+        ],0,0)
+        group('Игра и каталоги',[
+            ('Выбрать папку игры',self.choose_game_folder),
+            ('Указать папку сохранений',self.choose_save_folder),
+            ('Сканировать игру и DLC',lambda:self.start_scan(manual=True)),
+            ('Импорт таблицы TBL / CSV',self.open_catalog),
+            ('Импорт английской таблицы',self.import_english_catalog),
+            ('Экспорт каталога в CSV',lambda:self.export_catalog_csv('catalog')),
+            ('Экспорт инвентаря в CSV',lambda:self.export_catalog_csv('inventory')),
+        ],0,1)
+        group('Оригинальные иконки',[
+            ('Скачать отсутствующие иконки',lambda:self.start_icon_download(manual=True)),
+            ('Импорт PNG из папки',self.choose_icon_folder),
+            ('Обновить индекс иконок',self.refresh_icons),
+            ('Отчёт об отсутствующих PNG',self.show_missing_icon_report),
+        ],1,0)
+        group('Проверка данных',[
+            ('Диагностика каталога',self.show_diagnostics),
+            ('Отчёт о переводах DLC',self.export_missing_translations),
+            ('Импорт переводов DLC',self.import_ru_dlc_translations),
+        ],1,1)
+        settings=group('Настройки',[],2,0)
+        ttk.Checkbutton(settings,text='Автовыбор последнего сохранения',
+                        variable=self.auto_latest,style='Card.TCheckbutton',
+                        command=self._on_auto_change).pack(anchor='w',pady=4)
+        ttk.Label(settings,text='Язык: Русский / English — переключатель в заголовке',
+                  style='CardMuted.TLabel',wraplength=330).pack(anchor='w',pady=4)
+        ttk.Label(settings,text='Оформление: игровая тема (единственная)',
+                  style='CardMuted.TLabel').pack(anchor='w',pady=4)
+        information=group('Состояние ресурсов',[],2,1)
+        self.scan_button=ttk.Button(information,text='Повторить сканирование',
+                            command=lambda:self.start_scan(manual=True))
+        self.scan_button.pack(fill='x',pady=(0,5))
+        self.icons_button=ttk.Button(information,text='Загрузить игровые иконки',
+                            command=lambda:self.start_icon_download(manual=True))
+        self.icons_button.pack(fill='x',pady=(0,5))
+        ttk.Label(information,textvariable=self.scan_info,style='CardMuted.TLabel',
+                  wraplength=360).pack(anchor='w',pady=(2,7))
+        ttk.Label(information,textvariable=self.icon_status,style='CardMuted.TLabel',
+                  wraplength=360).pack(anchor='w')
+
+    def show_page(self,key):
+        target={'catalog':0,'inventory':1,'tools':2}[key]
+        self.tabs.select(target)
+        for name,button in self.nav_buttons.items():
+            button.configure(style='ActiveNav.TButton' if name==key else 'Nav.TButton')
+        for tab_key,button in getattr(self,'mode_buttons',{}).items():
+            button.set_active(key==tab_key)
+        if key=='tools':
+            self.mode_bar.pack_forget()
+        elif not self.mode_bar.winfo_manager():
+            self.mode_bar.pack(fill='x',pady=(0,8),before=self.tabs)
+        if key=='tools':
+            self.right_panel.pack_forget()
+        elif not self.right_panel.winfo_manager():
+            self.right_panel.pack(side='right',fill='y',padx=(10,0))
+
+    def add_one_each(self):
+        self.qty_var.set('1')
+        self.apply_bulk_change()
+
+    def _focus_qty(self):
+        self.qty_entry.focus_set()
+        self.qty_entry.selection_range(0,'end')
+
+    def _on_presence_filter(self,which):
+        if which=='missing' and self.only_missing.get():self.only_present.set(False)
+        if which=='present' and self.only_present.get():self.only_missing.set(False)
+        if hasattr(self,'all_tree'):self.refresh_catalog()
+
+    def toggle_tools(self):
+        self.show_page('catalog' if self.tabs.select()==str(self.tabs.tabs()[2]) else 'tools')
 
     def change_language(self):
         self.language='en' if self.language_var.get()=='English' else 'ru'
         set_language(self.language)
         self.settings['language']=self.language
-        try: save_settings(self.settings)
-        except OSError: pass
-        self.theme_var.set(('Dark' if self.language=='en' else 'Тёмная')
-                           if self.settings.get('theme','dark')=='dark' else
-                           ('Light' if self.language=='en' else 'Светлая'))
-        self.theme_combo['values']=('Dark','Light') if self.language=='en' else ('Тёмная','Светлая')
+        try:save_settings(self.settings)
+        except OSError:pass
         self._translate_widgets(self)
-        self.tabs.tab(0,text=tr('Каталог и добавление'))
-        self.tabs.tab(1,text=tr('Мой инвентарь'))
-        for var in (self.icon_status,self.scan_info,self.save_line,self.status,self.catalog_status):
+        self.source_combo['values']=(tr('Все источники'),tr('Основная игра'),'DLC')
+        if self.catalog_source.get() in ('Все источники','All sources'):
+            self.catalog_source.set(tr('Все источники'))
+        elif self.catalog_source.get() in ('Основная игра','Base game'):
+            self.catalog_source.set(tr('Основная игра'))
+        for index,name in enumerate(('Каталог','Инвентарь','Инструменты')):
+            self.tabs.tab(index,text=tr(name))
+        for label,(key,button) in zip(('◫  Инвентарь','▤  Каталог','⚙  Инструменты'),self.nav_buttons.items()):
+            button.configure(text=tr(label))
+        if hasattr(self,'toolbar_buttons'):
+            self._update_toolbar_labels(self._toolbar_art.winfo_width(),force=True)
+        if hasattr(self,'header_canvas'):
+            self.header_canvas.itemconfigure(self._header_title,text=tr('Редактор сохранений'))
+            self.header_canvas.itemconfigure(self._header_subtitle,text=('COLD STEEL III  ·  INVENTORY' if self.language=='en' else 'COLD STEEL III  ·  ИНВЕНТАРЬ'))
+        for key,label in (('catalog','Каталог предметов'),('inventory','Мой инвентарь')):
+            if key in getattr(self,'mode_buttons',{}): self.mode_buttons[key].set_text(tr(label))
+        for var in (self.icon_status,self.scan_info,self.save_line,self.status,
+                    self.catalog_status,self.selected_name_var,self.selected_category_var,
+                    self.sidebar_file_var,self.sidebar_path_var,self.sidebar_time_var,self.sidebar_state_var):
             var.relocalize()
         self._update_sort_headers('inventory')
         self._update_sort_headers('catalog')
         self._populate_categories()
         self._refresh()
         self._describe(self.selected_item)
-        self.apply_theme(save=False)
         if self.language=='en' and not self.english_catalog:
             self.status.set('Английский каталог не загружен. Импортируйте оригинальную таблицу через «Инструменты».')
 
@@ -720,16 +1152,149 @@ class Editor(tk.Tk):
         except OSError as exc:
             messagebox.showerror('Не удалось создать отчёт',str(exc))
 
-    def toggle_tools(self):
-        self.tools_expanded=not self.tools_expanded
-        if self.tools_expanded:
-            # Anchor before the central pane so the catalog remains visible.
-            self.tools_frame.pack(fill='x',before=self.main_separator)
+    def _persist_quicklists(self):
+        self.settings['favorites']=sorted(self.favorites)
+        self.settings['recents']=self.recents[:20]
+        try:save_settings(self.settings)
+        except OSError:pass
+
+    def _remember_items(self,ids):
+        for item_id in ids:
+            if item_id in self.recents:self.recents.remove(item_id)
+            self.recents.insert(0,item_id)
+        self.recents=self.recents[:20]
+        self._persist_quicklists()
+        self._populate_categories()
+
+    def toggle_favorite(self):
+        selected=[int(v[3:]) for v in self.all_tree.selection() if v.startswith('all')]
+        if not selected and self.selected_item is not None:selected=[self.selected_item]
+        if not selected:
+            messagebox.showinfo('Избранное','Сначала выберите предмет в каталоге.')
+            return
+        for item_id in selected:
+            if item_id in self.favorites:self.favorites.remove(item_id)
+            else:self.favorites.add(item_id)
+        self._persist_quicklists()
+        self._populate_categories()
+        self.refresh_catalog()
+
+    def delete_bulk_selected(self):
+        if not self._require_save():return
+        ids=sorted({int(v[3:]) for v in self.tree.selection() if v.startswith('inv')})
+        if not ids:
+            messagebox.showinfo('Выбор предметов','Выделите один или несколько предметов.')
+            return
+        if not messagebox.askyesno('Удаление',f'Удалить выбранные предметы ({len(ids)}) из сохранения?'):
+            return
+        assert self.save is not None
+        snapshot=self.save.bytes()
+        try:
+            self.save.set_quantities({item_id:0 for item_id in ids})
+            self._history.append(snapshot)
+            self._history=self._history[-40:]
+            self._refresh()
+        except (ValueError,SaveFormatError) as exc:
+            self.save._data=bytearray(snapshot)
+            messagebox.showerror('Не удалось удалить выбранные предметы',str(exc))
+
+    def choose_save_folder(self):
+        folder=filedialog.askdirectory(title='Выберите папку сохранений',mustexist=True,
+                         initialdir=self.settings.get('save_directory') or str(Path.home()))
+        if folder:
+            self.settings['save_directory']=str(Path(folder).resolve())
+            try:save_settings(self.settings)
+            except OSError as exc:messagebox.showerror('Настройки',str(exc))
+
+    def open_backup(self):
+        if self.save and self.save.changed and not messagebox.askyesno(
+                  'Несохранённые изменения','Открыть резервную копию и потерять текущие правки?'):
+            return
+        file=filedialog.askopenfilename(title='Открыть резервную копию',
+                filetypes=[('Резервные копии','*.bak*'),('Все файлы','*.*')],
+                initialdir=self.settings.get('save_directory') or str(Path.home()))
+        if not file:return
+        try:
+            backup=Path(file).resolve()
+            loaded=CS3Save.from_file(backup)
+            self._accept_save(backup,loaded)
+            messagebox.showinfo('Резервная копия','Копия открыта. Для восстановления используйте «Сохранить копию» с именем saveXXX.dat.')
+        except (OSError,ValueError) as exc:
+            messagebox.showerror('Резервная копия',str(exc))
+
+    def open_saves_folder(self):
+        folders=save_directories(self.settings.get('save_directory'))
+        directory=self.source.parent if self.source else next((p for p in folders if p.is_dir()),None)
+        if directory is None:
+            messagebox.showinfo('Сохранения','Папка сохранений не найдена. Откройте файл вручную.')
+            return
+        if os.name=='nt':
+            os.startfile(str(directory))
         else:
-            self.tools_frame.pack_forget()
-        text='Скрыть инструменты  ▴' if self.tools_expanded else 'Инструменты и игровые ресурсы  ▾'
-        self.tools_button._ru_ui_text=text
-        self.tools_button.configure(text=tr(text))
+            self._show_text('Папка сохранений',str(directory))
+
+    def refresh_icons(self):
+        self._item_images.clear()
+        if hasattr(self,'_detail_images'):self._detail_images.clear()
+        self._resolved_icon_paths.clear()
+        self.refresh_catalog()
+        self.refresh_inventory()
+        self._describe(self.selected_item)
+        self.icon_status.set(self._icon_status_text())
+
+    def show_missing_icon_report(self):
+        cache=icon_cache_dir()
+        missing=sorted(n for n in ALL_ORIGINAL_FILES if not validate_file(cache/n))
+        summary=f'Отсутствует оригинальных PNG: {len(missing)} из {len(ALL_ORIGINAL_FILES)}\n\n'
+        self._show_text('Отчёт об отсутствующих PNG',summary+'\n'.join(missing))
+
+    def _diagnostics_text(self):
+        from collections import Counter
+        valid=[(i,v) for i,v in self.catalog.items() if is_visible_item(v)]
+        hidden=len(self.catalog)-len(valid)
+        untranslated=[i for i,v in valid if not self._has_verified_ru_translation(i)
+                      and i not in self.builtin and is_english_only(v.get('name',''))
+                      and i not in KNOWN_RUSSIAN_DLC]
+        missing_descriptions=[i for i,v in valid if not v.get('description')]
+        ids=Counter(v.get('id',i) for i,v in self.catalog.items())
+        duplicate=[k for k,count in ids.items() if count>1]
+        missing_icons=sorted(n for n in ALL_ORIGINAL_FILES if not validate_file(icon_cache_dir()/n))
+        return ('ДИАГНОСТИКА КАТАЛОГА\n\n'
+                f'Всего записей: {len(self.catalog)}\n'
+                f'Видимые: {len(valid)}\n'
+                f'Скрытые технические записи: {hidden}\n'
+                f'Предположительно отсутствует русский перевод: {len(untranslated)}\n'
+                f'Без описания: {len(missing_descriptions)}\n'
+                f'Повторяющихся внутренних ID: {len(duplicate)}\n'
+                f'Не скачано игровых PNG: {len(missing_icons)}\n'
+                '\nПредметы без русского перевода (ID):\n' + ', '.join(map(str,untranslated[:100])) +
+                '\n\nОтсутствующие описания (ID):\n' + ', '.join(map(str,missing_descriptions[:100])) +
+                '\n\nПримечание: проверка наличия PNG не подтверждает его визуальное соответствие предмету.')
+
+    def show_diagnostics(self):
+        self._show_text('Диагностика каталога',self._diagnostics_text())
+
+    def export_catalog_csv(self,which):
+        path=filedialog.asksaveasfilename(title='Экспорт данных в CSV',defaultextension='.csv',
+             initialfile='CS3_inventory.csv' if which=='inventory' else 'CS3_catalog.csv',
+             filetypes=[('CSV UTF-8','*.csv')])
+        if not path:return
+        if which=='inventory':
+            entries=[(x.item_id,x.quantity) for x in self.save.items()] if self.save else []
+        else:
+            owned={x.item_id:x.quantity for x in self.save.items()} if self.save else {}
+            entries=[(i,owned.get(i,0)) for i,v in self.catalog.items() if is_visible_item(v)]
+        try:
+            with open(path,'w',newline='',encoding='utf-8-sig') as stream:
+                writer=csv.writer(stream)
+                writer.writerow(['ID','Name','Category','Quantity','Description'])
+                for item_id,qty in entries:
+                    record=self.catalog.get(item_id,{})
+                    writer.writerow([item_id,self._get_name(item_id),self._category_name(record),
+                                     qty,clear_codes(self._get_description(item_id))])
+            messagebox.showinfo('Экспорт каталога',f'Строк записано: {len(entries)}.\n{path}')
+        except OSError as exc:
+            messagebox.showerror('Экспорт каталога',str(exc))
 
     def _populate_categories(self):
         counts={key:0 for key in CATEGORY_NAMES}
@@ -737,7 +1302,9 @@ class Editor(tk.Tk):
             if is_visible_item(item):
                 counts[category_of(item)] += 1
         self.category_tree.delete(*self.category_tree.get_children())
-        self.category_tree.insert('','end',iid='all',text=f'{tr("Все предметы")}  ({sum(is_visible_item(v) for v in self.catalog.values())})')
+        self.category_tree.insert('','end',iid='all',text=f'◈  {tr("Все предметы")}  ({sum(is_visible_item(v) for v in self.catalog.values())})')
+        self.category_tree.insert('','end',iid='favorites',text=f'☆  {tr("Избранное")}  ({sum(item_id in self.favorites and is_visible_item(item) for item_id,item in self.catalog.items())})')
+        self.category_tree.insert('','end',iid='recent',text=f'◷  {tr("Недавно добавленные")}  ({len([i for i in self.recents if i in self.catalog and is_visible_item(self.catalog[i])])})')
         for group,(name,subgroups) in GROUPS.items():
             count=sum(counts[k] for k,_ in subgroups)
             self.category_tree.insert('','end',iid=group,text=f'{tr(name)}  ({count})',open=True)
@@ -754,6 +1321,23 @@ class Editor(tk.Tk):
         if hasattr(self,'all_tree'):
             self.refresh_catalog()
 
+    def _update_sidebar_save_info(self):
+        if self.source is None:
+            self.sidebar_file_var.set('saveXXX.dat')
+            self.sidebar_path_var.set(tr('Выберите папку с сохранением вручную'))
+            self.sidebar_time_var.set('--.--.---- --:--')
+            self.sidebar_state_var.set(tr('Файл не загружен'))
+            return
+        from datetime import datetime
+        try:
+            when=datetime.fromtimestamp(self.source.stat().st_mtime).strftime('%d.%m.%Y %H:%M')
+        except OSError:
+            when='--.--.---- --:--'
+        self.sidebar_file_var.set(self.source.name)
+        self.sidebar_path_var.set(str(self.source.parent))
+        self.sidebar_time_var.set(when)
+        self.sidebar_state_var.set(tr('Файл загружен'))
+
     def _on_auto_change(self):
         self.settings['auto_latest']=self.auto_latest.get()
         try: save_settings(self.settings)
@@ -762,6 +1346,9 @@ class Editor(tk.Tk):
     def destroy(self):
         """Cancel pending Tk timers before widgets and Tcl callbacks disappear."""
         pending=list(getattr(self,'_startup_jobs',[]))
+        pending.append(getattr(self,'_wall_job',None))
+        pending.append(getattr(self,'_header_job',None))
+        pending.append(getattr(self,'_toolbar_job',None))
         pending.extend(getattr(self,'_search_jobs',{}).values())
         pending.extend((getattr(self,'_scan_poll_job',None),
                         getattr(self,'_icon_poll_job',None)))
@@ -781,8 +1368,24 @@ class Editor(tk.Tk):
             return
         self.destroy()
 
+    def _delete_shortcut(self,event):
+        # Delete inside an Entry should edit text, not erase an inventory item.
+        if isinstance(event.widget,(tk.Entry,ttk.Entry,ttk.Spinbox,tk.Text)):
+            return
+        if self.tabs.select()==str(self.tabs.tabs()[1]):self.delete_bulk_selected()
+
+    def _apply_shortcut(self,event):
+        if isinstance(event.widget,(tk.Entry,ttk.Entry,ttk.Spinbox)):
+            return
+        if self.tabs.select()!=str(self.tabs.tabs()[2]):self.apply_change()
+
+    def _select_all_shortcut(self,event):
+        if event.widget in (getattr(self,'tree',None),getattr(self,'all_tree',None)):
+            event.widget.selection_set(event.widget.get_children())
+            return 'break'
+
     def focus_catalog_search(self, _event=None):
-        self.tabs.select(0)
+        self.show_page('catalog')
         # find the Entry bound to search_all from the catalog panel
         if hasattr(self,'catalog_search_entry'):
             self.catalog_search_entry.focus_set()
@@ -818,6 +1421,7 @@ class Editor(tk.Tk):
         when=datetime.fromtimestamp(self.source.stat().st_mtime).strftime('%d.%m.%Y %H:%M')
         self.save_line.set(f'{"Автоматически выбрано" if auto else "Открыто вручную"}: '
                            f'{self.source.name}  •  {when}  •  {self.source.parent}')
+        self._update_sidebar_save_info()
         self._refresh()
         self._describe(None)
 
@@ -894,7 +1498,7 @@ class Editor(tk.Tk):
         if children:tree.delete(*children)
         for index,row in enumerate(rows):
             iid,text,icon,values=item_factory(row)
-            tree.insert('', 'end', iid=iid, text=text, image=icon,
+            tree.insert('', 'end', iid=iid, text=('  '+text) if icon else text, image=icon,
                         values=values, tags=('stripe',) if index%2 else ())
         kept=[iid for iid in old_selection if tree.exists(iid)]
         if kept:
@@ -914,13 +1518,12 @@ class Editor(tk.Tk):
             asset=self._resolved_icon_paths[item_id]
         else:
             record=self.catalog.get(item_id,{})
-            category=category_of(record)
             manual=resource_path('icons')
-            original=icon_file_for_item(item_id,record,manual_dir=manual)
-            fallback=manual/'by_category'/(category+'.png')
-            asset=original if original is not None else fallback
+            from original_item_icons import original_icon_for_item
+            original=original_icon_for_item(item_id,record,manual=manual)
+            asset=original.path if original else None
             self._resolved_icon_paths[item_id]=asset
-        if not asset.is_file():
+        if asset is None or not asset.is_file():
             return ''
         key=str(asset)
         if key in self._item_images:
@@ -935,6 +1538,27 @@ class Editor(tk.Tk):
             return ''
         self._item_images[key]=icon
         return icon
+
+    def _detail_image(self,item_id):
+        if item_id in self._detail_images:
+            return self._detail_images[item_id]
+        if item_id not in self._resolved_icon_paths:
+            self._item_image(item_id)
+        path=self._resolved_icon_paths.get(item_id)
+        if path is None or not path.is_file():
+            return ''
+        try:
+            from PIL import Image,ImageTk
+            with Image.open(path) as raw:
+                im=raw.convert('RGBA')
+                im.thumbnail((76,76),Image.Resampling.LANCZOS)
+                if max(im.size)<64:
+                    im=im.resize((64,64),Image.Resampling.LANCZOS)
+                photo=ImageTk.PhotoImage(im,master=self)
+        except (OSError,tk.TclError,ImportError):
+            return self._item_image(item_id)
+        self._detail_images[item_id]=photo
+        return photo
 
     def _has_verified_ru_translation(self, item_id):
         # Recognize a locally installed RU pack even when the text is Latin
@@ -971,7 +1595,7 @@ class Editor(tk.Tk):
         if self.language == 'en':
             original = self.english_catalog.get(item_id)
             if original is not None:
-                return original.get('description','')
+                return generated_help(original,'en') or original.get('description','')
             # A visibly marked fallback is safer than a fabricated translation.
             return '[Original English text not imported for this ID.]'
         if (not self.builtin and item_id in self.english_catalog
@@ -987,17 +1611,18 @@ class Editor(tk.Tk):
         return tr(CATEGORY_NAMES[category_of(item)])
 
     def _describe(self, item_id):
+        if hasattr(self,'selected_name_var'):
+            self.selected_name_var.set(self._get_name(item_id) if item_id is not None else 'Выберите предмет')
+        if hasattr(self,'selected_icon_label'):
+            icon=self._detail_image(item_id) if item_id is not None else ''
+            self.selected_icon_label.configure(image=icon if icon else '',text='' if icon else '◇')
         item = self.catalog.get(item_id, {}) if item_id is not None else {}
+        if hasattr(self,'selected_category_var'):
+            self.selected_category_var.set(self._category_name(item) if item_id is not None else '')
         if item_id is None:
             content = tr('Выберите предмет в одной из вкладок, чтобы увидеть его описание.')
         else:
-            name = self._get_name(item_id)
-            text = clear_codes(self._get_description(item_id))
-            content = f'{name}\nID: {item_id}\n'
-            content += f'{tr("Категория:")} {self._category_name(item)}\n'
-            if self.save:
-                content += f'{tr("В инвентаре:")} {self.save.get_quantity(item_id)}\n'
-            content += '\n' + (text or tr('Нет описания в загруженной таблице.'))
+            content = clear_codes(self._get_description(item_id)) or tr('Нет описания в загруженной таблице.')
         self.details.configure(state='normal')
         self.details.delete('1.0', 'end')
         self.details.insert('1.0', content)
@@ -1036,9 +1661,9 @@ class Editor(tk.Tk):
         for item in self.save.items():
             name=self._get_name(item.item_id)
             record=self.catalog.get(item.item_id,{'name':name})
-            if not is_visible_item(record):continue
+            if not is_visible_item(record) and item.item_id not in NON_INVENTORY_ITEM_IDS:continue
             french=record.get('fr','')
-            if needle and not any(needle in z.casefold() for z in (str(item.item_id),name,french,record.get('name',''))):
+            if needle and not any(needle in str(z).casefold() for z in (str(item.item_id),name,french,record.get('name',''),self._get_description(item.item_id))):
                 continue
             rows.append((item.item_id,name,item.slot+1,item.quantity))
         rows=self._sorted_entries('inventory',rows)
@@ -1053,9 +1678,18 @@ class Editor(tk.Tk):
         rows=[]
         for item_id,item in self.catalog.items():
             if not is_visible_item(item):continue
-            if not item_in_category(item,self.active_category):continue
+            source=self.catalog_source.get()
+            item_source=item.get('_source') or ('base' if item_id in self.builtin else 'unknown')
+            if source in ('Основная игра','Base game') and item_source!='base':continue
+            if source=='DLC' and item_source!='dlc':continue
+            if self.active_category == 'favorites':
+                if item_id not in self.favorites:continue
+            elif self.active_category == 'recent':
+                if item_id not in self.recents:continue
+            elif not item_in_category(item,self.active_category):continue
             quantity=occupied.get(item_id,0)
             if filter_missing and quantity>0:continue
+            if self.only_present.get() and quantity==0:continue
             if needle and not any(needle in str(v).casefold() for v in (
                     item_id,self._get_name(item_id),item['name'],item.get('fr',''),self._get_description(item_id),item.get('description',''))):continue
             rows.append((item_id,self._get_name(item_id),self._category_name(item),quantity))
@@ -1124,6 +1758,7 @@ class Editor(tk.Tk):
             self._history.append(snapshot)
             if len(self._history)>40:
                 self._history.pop(0)
+            self._remember_items([item_id])
             self._refresh()
             self._select_item(item_id)
             iid = f'inv{item_id}'
@@ -1164,6 +1799,7 @@ class Editor(tk.Tk):
             self._history.append(snapshot)
             if len(self._history)>40:
                 self._history.pop(0)
+            self._remember_items(changes)
             self._refresh()
             kept=[f'all{item_id}' for item_id in ids if self.all_tree.exists(f'all{item_id}')]
             if kept:
@@ -1313,6 +1949,10 @@ class Editor(tk.Tk):
         if not self._require_save():
             return
         assert self.save is not None and self.source is not None
+        if self.source.suffix.lower()!='.dat':
+            messagebox.showwarning('Резервная копия',
+                 'Для резервной копии выберите «Сохранить копию» с расширением .dat.')
+            return
         if not self.save.changed:
             messagebox.showinfo('Нет изменений', 'Нет изменений для записи')
             return
