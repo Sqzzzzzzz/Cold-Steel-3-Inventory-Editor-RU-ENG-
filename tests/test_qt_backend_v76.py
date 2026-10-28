@@ -64,7 +64,7 @@ class QtBackendSafety(unittest.TestCase):
         self.assertEqual(backup.read_bytes(),self.original)
         self.assertEqual(CS3Save.from_file(self.path).get_quantity(20),99)
         self.assertFalse(self.core.save.changed)
-        self.assertEqual(self.core.source,self.path)
+        self.assertTrue(self.core.source.samefile(self.path))
         self.assertIsNone(self.core.overwrite_with_backup())
 
     def test_external_modification_blocks_overwrite(self):

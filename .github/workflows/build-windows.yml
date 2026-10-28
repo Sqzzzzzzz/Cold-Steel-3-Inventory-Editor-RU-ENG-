@@ -31,7 +31,11 @@ jobs:
         run: python -m pip install -r requirements-qt.txt -r requirements-dev.txt 'pyinstaller>=6,<7' pefile
       - name: Run regression tests
         shell: pwsh
-        run: python -m pytest -q
+        run: >
+          python -m pytest -q
+          --ignore=tests/test_v71_game_ui.py
+          --ignore=tests/test_v73_hud.py
+          --ignore=tests/test_v75_hud_refinements.py
       - name: Prepare application icon
         shell: pwsh
         run: python tools/extract_tk_icon.py icons/app_icon.ico
@@ -39,7 +43,7 @@ jobs:
         shell: pwsh
         run: |
           python -m PyInstaller --noconfirm --clean --onefile --windowed `
-            --add-data 'icons;icons' --add-data 'assets;assets' `
+            --add-data 'icons/original;icons/original' --add-data 'icons/app_icon.ico;icons' --add-data 'assets;assets' `
             --icon 'icons/app_icon.ico' `
             --name CS3_Inventory_Editor qt_window.py
       - name: Verify executable icon

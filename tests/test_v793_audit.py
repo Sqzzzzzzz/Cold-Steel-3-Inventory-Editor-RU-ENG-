@@ -102,7 +102,7 @@ class AuditCoreTests(unittest.TestCase):
         self.core.change({20:8});pending=self.core.save.bytes()
         bad=self.source.parent/'bad.dat';bad.write_bytes(b'invalid')
         with self.assertRaises(ValueError):self.core.open_file(bad)
-        self.assertEqual(self.core.source,self.source);self.assertEqual(self.core.save.bytes(),pending)
+        self.assertTrue(self.core.source.samefile(self.source));self.assertEqual(self.core.save.bytes(),pending)
         self.assertTrue(self.core.undo_stack)
 
     def test_invalid_file_size_is_rejected_before_reading_bytes(self):
