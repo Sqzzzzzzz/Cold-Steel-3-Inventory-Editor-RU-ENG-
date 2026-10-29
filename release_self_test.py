@@ -97,6 +97,11 @@ def run(app, report_path=None):
             app.processEvents()
             assert not window.centralWidget()._scaled_wall.isNull()
             assert not window._icon(3207,core.catalog[3207]).isNull()
+            for item_id,record in core.visible().items():
+                assert not window._icon(item_id,record).isNull(), f'Missing bundled icon for demo ID {item_id}'
+                assert not window._icon(item_id,record).pixmap(24,24).isNull(), f'Cannot render demo icon for ID {item_id}'
+                assert window._icon_sources[item_id].verified, f'Unverified demo icon for ID {item_id}'
+            checks.append('all demo item icons resolve to verified bundled game artwork')
             assert not window.grab().isNull()
             check_font_glyphs(window)
             if report_path:

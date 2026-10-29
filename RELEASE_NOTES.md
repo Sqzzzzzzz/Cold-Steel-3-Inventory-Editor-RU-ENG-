@@ -1,4 +1,8 @@
-# CS3 Inventory Editor v7.9.6
+# CS3 Inventory Editor v7.9.7
+
+Restores missing original icons after importing English data into an older translated catalog. Also fixes six blank weapon/food icons in the interface preview by using real game item IDs. The packaged check now covers every preview icon. Russian names/descriptions and user overrides are preserved.
+
+Восстановлены оригинальные иконки после импорта английских данных в старые переведённые каталоги. Исправлены шесть пропусков оружия и блюд на снимках: демонстрация использует настоящие игровые ID. Встроенная проверка EXE теперь охватывает все демонстрационные иконки. Русские названия, описания и пользовательские правки сохраняются.
 
 CSV export can no longer overwrite the opened save or a non-CSV file. English rescans retain neutral Russian names such as EP 1 and their descriptions after restart. Fixes an interpreter abort during repeated GUI redraws with Python 3.10 by using the verified Qt dependency range. Corrects false [EN] markers on Russian names such as EP 1. No game save format changes.
 

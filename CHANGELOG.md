@@ -1,3 +1,10 @@
+# v7.9.7 — Restore missing original item icons
+
+- Legacy translated catalogs now fill missing icon metadata from the matching English record. Russian text, source caches, explicit metadata and user overrides stay intact; the fix survives restart.
+- Replaced synthetic demo IDs with real item IDs and matching RU/EN names/categories. This restores the six blank weapon/food icons and corrects the remaining preview labels.
+- The packaged self-test now verifies all 76 demo item icons, including actual Qt decoding, instead of checking only one master quartz. All images remain verified original game artwork.
+- Added six regressions covering offline icons in both languages, demo-save consistency, legacy import/restart, explicit overrides, unknown/reserved IDs and cached missing icons in the real import dialog.
+
 # v7.9.6 — Safe CSV export and stable Russian catalog
 
 - CSV export now uses an atomic write and rejects the opened save, its aliases and non-CSV paths. A missing extension is added automatically; UTF-8 names and unapplied inventory edits are retained.
