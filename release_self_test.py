@@ -59,6 +59,16 @@ def run(app, report_path=None):
             else:
                 raise AssertionError('Existing copy was overwritten')
             checks.append('Unicode paths, save copy, no-overwrite and undo work')
+            exported=core.export_csv(source.with_suffix('.csv'))
+            assert exported.read_bytes().startswith(b'\xef\xbb\xbf')
+            assert source.read_bytes()==original
+            try:
+                core.export_csv(source)
+            except ValueError:
+                pass
+            else:
+                raise AssertionError('CSV export accepted the opened save')
+            checks.append('CSV export is UTF-8 and cannot overwrite the opened save')
             backup = core.overwrite_with_backup()
             assert backup.read_bytes() == original
             assert CS3Save.from_file(source).bytes() == edited

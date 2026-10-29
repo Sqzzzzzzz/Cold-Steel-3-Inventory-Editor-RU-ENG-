@@ -1,0 +1,29 @@
+[
+  {
+    "python": "310",
+    "exit_code": 0,
+    "tests": "194",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "32.001"
+  },
+  {
+    "python": "312",
+    "exit_code": 0,
+    "tests": "194",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "28.416"
+  },
+  {
+    "python": "313",
+    "exit_code": 0,
+    "tests": "194",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "35.795"
+  }
+]

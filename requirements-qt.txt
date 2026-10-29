@@ -1,2 +1,4 @@
-PySide6-Essentials>=6.7,<7.0
+# 6.12.0/Shiboken corrupts None references during redraws on CPython 3.10.
+# Keep the verified 6.11 line until a newer binding passes the native stress test.
+PySide6-Essentials>=6.7,<6.12
 Pillow>=10.0,<13.0

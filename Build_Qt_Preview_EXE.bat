@@ -14,7 +14,7 @@ python -m pip install -r requirements-qt.txt "pyinstaller>=6,<7" pefile
 if errorlevel 1 goto failed
 python tools\extract_tk_icon.py icons\app_icon.ico
 if errorlevel 1 goto failed
-python -m PyInstaller --noconfirm --clean --onefile --windowed --name CS3_Inventory_Editor --add-data "icons;icons" --add-data "assets;assets" --icon "icons/app_icon.ico" qt_window.py
+python -m PyInstaller --noconfirm --clean --onefile --windowed --name CS3_Inventory_Editor --add-data "icons/original;icons/original" --add-data "icons/app_icon.ico;icons" --add-data "assets;assets" --icon "icons/app_icon.ico" qt_window.py
 if errorlevel 1 goto failed
 python tools\extract_tk_icon.py --verify-exe dist\CS3_Inventory_Editor.exe icons\app_icon.ico
 if errorlevel 1 goto failed

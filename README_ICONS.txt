@@ -1,4 +1,4 @@
-CS3 Inventory Editor v7.9.4 — Original icons
+CS3 Inventory Editor v7.9.6 — Original icons
 
 The Qt editor includes 115 original PNGs, verified against
 icons/original/sources.json. Missing verified art is not replaced by drawings.

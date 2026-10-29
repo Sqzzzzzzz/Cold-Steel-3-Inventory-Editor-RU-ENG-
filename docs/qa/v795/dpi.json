@@ -1,0 +1,455 @@
+[
+  {
+    "factor": 1.0,
+    "checks": [
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "image": [
+          1536,
+          864
+        ],
+        "device_pixel_ratio": 1.0,
+        "item_icon_pixels": [
+          90,
+          89
+        ],
+        "item_icon_device_pixel_ratio": 1.0
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "image": [
+          1320,
+          760
+        ],
+        "device_pixel_ratio": 1.0,
+        "item_icon_pixels": [
+          72,
+          72
+        ],
+        "item_icon_device_pixel_ratio": 1.0
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "image": [
+          1280,
+          720
+        ],
+        "device_pixel_ratio": 1.0,
+        "item_icon_pixels": [
+          72,
+          72
+        ],
+        "item_icon_device_pixel_ratio": 1.0
+      }
+    ],
+    "startup_checks": [
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "state": "missing",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "state": "busy",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "state": "ready",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "state": "error",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "state": "missing",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "state": "busy",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "state": "ready",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "state": "error",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "state": "missing",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "state": "busy",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "state": "ready",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "state": "error",
+        "scroll_maximum": 0
+      }
+    ]
+  },
+  {
+    "factor": 1.25,
+    "checks": [
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "image": [
+          1920,
+          1080
+        ],
+        "device_pixel_ratio": 1.25,
+        "item_icon_pixels": [
+          112,
+          111
+        ],
+        "item_icon_device_pixel_ratio": 1.25
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "image": [
+          1650,
+          950
+        ],
+        "device_pixel_ratio": 1.25,
+        "item_icon_pixels": [
+          90,
+          90
+        ],
+        "item_icon_device_pixel_ratio": 1.25
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "image": [
+          1600,
+          900
+        ],
+        "device_pixel_ratio": 1.25,
+        "item_icon_pixels": [
+          90,
+          90
+        ],
+        "item_icon_device_pixel_ratio": 1.25
+      }
+    ],
+    "startup_checks": [
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "state": "missing",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "state": "busy",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "state": "ready",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "state": "error",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "state": "missing",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "state": "busy",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "state": "ready",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "state": "error",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "state": "missing",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "state": "busy",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "state": "ready",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "state": "error",
+        "scroll_maximum": 0
+      }
+    ]
+  },
+  {
+    "factor": 1.5,
+    "checks": [
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "image": [
+          2304,
+          1296
+        ],
+        "device_pixel_ratio": 1.5,
+        "item_icon_pixels": [
+          135,
+          134
+        ],
+        "item_icon_device_pixel_ratio": 1.5
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "image": [
+          1980,
+          1140
+        ],
+        "device_pixel_ratio": 1.5,
+        "item_icon_pixels": [
+          108,
+          108
+        ],
+        "item_icon_device_pixel_ratio": 1.5
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "image": [
+          1920,
+          1080
+        ],
+        "device_pixel_ratio": 1.5,
+        "item_icon_pixels": [
+          108,
+          108
+        ],
+        "item_icon_device_pixel_ratio": 1.5
+      }
+    ],
+    "startup_checks": [
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "state": "missing",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "state": "busy",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "state": "ready",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1536,
+          864
+        ],
+        "state": "error",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "state": "missing",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "state": "busy",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "state": "ready",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1320,
+          760
+        ],
+        "state": "error",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "state": "missing",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "state": "busy",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "state": "ready",
+        "scroll_maximum": 0
+      },
+      {
+        "window": [
+          1280,
+          720
+        ],
+        "state": "error",
+        "scroll_maximum": 0
+      }
+    ]
+  }
+]

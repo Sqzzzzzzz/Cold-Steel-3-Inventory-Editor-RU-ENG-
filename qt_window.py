@@ -5,7 +5,6 @@ mouse movement never causes catalog re-population or wallpaper rescaling.
 """
 from __future__ import annotations
 
-import csv
 from datetime import datetime
 from pathlib import Path
 import sys
@@ -315,6 +314,11 @@ class MainWindow(QMainWindow):
 
     def _make_categories(self,kind='catalog'):
         tree=QTreeWidget();tree.setHeaderHidden(True);tree.setFixedWidth(240)
+        tree.setColumnCount(2)
+        tree.header().setStretchLastSection(False)
+        tree.header().setSectionResizeMode(0,QHeaderView.ResizeMode.Stretch)
+        tree.header().setSectionResizeMode(1,QHeaderView.ResizeMode.ResizeToContents)
+        tree.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         tree.setIndentation(10);tree.setRootIsDecorated(False)
         tree.setUniformRowHeights(False);tree.setIconSize(QSize(24,24))
         tree.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
@@ -725,10 +729,11 @@ class MainWindow(QMainWindow):
         previous=self.filter_group;self.cat_tree.blockSignals(True);self.cat_tree.clear()
         visible=self.core.visible();selection=None
         def entry(key,title,count,parent=None):
-            item=QTreeWidgetItem([f'{title}  ({count})'])
+            item=QTreeWidgetItem([title,str(count)])
+            item.setTextAlignment(1,Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignVCenter)
             item.setData(0,Qt.ItemDataRole.UserRole,key)
             item.setIcon(0,hud_icon(key,25));item.setSizeHint(0,QSize(0,32 if parent else 39))
-            item.setToolTip(0,item.text(0))
+            for column in (0,1):item.setToolTip(column,f'{title} ({count})')
             if parent:parent.addChild(item)
             else:self.cat_tree.addTopLevelItem(item)
             return item
@@ -758,9 +763,10 @@ class MainWindow(QMainWindow):
             key=source.data(0,Qt.ItemDataRole.UserRole)
             if key in ('favorites','recent'):return
             count=sum(item_in_category(v,key) for v in owned.values())
-            title=source.text(0).rsplit('  (',1)[0]
-            node=QTreeWidgetItem([f'{title}  ({count})'])
-            node.setToolTip(0,node.text(0))
+            title=source.text(0)
+            node=QTreeWidgetItem([title,str(count)])
+            node.setTextAlignment(1,Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignVCenter)
+            for column in (0,1):node.setToolTip(column,f'{title} ({count})')
             node.setData(0,Qt.ItemDataRole.UserRole,key);node.setIcon(0,source.icon(0));node.setSizeHint(0,source.sizeHint(0))
             if parent:parent.addChild(node)
             else:self.inv_tree.addTopLevelItem(node)
@@ -1233,11 +1239,8 @@ class MainWindow(QMainWindow):
         if not self.core.save:return
         filename,_=QFileDialog.getSaveFileName(self,'CSV','CS3_inventory.csv','CSV (*.csv)')
         if not filename:return
-        def run():
-            with open(filename,'w',encoding='utf-8-sig',newline='') as f:
-                writer=csv.writer(f);writer.writerow(['ID','Name','Qty'])
-                for i in self.core.save.items():writer.writerow([i.item_id,self.core.item_name(i.item_id),i.quantity])
-        self._handle(run)
+        destination=self._handle(lambda:self.core.export_csv(filename))
+        if destination:self.show_toast('CSV сохранён: '+destination.name,'CSV exported: '+destination.name)
 
     def refresh_save_labels(self):
         self.edit_changes.refresh(self.core.save)

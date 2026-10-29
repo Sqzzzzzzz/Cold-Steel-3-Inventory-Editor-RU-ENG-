@@ -1,6 +1,6 @@
 <div align="center">
 
-# Cold Steel III Inventory Editor v7.9.4
+# Cold Steel III Inventory Editor v7.9.6
 
 **Unofficial save inventory editor for _The Legend of Heroes: Trails of Cold Steel III_**
 **Неофициальный редактор инвентаря сохранений для _The Legend of Heroes: Trails of Cold Steel III_**
@@ -44,7 +44,7 @@
 
 ## Русский
 
-**Cold Steel III Inventory Editor** позволяет просматривать инвентарь и изменять количество предметов в файлах сохранений Windows-версии _Trails of Cold Steel III_. Версия 7.9.4 использует новый игровой интерфейс на PySide6 с русским и английским языками.
+**Cold Steel III Inventory Editor** позволяет просматривать инвентарь и изменять количество предметов в файлах сохранений Windows-версии _Trails of Cold Steel III_. Версия 7.9.6 использует новый игровой интерфейс на PySide6 с русским и английским языками.
 
 ### Возможности
 
@@ -106,7 +106,7 @@
 
 ## English
 
-**Cold Steel III Inventory Editor** is an unofficial Windows desktop tool for browsing and editing item quantities in _Trails of Cold Steel III_ save files. Version 7.9.4 provides the new PySide6 game-style interface in Russian and English.
+**Cold Steel III Inventory Editor** is an unofficial Windows desktop tool for browsing and editing item quantities in _Trails of Cold Steel III_ save files. Version 7.9.6 provides the new PySide6 game-style interface in Russian and English.
 
 ### Features
 

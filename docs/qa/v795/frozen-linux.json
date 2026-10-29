@@ -1,0 +1,13 @@
+{
+  "version": "7.9.5",
+  "platform": "Linux",
+  "frozen": true,
+  "checks": [
+    "batch validation is atomic and preserves all non-inventory bytes",
+    "Unicode paths, save copy, no-overwrite and undo work",
+    "overwrite creates a verified backup and resets the edit baseline",
+    "all 115 bundled original PNG hashes match the manifest",
+    "real Qt window renders RU/EN, background and original icons without English UI Cyrillic leaks"
+  ],
+  "status": "passed"
+}

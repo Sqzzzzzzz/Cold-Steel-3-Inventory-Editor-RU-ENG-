@@ -8,7 +8,9 @@ from __future__ import annotations
 
 from collections import deque
 from datetime import datetime
+import csv
 import hashlib
+import io
 import os
 from pathlib import Path
 import shutil
@@ -59,6 +61,9 @@ class EditorCore:
         except OSError as exc:self.persistence_warning=str(exc)
 
     def rebuild_catalog(self):
+        # Older localized caches have no per-record locale. Detect their base
+        # language once, rather than rescanning the whole catalog for every row.
+        self._base_locale = catalog_locale(self.base)
         self.catalog = {i: dict(v) for i,v in self.base.items()}
         for i,v in self.overrides.items():
             self.catalog[i] = {**self.catalog.get(i,{}), **v}
@@ -87,7 +92,8 @@ class EditorCore:
         if i not in self.overrides and ru.get('name') == en.get('name') and ru.get('name') and not any('А'<=c<='я' for c in text):
             # Names such as HP 1 may legitimately be identical in Russian and English;
             # an explicit locale tag on installed packs takes precedence.
-            if self.overrides.get(i,{}).get('_locale')!='ru':
+            locale=ru.get('_locale') or (self._base_locale if i in self.base else 'unknown')
+            if locale!='ru':
                 return '[EN] '+text
         return text
 
@@ -153,10 +159,11 @@ class EditorCore:
             current.setdefault('_locale',detected_locale)
             old_name=str(prior.get('name',''))
             # An original English scan must not erase an existing localized RU entry.
-            if (old_name and any(c in old_name for c in 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЫЭЮЯабвгдежзийклмнопрстуфхцчшщыэюяЁё')
+            prior_locale=prior.get('_locale') or self._base_locale
+            if (old_name and (prior_locale=='ru' or CYRILLIC.search(old_name))
                     and current['_locale']=='en'):
                 current['name']=prior['name']
-                if prior.get('description'): current['description']=prior['description']
+                current['description']=prior.get('description','')
                 current['_locale']='ru'
             new_base[i]={**prior,**current}
         # Restore verified custom Russian names rather than erase them on scan.
@@ -240,6 +247,23 @@ class EditorCore:
         CS3Save(payload)
         self._atomic_write(destination,payload,replace=False)
         # Do not clear unsaved state: original opened save hasn't changed.
+        return destination
+
+    def export_csv(self, destination):
+        if self.save is None or self.source is None:raise RuntimeError('No save loaded')
+        destination=Path(destination).expanduser()
+        if not destination.suffix:destination=destination.with_suffix('.csv')
+        destination=destination.resolve()
+        if (destination==self.source.resolve() or
+                (destination.exists() and self.source.exists() and destination.samefile(self.source))):
+            raise ValueError('CSV export cannot overwrite the opened save.')
+        if destination.suffix.lower()!='.csv':
+            raise ValueError('Choose a .csv file for inventory export.')
+        stream=io.StringIO(newline='')
+        writer=csv.writer(stream);writer.writerow(['ID','Name','Qty'])
+        for entry in self.save.items():
+            writer.writerow([entry.item_id,self.item_name(entry.item_id),entry.quantity])
+        self._atomic_write(destination,stream.getvalue().encode('utf-8-sig'))
         return destination
 
     def overwrite_with_backup(self):

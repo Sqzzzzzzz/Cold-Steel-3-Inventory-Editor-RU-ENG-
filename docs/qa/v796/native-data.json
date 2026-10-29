@@ -1,0 +1,59 @@
+{
+  "table": {
+    "name": "t_item_en.tbl",
+    "sha256": "170616144d299a439c98eb52be699613c0d5b63283356c95d20799abe00f7384",
+    "records": 1233,
+    "visible": 1181,
+    "locale": "ru"
+  },
+  "checks": {
+    "localized_native_metadata": "PASS",
+    "all_english_names_and_descriptions": "PASS",
+    "master_quartz_id_names": "PASS",
+    "original_asset_hashes": {
+      "status": "PASS",
+      "files": 115
+    },
+    "quartz_native_and_legacy_mapping": {
+      "status": "PASS",
+      "records": 307
+    }
+  },
+  "saves": [
+    {
+      "name": "save016.dat",
+      "sha256": "bc4068edd92755191de01fd80b1b98aeca46afc38f0f00e66878ba2bffb4cff7",
+      "occupied": 650,
+      "random_batches": 100,
+      "copy_backup_reopen": "PASS",
+      "non_inventory_bytes_unchanged": true,
+      "input_file_unchanged": true
+    }
+  ],
+  "english": {
+    "records": 1240,
+    "sha256": "0695f9c41aff4aed200a0d665da4979f7ff2cbf63c99385ff33aabc4d88b4a1a",
+    "extra_ids": [
+      3804,
+      3807,
+      3808,
+      3809,
+      3810,
+      3964,
+      3965
+    ]
+  },
+  "icons": {
+    "resolved": 1227,
+    "unverified_ids": [
+      249,
+      2125,
+      2126,
+      2127,
+      2128,
+      2129
+    ],
+    "unverified_visible_ids": [],
+    "note": "Family matches use shared game artwork. This is not an in-game visual verification of every ID."
+  }
+}
