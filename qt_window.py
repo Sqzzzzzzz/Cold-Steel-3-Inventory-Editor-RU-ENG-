@@ -315,6 +315,9 @@ class MainWindow(QMainWindow):
     def _make_categories(self,kind='catalog'):
         tree=QTreeWidget();tree.setHeaderHidden(True);tree.setFixedWidth(240)
         tree.setColumnCount(2)
+        # Native Windows styles can otherwise reserve most of a narrow tree for
+        # the first section, pushing the count column outside the viewport.
+        tree.header().setMinimumSectionSize(24)
         tree.header().setStretchLastSection(False)
         tree.header().setSectionResizeMode(0,QHeaderView.ResizeMode.Stretch)
         tree.header().setSectionResizeMode(1,QHeaderView.ResizeMode.ResizeToContents)
@@ -695,8 +698,6 @@ class MainWindow(QMainWindow):
         for i,value in enumerate((62,109,82) if compact else (70,133,108),start=1):self.inv_table.setColumnWidth(i,value)
         for table in (self.cat_table,self.inv_table):table.verticalHeader().setDefaultSectionSize(30)
         self.footer_row.layout().setContentsMargins(rail+8,2,4,0)
-        self.id_caption.setText(self.msg('ID','ID') if compact else self.msg('ID предмета','Item ID'))
-        self.qty_caption.setText(self.msg('Кол-во','Qty') if compact else self.msg('Количество (0–99)','Quantity (0–99)'))
         self.qty_caption.setToolTip(self.msg('Допустимое количество: от 0 до 99','Allowed quantity: 0 to 99'))
         self.btn_latest.setToolTip(self.msg('Открыть последнее сохранение (F5)','Open latest save (F5)'))
         self.btn_open.setToolTip(self.msg('Открыть файл сохранения (Ctrl+O)','Open save file (Ctrl+O)'))
@@ -706,6 +707,13 @@ class MainWindow(QMainWindow):
         self.big_icon.setFixedSize(74 if compact else 92,104 if compact else 112)
         self.detail.layout().setSpacing(3 if self.height()<800 else 7)
         self.detail.layout().setContentsMargins(18 if self.height()<800 else 22,10 if self.height()<800 else 15,18 if self.height()<800 else 22,16 if self.height()<800 else 25)
+        margins=self.detail.layout().contentsMargins()
+        field_width=(detail-margins.left()-margins.right()-self.big_icon.width()-14-8)//2
+        for caption,full,brief in (
+                (self.id_caption,self.msg('ID предмета','Item ID'),'ID'),
+                (self.qty_caption,self.msg('Количество (0–99)','Quantity (0–99)'),self.msg('Кол-во','Qty'))):
+            caption.ensurePolished()
+            caption.setText(brief if compact or caption.fontMetrics().horizontalAdvance(full)>field_width else full)
         for button in (self.apply_btn,self.delete_btn,self.undo_btn,self.reset_btn):
             button.setFixedHeight(40 if self.height()<800 else 48)
         self.reset_btn.setText(self.msg('Сбросить','Reset') if compact else self.msg('Сбросить правки','Reset edits'))
