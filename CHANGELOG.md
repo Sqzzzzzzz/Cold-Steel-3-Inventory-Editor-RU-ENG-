@@ -5,6 +5,7 @@
 - Added 18 regression cases for the two issues confirmed by an independent review. The packaged self-test also checks CSV export and source-save protection.
 - Adapted field captions to measured font widths and allowed category titles to shrink while retaining visible counts. Windows layout tests now use the same Fusion style as the application and show each page before measuring its geometry.
 - ID and quantity inputs share space without the native spin-box size hint squeezing a five-digit ID; minimum widths follow font metrics.
+- Fixed font discovery for Windows offscreen CI screenshots; the packaged self-test now rejects missing Latin/Cyrillic glyphs. Tested assets refresh existing draft releases while published releases remain unchanged.
 - Includes the Python 3.10 Qt stability, locale-marker and category-count fixes from v7.9.5.
 
 # v7.9.5 — Python 3.10 stability and locale markers

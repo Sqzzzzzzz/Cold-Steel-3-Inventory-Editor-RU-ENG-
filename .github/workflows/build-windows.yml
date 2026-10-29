@@ -13,12 +13,19 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: windows-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: windows-latest
     timeout-minutes: 20
     env:
       QT_QPA_PLATFORM: offscreen
+      # The Windows offscreen backend uses FreeType instead of the native font
+      # database. Point it at installed fonts so screenshots contain real text.
+      QT_QPA_FONTDIR: 'C:\Windows\Fonts'
     steps:
       - name: Check out source
         uses: actions/checkout@v7
@@ -101,9 +108,19 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          current_head=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)
+          if [ "$current_head" != "$GITHUB_SHA" ]; then
+            echo 'A newer main commit exists; skipping stale release assets.'
+            exit 0
+          fi
           version=$(python -c 'from app_info import VERSION; print(VERSION)')
           if gh release view "v$version" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            echo "Release v$version already exists; leaving it unchanged."
+            if [ "$(gh release view "v$version" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)" = "true" ]; then
+              gh release upload "v$version" release/* --clobber --repo "$GITHUB_REPOSITORY"
+              gh release edit "v$version" --target "$GITHUB_SHA" --notes-file RELEASE_NOTES.md --repo "$GITHUB_REPOSITORY"
+            else
+              echo "Published release v$version already exists; leaving it unchanged."
+            fi
           else
             gh release create "v$version" release/* --draft --target "$GITHUB_SHA" --title "CS3 Inventory Editor v$version — Qt interface" --notes-file RELEASE_NOTES.md
           fi

@@ -16,6 +16,14 @@ from preview_demo import demo_catalog, synthetic_demo_save
 from qt_backend import EditorCore
 
 
+def check_font_glyphs(window):
+    sample = 'Inventory Save 0123456789 Редактор сохранений Ёё'
+    for widget in (window.title,window.subtitle,window.apply_btn,window.description,window.id_field):
+        metrics = widget.fontMetrics()
+        missing = {char for char in sample if not char.isspace() and not metrics.inFontUcs4(ord(char))}
+        assert not missing, 'UI font cannot render Latin/Cyrillic text: '+repr(sorted(missing))
+
+
 def run(app, report_path=None):
     checks = []
     result = {'version':VERSION, 'platform':platform.system(), 'frozen':bool(getattr(sys,'frozen',False)), 'checks':checks}
@@ -90,11 +98,14 @@ def run(app, report_path=None):
             assert not window.centralWidget()._scaled_wall.isNull()
             assert not window._icon(3207,core.catalog[3207]).isNull()
             assert not window.grab().isNull()
+            check_font_glyphs(window)
             if report_path:
                 Path(report_path).parent.mkdir(parents=True,exist_ok=True)
                 assert window.grab().save(str(Path(report_path).parent/'release-ru.png'))
             window.lang.setCurrentIndex(1)
             app.processEvents()
+            check_font_glyphs(window)
+            checks.append('UI fonts contain Latin, Cyrillic and numeric glyphs in both languages')
             for obj in window.findChildren(QLabel)+window.findChildren(QAbstractButton)+window.findChildren(QAction):
                 if obj in (window.rail_folder,window.save_line):
                     continue  # User-selected Unicode paths are not UI translations.
