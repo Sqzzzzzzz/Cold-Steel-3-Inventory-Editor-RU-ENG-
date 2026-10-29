@@ -1,0 +1,42 @@
+name: Publish v7.9.7
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-v7.9.7.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: publish-cs3-v7.9.7
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Publish the verified v7.9.7 draft
+        shell: bash
+        run: |
+          set -euo pipefail
+          target=62e6a859bb84ea6cac9c3bb8595ca071f0acad56
+          for run in 40858744096 40858744110; do
+            result=$(gh api "repos/$GH_REPO/actions/runs/$run" --jq '.head_sha + " " + .conclusion')
+            test "$result" = "$target success"
+          done
+          gh api "repos/$GH_REPO/releases/427732973" | jq -e '
+            .tag_name == "v7.9.7" and .draft == true and
+            .target_commitish == "62e6a859bb84ea6cac9c3bb8595ca071f0acad56" and
+            any(.assets[]; .name == "CS3_Inventory_Editor_v7.9.7_Windows.zip" and
+              .digest == "sha256:a97d5c5de1841fa0c64209fa4f8cdc8294b2fec9032e5ab54f18b50afd3c109f") and
+            any(.assets[]; .name == "SHA256SUMS.txt")'
+          gh release edit v7.9.7 --draft=false --latest --title "CS3 Inventory Editor v7.9.7" --notes "Bug Fixes"
+          gh api "repos/$GH_REPO/releases/427732973" | jq -e '
+            .draft == false and .tag_name == "v7.9.7" and .body == "Bug Fixes"'
