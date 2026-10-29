@@ -13,6 +13,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: windows-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: windows-latest
@@ -104,6 +108,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          current_head=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)
+          if [ "$current_head" != "$GITHUB_SHA" ]; then
+            echo 'A newer main commit exists; skipping stale release assets.'
+            exit 0
+          fi
           version=$(python -c 'from app_info import VERSION; print(VERSION)')
           if gh release view "v$version" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             if [ "$(gh release view "v$version" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft)" = "true" ]; then
