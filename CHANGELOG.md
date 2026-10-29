@@ -3,7 +3,7 @@
 - CSV export now uses an atomic write and rejects the opened save, its aliases and non-CSV paths. A missing extension is added automatically; UTF-8 names and unapplied inventory edits are retained.
 - An English rescan preserves Russian entries whose names contain no Cyrillic characters, including EP 1, along with their descriptions and locale after restarting. Fresh English text is still available in English mode.
 - Added 18 regression cases for the two issues confirmed by an independent review. The packaged self-test also checks CSV export and source-save protection.
-- Fixed two additional issues reproduced by Windows CI: native tree-header minimum widths pushing counts outside the panel, and field captions exceeding their available width with Windows font metrics.
+- Adapted field captions to measured font widths and allowed category titles to shrink while retaining visible counts. Windows layout tests now use the same Fusion style as the application and show each page before measuring its geometry.
 - Includes the Python 3.10 Qt stability, locale-marker and category-count fixes from v7.9.5.
 
 # v7.9.5 — Python 3.10 stability and locale markers

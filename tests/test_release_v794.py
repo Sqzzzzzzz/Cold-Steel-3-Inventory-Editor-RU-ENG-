@@ -18,6 +18,8 @@ from qt_backend import EditorCore
 @pytest.fixture
 def window():
     app = QApplication.instance() or QApplication([])
+    previous_style = app.style().objectName()
+    app.setStyle('Fusion')  # Match qt_window.main(), including Windows runs.
     w = create_demo_window()
     w.show()
     w.activateWindow()
@@ -29,6 +31,7 @@ def window():
     w.deleteLater()
     app.processEvents()
     w.core.cleanup()
+    app.setStyle(previous_style)
 
 
 def test_redirected_windows_saved_games_uses_real_known_folder_guid(tmp_path):
@@ -112,6 +115,9 @@ def test_category_counts_remain_visible_and_update_after_edits(window):
         owned = master_node(window.inv_tree)
         assert owned.text(1) == '11'
         for tree in (window.cat_tree,window.inv_tree):
+            # Qt need not lay out a hidden page until it is shown.
+            window.show_section('catalog' if tree is window.cat_tree else 'inventory')
+            QApplication.processEvents()
             node = master_node(tree)
             cell = tree.visualRect(tree.indexFromItem(node,1))
             assert cell.right() <= tree.viewport().width()
