@@ -491,6 +491,9 @@ class MainWindow(QMainWindow):
         nums=QHBoxLayout();nums.setSpacing(8)
         self.id_field=QLineEdit();self.id_field.setReadOnly(True);self.id_field.setFixedHeight(36)
         self.qty=QSpinBox();self.qty.setRange(0,99);self.qty.setFixedHeight(36)
+        # Native spin-box size hints must not consume the adjacent ID field.
+        for field in (self.id_field,self.qty):
+            field.setSizePolicy(QSizePolicy.Policy.Ignored,QSizePolicy.Policy.Fixed)
         self.qty.valueChanged.connect(self._quantity_edited)
         nums.addWidget(self.id_field,1);nums.addWidget(self.qty,1);identity.addLayout(nums);top.addLayout(identity,1);l.addLayout(top)
         self.quantity_note=glass_label('','muted',10);self.quantity_note.setObjectName('quantityChange')
@@ -709,6 +712,9 @@ class MainWindow(QMainWindow):
         self.detail.layout().setContentsMargins(18 if self.height()<800 else 22,10 if self.height()<800 else 15,18 if self.height()<800 else 22,16 if self.height()<800 else 25)
         margins=self.detail.layout().contentsMargins()
         field_width=(detail-margins.left()-margins.right()-self.big_icon.width()-14-8)//2
+        for field,text,padding in ((self.id_field,'65535',18),(self.qty,'99',36)):
+            field.ensurePolished()
+            field.setMinimumWidth(field.fontMetrics().horizontalAdvance(text)+padding)
         for caption,full,brief in (
                 (self.id_caption,self.msg('ID предмета','Item ID'),'ID'),
                 (self.qty_caption,self.msg('Количество (0–99)','Quantity (0–99)'),self.msg('Кол-во','Qty'))):

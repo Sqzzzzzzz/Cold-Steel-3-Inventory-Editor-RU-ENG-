@@ -145,3 +145,5 @@ def test_item_field_captions_fit_in_both_languages(window):
             for caption in (window.id_caption,window.qty_caption):
                 assert caption.fontMetrics().horizontalAdvance(caption.text()) <= caption.width()
             assert window.id_field.fontMetrics().horizontalAdvance('65535')+16 <= window.id_field.width()
+            quantity_input=window.qty.lineEdit()
+            assert quantity_input.fontMetrics().horizontalAdvance('99') <= quantity_input.contentsRect().width()

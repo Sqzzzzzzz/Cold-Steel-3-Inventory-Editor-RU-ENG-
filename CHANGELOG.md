@@ -4,6 +4,7 @@
 - An English rescan preserves Russian entries whose names contain no Cyrillic characters, including EP 1, along with their descriptions and locale after restarting. Fresh English text is still available in English mode.
 - Added 18 regression cases for the two issues confirmed by an independent review. The packaged self-test also checks CSV export and source-save protection.
 - Adapted field captions to measured font widths and allowed category titles to shrink while retaining visible counts. Windows layout tests now use the same Fusion style as the application and show each page before measuring its geometry.
+- ID and quantity inputs share space without the native spin-box size hint squeezing a five-digit ID; minimum widths follow font metrics.
 - Includes the Python 3.10 Qt stability, locale-marker and category-count fixes from v7.9.5.
 
 # v7.9.5 — Python 3.10 stability and locale markers
