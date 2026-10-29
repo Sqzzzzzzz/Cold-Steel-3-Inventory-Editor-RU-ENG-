@@ -147,3 +147,13 @@ def test_item_field_captions_fit_in_both_languages(window):
             assert window.id_field.fontMetrics().horizontalAdvance('65535')+16 <= window.id_field.width()
             quantity_input=window.qty.lineEdit()
             assert quantity_input.fontMetrics().horizontalAdvance('99') <= quantity_input.contentsRect().width()
+
+
+def test_release_font_check_accepts_real_fonts_and_rejects_missing_cyrillic(window):
+    from release_self_test import check_font_glyphs
+    check_font_glyphs(window)
+    metrics = window.title.fontMetrics()
+    missing_cyrillic = SimpleNamespace(inFontUcs4=lambda value: value != ord('Р') and metrics.inFontUcs4(value))
+    with patch.object(window.title,'fontMetrics',return_value=missing_cyrillic):
+        with pytest.raises(AssertionError,match='Latin/Cyrillic'):
+            check_font_glyphs(window)
