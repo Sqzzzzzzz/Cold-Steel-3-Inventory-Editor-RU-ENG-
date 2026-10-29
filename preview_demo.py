@@ -31,23 +31,45 @@ def demo_catalog():
                     'description':'Master quartz. Sample text for interface preview.'}
     records[3207]['description']='Мастер-кварц, обладающий\nмногогранной силой.\n\nЕго называют «калейдоскопом»,\nведь он способен раскрываться\nпо-разному в зависимости\nот владельца.\n\nДемонстрационный текст для проверки\nоформления и прокрутки описания.'
     english[3207]['description']='A master quartz with many facets.\n\nIts power reveals itself differently\ndepending on the person who wields it.\n\nSample text for the interface preview.'
+    # Curated real IDs and RU/EN names; synthetic quantities stay isolated.
     families=[
-        ('quartz_normal',3350,['HP 1','HP 2','EP 1','EP 2','Атака 1','Атака 2','Защита 1','Защита 2','Действие 1','Действие 2','Уклонение 1','Уклонение 2'],
-         ['HP 1','HP 2','EP 1','EP 2','Attack 1','Attack 2','Defense 1','Defense 2','Action 1','Action 2','Evade 1','Evade 2']),
-        ('weapon',100,['Учебный клинок','Стальной меч','Тактический посох'],['Practice Blade','Steel Sword','Tactical Staff']),
-        ('armor',420,['Кожаная куртка','Боевой жилет','Офицерский мундир'],['Leather Jacket','Battle Vest','Officer Uniform']),
-        ('shoes',500,['Походные ботинки','Лёгкие сапоги','Тяжёлые ботинки'],['Hiking Boots','Light Boots','Heavy Boots']),
-        ('accessory',600,['Серебряное кольцо','Счастливый браслет','Синий кулон'],['Silver Ring','Lucky Bracelet','Blue Pendant']),
-        ('consumable',20,['Целебный бальзам','Энергетический напиток','Дымовая шашка'],['Healing Balm','Energy Drink','Smoke Bomb']),
-        ('food',800,['Овощной суп','Свежий сэндвич','Печёное яблоко'],['Vegetable Soup','Fresh Sandwich','Baked Apple']),
-        ('ingredient',900,['Свежие овощи','Сочное мясо','Ароматные травы'],['Fresh Vegetables','Fresh Meat','Fragrant Herbs']),
-        ('recipe',1000,['Рецепт: суп','Рецепт: сэндвич'],['Recipe: Soup','Recipe: Sandwich']),
-        ('book',1100,['Имперские хроники 1','Имперские хроники 2'],['Imperial Chronicle 1','Imperial Chronicle 2']),
-        ('material',60,['U-материал'],['U-Material']),
+        ('quartz_normal',(3350, 3351, 3352, 3353, 3354, 3355, 3356, 3357, 3358, 3359, 3360, 3361),
+         ['Алмазная нова', 'Слеза', 'Слеза-ра', 'Слеза-рал', 'Курия', 'Телас', 'Ателас', 'HP 1', 'Щит 1', 'Немота', 'Заморозка', 'Разрушитель духа'],
+         ['Diamond Nova', 'Tear', 'Teara', 'Tearal', 'Curia', 'Thelas', 'Athelas', 'HP 1', 'Shield 1', 'Mute', 'Freeze', 'Spirit Breaker']),
+        ('weapon',(1200, 1215, 1230),
+         ['Хиэн', 'Миротворец', 'Многослойные клинки'],
+         ['Hien', 'Peacemaker', 'Layer Edges']),
+        ('armor',(420, 421, 422),
+         ['Золотая куртка', 'Серебряная роба', 'Регалии Улисса'],
+         ['Gold Jacket', 'Silver Robe', 'Ulysses Regalia']),
+        ('shoes',(500, 501, 502),
+         ['Кожаные ботинки', 'Лёгкая обувь', 'Белая кожа'],
+         ['Leather Boots', 'Light Shoes', 'White Leather']),
+        ('accessory',(600, 601, 602),
+         ['Серебряная серьга', 'Серебряная цепь', 'Серебряный амулет'],
+         ['Silver Earring', 'Silver Chain', 'Silver Charm']),
+        ('consumable',(20, 21, 0),
+         ['Благовоние духа', 'Благовоние дракона', 'Целебный бальзам'],
+         ['Spirit Incense', 'Dragon Incense', 'Tear Balm']),
+        ('food',(3022, 3023, 3024),
+         ['Картофельный салат', 'Горка луковых колец', 'Воздушный шифоновый торт'],
+         ['Chunky Potato Salad', 'Piled Onion Rings', 'Fluffy Chiffon Cake']),
+        ('ingredient',(3100, 3101, 3102),
+         ['Свежее яйцо', 'Свежее молоко', 'Выдержанный сыр'],
+         ['Fresh Egg', 'Fresh Milk', 'Mature Cheese']),
+        ('recipe',(2340, 2341),
+         ['Мужская кухня - Картофельный салат', 'Мужская кухня - Лук'],
+         ['Manly Munchies - Potato Salad', 'Manly Munchies - Onions']),
+        ('book',(260, 261),
+         ['Имперская Хроника - Выпуск 1', 'Имперская Хроника - Выпуск 2'],
+         ['Imperial Chronicle - Issue 1', 'Imperial Chronicle - Issue 2']),
+        ('material',(60,),
+         ['U-материал'],
+         ['U-Material']),
     ]
-    for cat,start,ru,en in families:
-        for offset,(name,translation) in enumerate(zip(ru,en)):
-            i=start+offset;records[i]={'id':i,'name':name,'category':cat,
+    for cat,ids,ru,en in families:
+        for i,name,translation in zip(ids,ru,en):
+            records[i]={'id':i,'name':name,'category':cat,
                 'description':'Образец данных для демонстрации интерфейса.','_demo':True}
             english[i]={**records[i],'name':translation,'description':'Sample data for the interface preview.'}
     return records,english
@@ -59,7 +81,7 @@ def synthetic_demo_save():
     data[TABLE_OFFSET:TABLE_END]=(EMPTY_ID.to_bytes(2,'little')+bytes(RECORD_SIZE-2))*RECORD_COUNT
     entries=[(3200,1),(3201,1),(3202,1),(3207,1),(3209,1),(3212,1),(3215,1),
              (3217,1),(3220,1),(3223,1),(3227,1),(3350,2),(3354,3),
-             (20,15),(21,8),(60,24),(100,1),(420,2),(500,2),(600,1),(800,6),(900,12)]
+             (20,15),(21,8),(60,24),(1200,1),(420,2),(500,2),(600,1),(3022,6),(3100,12)]
     for slot,(i,qty) in enumerate(entries):
         at=TABLE_OFFSET+slot*RECORD_SIZE;data[at:at+4]=i.to_bytes(2,'little')+qty.to_bytes(2,'little')
     return bytes(data)

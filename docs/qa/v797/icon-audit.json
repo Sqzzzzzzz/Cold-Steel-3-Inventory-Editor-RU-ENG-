@@ -1,0 +1,35 @@
+{
+  "version": "7.9.7",
+  "base_commit": "4194f930fcbb5c67d8be7dd36270fcadc9fa8faa",
+  "bundled_assets_unchanged": true,
+  "catalogs": [
+    {
+      "records": 1233,
+      "visible": 1181,
+      "missing_visible_icons": []
+    },
+    {
+      "records": 1233,
+      "visible": 1181,
+      "missing_visible_icons": []
+    },
+    {
+      "records": 1240,
+      "visible": 1188,
+      "missing_visible_icons": []
+    }
+  ],
+  "demo": {
+    "records": 76,
+    "native_ids_names_and_categories_match": true,
+    "missing_icons": [],
+    "previous_missing_ids": [
+      100,
+      101,
+      102,
+      800,
+      801,
+      802
+    ]
+  }
+}

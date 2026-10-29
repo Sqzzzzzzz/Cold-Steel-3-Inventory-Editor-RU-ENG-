@@ -72,7 +72,12 @@ class EditorCore:
                 self.catalog[i] = {**self.catalog[i], **v}
         # English fallback is always visible, but clearly marked when RU isn't present.
         for i,v in self.english.items():
-            self.catalog.setdefault(i,dict(v))
+            current=self.catalog.setdefault(i,dict(v))
+            # Older translated caches contain names without native icon metadata.
+            # Fill gaps from the same item's EN record, keeping RU text and any
+            # explicit metadata or user overrides intact.
+            for field in ('kind','category','type_code','character','element','rarity'):
+                if field in v:current.setdefault(field,v[field])
 
     def set_language(self, language: str):
         if language not in ('ru','en'): raise ValueError('Invalid language')

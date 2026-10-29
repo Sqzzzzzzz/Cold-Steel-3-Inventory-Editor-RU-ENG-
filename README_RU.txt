@@ -1,4 +1,4 @@
-CS3 Inventory Editor v7.9.6
+CS3 Inventory Editor v7.9.7
 
 Готовая версия: распакуйте Windows ZIP и запустите CS3_Inventory_Editor.exe.
 Исходники: запустите «Запустить.bat» либо установите requirements.txt и
