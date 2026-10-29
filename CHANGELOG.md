@@ -1,3 +1,20 @@
+# v7.9.6 — Safe CSV export and stable Russian catalog
+
+- CSV export now uses an atomic write and rejects the opened save, its aliases and non-CSV paths. A missing extension is added automatically; UTF-8 names and unapplied inventory edits are retained.
+- An English rescan preserves Russian entries whose names contain no Cyrillic characters, including EP 1, along with their descriptions and locale after restarting. Fresh English text is still available in English mode.
+- Added 18 regression cases for the two issues confirmed by an independent review. The packaged self-test also checks CSV export and source-save protection.
+- Adapted field captions to measured font widths and allowed category titles to shrink while retaining visible counts. Windows layout tests now use the same Fusion style as the application and show each page before measuring its geometry.
+- ID and quantity inputs share space without the native spin-box size hint squeezing a five-digit ID; minimum widths follow font metrics.
+- Includes the Python 3.10 Qt stability, locale-marker and category-count fixes from v7.9.5.
+
+# v7.9.5 — Python 3.10 stability and locale markers
+
+- Reproduced the CI abort on CPython 3.10.22: PySide6/Shiboken 6.12.0 decrements None references on repeated void painting calls. Constrained Qt to the verified <6.12 range; Python 3.10 remains in CI.
+- Added an isolated 10,000-redraw regression check and enabled detailed CI crash traces.
+- Russian item names shared with English (for example EP 1) now respect the original catalog locale. Old Russian caches without per-record locale are recognized once during catalog rebuild; explicit English entries keep their marker.
+- Category counts now occupy a content-sized column in both catalog and inventory, preserving fixed panel widths.
+- Local Windows packaging includes the same original-icon paths as the GitHub build.
+
 # v7.9.4 — Qt release
 
 - Default launch and Windows build now use qt_window.py; legacy Tk remains available.

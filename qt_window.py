@@ -5,7 +5,6 @@ mouse movement never causes catalog re-population or wallpaper rescaling.
 """
 from __future__ import annotations
 
-import csv
 from datetime import datetime
 from pathlib import Path
 import sys
@@ -315,6 +314,14 @@ class MainWindow(QMainWindow):
 
     def _make_categories(self,kind='catalog'):
         tree=QTreeWidget();tree.setHeaderHidden(True);tree.setFixedWidth(240)
+        tree.setColumnCount(2)
+        # Native Windows styles can otherwise reserve most of a narrow tree for
+        # the first section, pushing the count column outside the viewport.
+        tree.header().setMinimumSectionSize(24)
+        tree.header().setStretchLastSection(False)
+        tree.header().setSectionResizeMode(0,QHeaderView.ResizeMode.Stretch)
+        tree.header().setSectionResizeMode(1,QHeaderView.ResizeMode.ResizeToContents)
+        tree.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         tree.setIndentation(10);tree.setRootIsDecorated(False)
         tree.setUniformRowHeights(False);tree.setIconSize(QSize(24,24))
         tree.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
@@ -484,6 +491,9 @@ class MainWindow(QMainWindow):
         nums=QHBoxLayout();nums.setSpacing(8)
         self.id_field=QLineEdit();self.id_field.setReadOnly(True);self.id_field.setFixedHeight(36)
         self.qty=QSpinBox();self.qty.setRange(0,99);self.qty.setFixedHeight(36)
+        # Native spin-box size hints must not consume the adjacent ID field.
+        for field in (self.id_field,self.qty):
+            field.setSizePolicy(QSizePolicy.Policy.Ignored,QSizePolicy.Policy.Fixed)
         self.qty.valueChanged.connect(self._quantity_edited)
         nums.addWidget(self.id_field,1);nums.addWidget(self.qty,1);identity.addLayout(nums);top.addLayout(identity,1);l.addLayout(top)
         self.quantity_note=glass_label('','muted',10);self.quantity_note.setObjectName('quantityChange')
@@ -691,8 +701,6 @@ class MainWindow(QMainWindow):
         for i,value in enumerate((62,109,82) if compact else (70,133,108),start=1):self.inv_table.setColumnWidth(i,value)
         for table in (self.cat_table,self.inv_table):table.verticalHeader().setDefaultSectionSize(30)
         self.footer_row.layout().setContentsMargins(rail+8,2,4,0)
-        self.id_caption.setText(self.msg('ID','ID') if compact else self.msg('ID предмета','Item ID'))
-        self.qty_caption.setText(self.msg('Кол-во','Qty') if compact else self.msg('Количество (0–99)','Quantity (0–99)'))
         self.qty_caption.setToolTip(self.msg('Допустимое количество: от 0 до 99','Allowed quantity: 0 to 99'))
         self.btn_latest.setToolTip(self.msg('Открыть последнее сохранение (F5)','Open latest save (F5)'))
         self.btn_open.setToolTip(self.msg('Открыть файл сохранения (Ctrl+O)','Open save file (Ctrl+O)'))
@@ -702,6 +710,16 @@ class MainWindow(QMainWindow):
         self.big_icon.setFixedSize(74 if compact else 92,104 if compact else 112)
         self.detail.layout().setSpacing(3 if self.height()<800 else 7)
         self.detail.layout().setContentsMargins(18 if self.height()<800 else 22,10 if self.height()<800 else 15,18 if self.height()<800 else 22,16 if self.height()<800 else 25)
+        margins=self.detail.layout().contentsMargins()
+        field_width=(detail-margins.left()-margins.right()-self.big_icon.width()-14-8)//2
+        for field,text,padding in ((self.id_field,'65535',18),(self.qty,'99',36)):
+            field.ensurePolished()
+            field.setMinimumWidth(field.fontMetrics().horizontalAdvance(text)+padding)
+        for caption,full,brief in (
+                (self.id_caption,self.msg('ID предмета','Item ID'),'ID'),
+                (self.qty_caption,self.msg('Количество (0–99)','Quantity (0–99)'),self.msg('Кол-во','Qty'))):
+            caption.ensurePolished()
+            caption.setText(brief if compact or caption.fontMetrics().horizontalAdvance(full)>field_width else full)
         for button in (self.apply_btn,self.delete_btn,self.undo_btn,self.reset_btn):
             button.setFixedHeight(40 if self.height()<800 else 48)
         self.reset_btn.setText(self.msg('Сбросить','Reset') if compact else self.msg('Сбросить правки','Reset edits'))
@@ -725,10 +743,11 @@ class MainWindow(QMainWindow):
         previous=self.filter_group;self.cat_tree.blockSignals(True);self.cat_tree.clear()
         visible=self.core.visible();selection=None
         def entry(key,title,count,parent=None):
-            item=QTreeWidgetItem([f'{title}  ({count})'])
+            item=QTreeWidgetItem([title,str(count)])
+            item.setTextAlignment(1,Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignVCenter)
             item.setData(0,Qt.ItemDataRole.UserRole,key)
             item.setIcon(0,hud_icon(key,25));item.setSizeHint(0,QSize(0,32 if parent else 39))
-            item.setToolTip(0,item.text(0))
+            for column in (0,1):item.setToolTip(column,f'{title} ({count})')
             if parent:parent.addChild(item)
             else:self.cat_tree.addTopLevelItem(item)
             return item
@@ -758,9 +777,10 @@ class MainWindow(QMainWindow):
             key=source.data(0,Qt.ItemDataRole.UserRole)
             if key in ('favorites','recent'):return
             count=sum(item_in_category(v,key) for v in owned.values())
-            title=source.text(0).rsplit('  (',1)[0]
-            node=QTreeWidgetItem([f'{title}  ({count})'])
-            node.setToolTip(0,node.text(0))
+            title=source.text(0)
+            node=QTreeWidgetItem([title,str(count)])
+            node.setTextAlignment(1,Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignVCenter)
+            for column in (0,1):node.setToolTip(column,f'{title} ({count})')
             node.setData(0,Qt.ItemDataRole.UserRole,key);node.setIcon(0,source.icon(0));node.setSizeHint(0,source.sizeHint(0))
             if parent:parent.addChild(node)
             else:self.inv_tree.addTopLevelItem(node)
@@ -1233,11 +1253,8 @@ class MainWindow(QMainWindow):
         if not self.core.save:return
         filename,_=QFileDialog.getSaveFileName(self,'CSV','CS3_inventory.csv','CSV (*.csv)')
         if not filename:return
-        def run():
-            with open(filename,'w',encoding='utf-8-sig',newline='') as f:
-                writer=csv.writer(f);writer.writerow(['ID','Name','Qty'])
-                for i in self.core.save.items():writer.writerow([i.item_id,self.core.item_name(i.item_id),i.quantity])
-        self._handle(run)
+        destination=self._handle(lambda:self.core.export_csv(filename))
+        if destination:self.show_toast('CSV сохранён: '+destination.name,'CSV exported: '+destination.name)
 
     def refresh_save_labels(self):
         self.edit_changes.refresh(self.core.save)

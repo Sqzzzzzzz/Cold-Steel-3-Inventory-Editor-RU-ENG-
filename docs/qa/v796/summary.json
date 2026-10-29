@@ -1,0 +1,49 @@
+{
+  "version": "7.9.6",
+  "base_commit": "801a1abb0a3ed791fb97683417c6b23bd0a52c3f",
+  "python_versions": [
+    "3.10.22",
+    "3.12.14",
+    "3.13.16"
+  ],
+  "pyside6": "6.11.3",
+  "tests": [
+    {
+      "python": "310",
+      "exit_code": 0,
+      "tests": "194",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "32.001"
+    },
+    {
+      "python": "312",
+      "exit_code": 0,
+      "tests": "194",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "28.416"
+    },
+    {
+      "python": "313",
+      "exit_code": 0,
+      "tests": "194",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "35.795"
+    }
+  ],
+  "static_analysis": "passed (ruff E9 F63 F7 F82)",
+  "independent_review": {
+    "confirmed_issues": 2,
+    "remaining_blocking_findings": 0,
+    "regression_tests_passed": 18,
+    "reviewer_modified_files": false
+  },
+  "frozen_linux": "passed",
+  "windows": "See GitHub Actions for the matching commit; local report does not claim Windows validation.",
+  "in_game_save_load": "not performed"
+}

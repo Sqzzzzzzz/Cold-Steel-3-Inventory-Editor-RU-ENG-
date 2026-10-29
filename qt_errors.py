@@ -2,6 +2,8 @@
 import re
 
 PAIRS={
+    'CSV export cannot overwrite the opened save.':'Экспорт CSV не может перезаписать открытое сохранение.',
+    'Choose a .csv file for inventory export.':'Для экспорта инвентаря выберите файл .csv.',
     'Open a compatible save first':'Сначала откройте совместимое сохранение',
     'Save not loaded':'Сохранение не загружено',
     'No save loaded':'Сохранение не загружено',

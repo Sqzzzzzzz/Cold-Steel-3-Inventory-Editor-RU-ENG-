@@ -1,4 +1,4 @@
-# Cold Steel III Inventory Editor v7.9.4
+# Cold Steel III Inventory Editor v7.9.6
 
 The Windows release uses the new PySide6 game-style UI. Russian and English UI languages, original game icons, favorites, bulk edits and a review dialog are included.
 

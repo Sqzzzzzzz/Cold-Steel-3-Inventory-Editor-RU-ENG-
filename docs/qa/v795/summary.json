@@ -1,0 +1,51 @@
+{
+  "version": "7.9.5",
+  "base_commit": "801a1abb0a3ed791fb97683417c6b23bd0a52c3f",
+  "python_versions": [
+    "3.10.22",
+    "3.12.14",
+    "3.13.16"
+  ],
+  "pyside6": "6.11.3",
+  "tests": [
+    {
+      "python": "310",
+      "exit_code": 0,
+      "tests": "176",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "31.631"
+    },
+    {
+      "python": "312",
+      "exit_code": 0,
+      "tests": "176",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "31.132"
+    },
+    {
+      "python": "313",
+      "exit_code": 0,
+      "tests": "176",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "24.531"
+    }
+  ],
+  "static_analysis": "passed (ruff E9 F63 F7 F82)",
+  "native_crash_before_fix": {
+    "python": "3.10.22",
+    "pyside6": "6.12.0",
+    "message": "Fatal Python error: none_dealloc: deallocating None",
+    "reproduced_locally": true,
+    "none_refcount_delta_per_1000_fillRect_calls": -1000
+  },
+  "compatible_binding_refcount_delta_per_1000_fillRect_calls": 0,
+  "windows_v795": "not built or run in this environment",
+  "github_write": "403 Resource not accessible by integration",
+  "in_game_save_load": "not performed"
+}

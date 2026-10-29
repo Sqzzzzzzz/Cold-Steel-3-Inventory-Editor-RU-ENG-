@@ -12,11 +12,14 @@ from PySide6.QtWidgets import QApplication
 from game_scan import ScanResult
 from preview_demo import create_demo_window
 from save_scan import save_directories
+from qt_backend import EditorCore
 
 
 @pytest.fixture
 def window():
     app = QApplication.instance() or QApplication([])
+    previous_style = app.style().objectName()
+    app.setStyle('Fusion')  # Match qt_window.main(), including Windows runs.
     w = create_demo_window()
     w.show()
     w.activateWindow()
@@ -28,6 +31,7 @@ def window():
     w.deleteLater()
     app.processEvents()
     w.core.cleanup()
+    app.setStyle(previous_style)
 
 
 def test_redirected_windows_saved_games_uses_real_known_folder_guid(tmp_path):
@@ -68,3 +72,78 @@ def test_scan_refreshes_selected_card_without_losing_typed_quantity(window):
     assert window.description.toPlainText() == 'Обновлённое описание из таблицы.'
     assert window.qty.value() == 9
     assert window.has_pending_quantity()
+
+
+@pytest.mark.parametrize('locale', ('ru', None))
+def test_neutral_russian_names_are_not_mislabelled_as_english(tmp_path, monkeypatch, locale):
+    monkeypatch.setenv('APPDATA', str(tmp_path))
+    core = EditorCore()
+    ru = {'id':3574, 'name':'EP 1', 'description':'◆', 'kind':'quartz', 'category':'quartz_normal'}
+    if locale:
+        ru['_locale'] = locale
+    core.base = {3574:ru, 20:{'id':20,'name':'Русский предмет','description':'Русское описание'}}
+    core.english = {3574:{**ru, '_locale':'en'}}
+    core.rebuild_catalog()
+    assert core.item_name(3574) == 'EP 1'
+
+
+def test_explicit_english_name_keeps_its_marker_in_a_mixed_catalog(tmp_path, monkeypatch):
+    monkeypatch.setenv('APPDATA', str(tmp_path))
+    core = EditorCore()
+    en = {'id':3574,'name':'EP 1','description':'◆','_locale':'en'}
+    core.base = {3574:en,20:{'id':20,'name':'Русский предмет','description':'Описание'}}
+    core.english = {3574:en}
+    core.rebuild_catalog()
+    assert core.item_name(3574) == '[EN] EP 1'
+
+
+def test_category_counts_remain_visible_and_update_after_edits(window):
+    def master_node(tree):
+        for n in range(tree.topLevelItemCount()):
+            parent = tree.topLevelItem(n)
+            for c in range(parent.childCount()):
+                node = parent.child(c)
+                if node.data(0, Qt.ItemDataRole.UserRole) == 'quartz_master':
+                    return node
+        raise AssertionError('Master quartz category is missing')
+    window.resize(1280,720)
+    for language in (0,1):
+        window.lang.setCurrentIndex(language)
+        window.populate_categories()
+        QApplication.processEvents()
+        assert master_node(window.cat_tree).text(1) == '38'
+        owned = master_node(window.inv_tree)
+        assert owned.text(1) == '11'
+        for tree in (window.cat_tree,window.inv_tree):
+            # Qt need not lay out a hidden page until it is shown.
+            window.show_section('catalog' if tree is window.cat_tree else 'inventory')
+            QApplication.processEvents()
+            node = master_node(tree)
+            cell = tree.visualRect(tree.indexFromItem(node,1))
+            assert cell.right() <= tree.viewport().width()
+            assert tree.fontMetrics().horizontalAdvance(node.text(1)) <= tree.columnWidth(1)-8
+    window._apply({3200:0})
+    assert master_node(window.inv_tree).text(1) == '10'
+    window.undo()
+    assert master_node(window.inv_tree).text(1) == '11'
+    # A four-digit catalog total must fit too, including native style margins.
+    window.core.catalog.update({10000+i:{'id':10000+i,'name':f'Material {i}',
+        'category':'material'} for i in range(1000)})
+    window.populate_categories()
+    QApplication.processEvents()
+    tree = window.cat_tree
+    assert tree.topLevelItem(0).text(1) == str(len(window.core.visible()))
+    assert tree.columnWidth(1) >= tree.sizeHintForColumn(1)
+
+
+def test_item_field_captions_fit_in_both_languages(window):
+    for width,height in ((1536,864),(1320,760),(1280,720)):
+        window.resize(width,height)
+        for language in (0,1):
+            window.lang.setCurrentIndex(language)
+            QApplication.processEvents()
+            for caption in (window.id_caption,window.qty_caption):
+                assert caption.fontMetrics().horizontalAdvance(caption.text()) <= caption.width()
+            assert window.id_field.fontMetrics().horizontalAdvance('65535')+16 <= window.id_field.width()
+            quantity_input=window.qty.lineEdit()
+            assert quantity_input.fontMetrics().horizontalAdvance('99') <= quantity_input.contentsRect().width()
